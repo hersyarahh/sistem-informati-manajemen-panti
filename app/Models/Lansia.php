@@ -63,9 +63,8 @@ class Lansia extends Model
     //MENGHITUNG KEHADIRAN LANSIA
     public function kehadirans()
     {
-    return $this->hasMany(Kehadiran::class);
+        return $this->hasMany(Kehadiran::class);
     }
-
 
     /**
      * Hitung umur lansia
@@ -75,5 +74,27 @@ class Lansia extends Model
         return $this->tanggal_lahir
             ? $this->tanggal_lahir->age
             : null;
+    }
+
+    public function kegiatans()
+    {
+        return $this->belongsToMany(Kegiatan::class, 'kegiatan_lansia')
+            ->withPivot('status_kehadiran', 'catatan')
+            ->withTimestamps();
+    }
+
+    public function terminasi()
+    {
+        return $this->hasOne(TerminasiLansia::class);
+    }
+
+    public function isAktif(): bool
+    {
+        return $this->terminasi === null;
+    }
+
+    public function isTerminasi()
+    {
+        return $this->terminasi()->exists();
     }
 }

@@ -30,7 +30,7 @@
                 <!-- Link absolute ke Home + anchor -->
                 <a href="{{ url('/#home') }}" class="hover:text-blue-700">Home</a>
                 <a href="{{ url('/#tentang-kami') }}" class="hover:text-blue-700">Tentang Kami</a>
-                <a href="{{ url('/#donasi') }}" class="hover:text-blue-700">Donasi</a>
+                <!--<a href="{{ url('/#donasi') }}" class="hover:text-blue-700">Donasi</a>-->
                 <a href="{{ url('/#galeri') }}" class="hover:text-blue-700">Galeri</a>
 
                 <!-- LOGIN -->

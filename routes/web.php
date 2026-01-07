@@ -7,6 +7,10 @@ use App\Http\Controllers\Keluarga\DashboardController as KeluargaDashboardContro
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\Admin\LansiaController;
 use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\InventarisController;
+use App\Http\Controllers\Admin\TerminasiLansiaController;
+use App\Http\Controllers\Admin\RekapLansiaController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +61,12 @@ Route::middleware(['auth', 'role:admin'])
         // Dashboard
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])
             ->name('dashboard');
+        
+        // ======================
+        // REKAP LANSIA
+        // ======================
+        Route::get('/lansia/rekap', [RekapLansiaController::class, 'index'])
+            ->name('lansia.rekap');
 
         // ======================
         // Lansia
@@ -69,6 +79,12 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::patch('/lansia/{lansia}/status', [LansiaController::class, 'updateStatus'])
             ->name('lansia.update-status');
+
+        Route::get('/lansia/{lansia}/terminasi',[TerminasiLansiaController::class, 'create'])
+        ->name('lansia.terminasi.create');
+
+        Route::post('/lansia/{lansia}/terminasi', [TerminasiLansiaController::class, 'store'])
+        ->name('lansia.terminasi.store');
 
         // ======================
         // Kegiatan
@@ -99,6 +115,57 @@ Route::middleware(['auth', 'role:admin'])
             [KegiatanController::class, 'exportPdf']
         )->name('kegiatan.export-pdf');
     });
+
+        // ======================
+        // Inventaris
+        // ======================
+        // CREATE
+        Route::get(
+            'admin/inventaris/create',
+            [InventarisController::class, 'create']
+        )->name('admin.data-inventaris.create');
+
+        // STORE
+        Route::post(
+            'admin/inventaris',
+            [InventarisController::class, 'store']
+        )->name('admin.data-inventaris.store');
+
+        // INDEX
+        Route::get(
+            'admin/inventaris',
+            [InventarisController::class, 'index']
+        )->name('admin.data-inventaris.index');
+
+        // EDIT & UPDATE
+        Route::get(
+            'admin/inventaris/{inventaris}/edit',
+            [InventarisController::class, 'edit']
+        )->name('admin.data-inventaris.edit');
+
+        Route::put(
+            'admin/inventaris/{inventaris}',
+            [InventarisController::class, 'update']
+        )->name('admin.data-inventaris.update');
+
+        // DETAIL INVENTARIS
+        Route::get(
+            'admin/inventaris/{id}',
+            [InventarisController::class, 'show']
+        )->name('admin.data-inventaris.show');
+
+        // DELETE
+        Route::delete(
+            'admin/inventaris/{inventaris}',
+            [InventarisController::class, 'destroy']
+        )->name('admin.data-inventaris.destroy');
+
+        //DOWNLOAD LAPORAN
+        Route::get(
+            '/admin/inventaris/{id}/download-laporan',
+            [InventarisController::class, 'downloadLaporan']
+        )->name('inventaris.download-laporan');
+
 
 // ======================
 //  Karyawan

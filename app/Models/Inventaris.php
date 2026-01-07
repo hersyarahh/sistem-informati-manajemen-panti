@@ -9,21 +9,58 @@ class Inventaris extends Model
 {
     use HasFactory;
 
+    /**
+     * Nama tabel
+     */
+    protected $table = 'inventaris';
+
+    /**
+     * Primary key (default id, ditulis eksplisit biar jelas)
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Mass assignment
+     * Field yang boleh diisi dari form
+     */
     protected $fillable = [
-        'kode_barang',
         'nama_barang',
         'kategori',
+        'jenis',
         'jumlah',
-        'satuan',
         'kondisi',
+        'sumber_dana',
+        'tahun_pengadaan',
         'lokasi',
-        'tanggal_pembelian',
-        'harga_satuan',
         'keterangan',
     ];
 
+    /**
+     * Cast tipe data (biar aman & konsisten)
+     */
     protected $casts = [
-        'tanggal_pembelian' => 'date',
-        'harga_satuan' => 'decimal:2',
+        'jumlah' => 'integer',
+        'tahun_pengadaan' => 'integer',
     ];
+
+    /**
+     * Scope filter pencarian (optional tapi rapi)
+     * Bisa dipakai di controller
+     */
+    public function scopeFilter($query, $request)
+    {
+        if ($request->search) {
+            $query->where('nama_barang', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->sumber_dana) {
+            $query->where('sumber_dana', $request->sumber_dana);
+        }
+
+        if ($request->kategori) {
+            $query->where('kategori', $request->kategori);
+        }
+
+        return $query;
+    }
 }

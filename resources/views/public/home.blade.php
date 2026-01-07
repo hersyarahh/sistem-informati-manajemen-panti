@@ -109,11 +109,9 @@
             <!-- Struktur Organisasi -->
             <div class="bg-white shadow-md rounded-xl p-6 text-center w-full">
                 <h3 class="text-xl font-semibold text-blue-600 mb-3">Struktur Organisasi</h3>
-                <img src="{{ asset('images/StrukturOrganisasi.svg') }}" class="mx-auto rounded-lg shadow-md w-[50%]">
+                <img src="{{ asset('images/StrukturOrganisasi.jpg') }}" class="mx-auto rounded-lg shadow-md w-[50%]">
             </div>
-
         </div>
-
     </div>
 </section>
 

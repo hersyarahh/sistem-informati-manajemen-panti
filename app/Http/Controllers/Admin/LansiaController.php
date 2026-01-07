@@ -253,4 +253,54 @@ class LansiaController extends Controller
         return redirect()->route('admin.lansia.index')
             ->with('success', 'Data lansia berhasil dihapus!');
     }
+
+    // ======================
+    // REKAP DATA LANSIA
+    // ======================
+    public function rekap(Request $request)
+    {
+        $tahun  = $request->tahun ?? now()->year;
+        $status = $request->status;
+
+        // Load relasi terminasi
+        $query = Lansia::with('terminasi');
+
+        // Filter tahun masuk
+        $query->whereYear('tanggal_masuk', $tahun);
+
+        // Filter status
+        if ($status) {
+            if ($status == 'terminasi') {
+                $query->whereHas('terminasi');
+            } else {
+                $query->where('status', $status);
+            }
+        }
+
+        $lansias = $query->orderBy('tanggal_masuk', 'asc')->get();
+
+        // Statistik ringkas
+        $totalMasuk = $lansias->count();
+        $totalAktif = $lansias->where('status', 'aktif')->count();
+        $totalTerminasi = $lansias->whereNotNull('terminasi')->count();
+        $totalMeninggal = $lansias->where('status', 'meninggal')->count();
+        $meninggalPanti = $lansias->filter(function ($l) {
+            return $l->terminasi && $l->terminasi->jenis_terminasi == 'meninggal' && $l->terminasi->lokasi_meninggal == 'panti';
+        })->count();
+        $dikembalikanKeluarga = $lansias->filter(function ($l) {
+            return $l->terminasi && $l->terminasi->jenis_terminasi == 'dipulangkan' && $l->terminasi->lokasi_meninggal == 'keluarga';
+        })->count();
+
+        return view('admin.data-lansia.rekap', compact(
+            'lansias',
+            'tahun',
+            'status',
+            'totalMasuk',
+            'totalAktif',
+            'totalTerminasi',
+            'totalMeninggal',
+            'meninggalPanti',
+            'dikembalikanKeluarga'
+        ));
+    }
 }

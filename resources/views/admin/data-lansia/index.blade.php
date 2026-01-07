@@ -37,7 +37,7 @@
     <form method="GET" action="{{ route('admin.lansia.index') }}" 
           class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
 
-        <!-- Search (dipendekin) -->
+        <!-- Search -->
         <div class="md:col-span-5">
             <input type="text" 
                    name="search" 
@@ -72,7 +72,7 @@
                     Perawatan Khusus
                 </option>
             </select>
-        </div> -->
+        </div> 
 
         <!-- Button Cari -->
         <div class="md:col-span-2 flex gap-2">
@@ -190,35 +190,55 @@
                         <!-- Aksi -->
                         <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex items-center gap-2">
+
                                 <!-- Detail -->
-                                <a href="{{ route('admin.lansia.show', $lansia) }}" 
-                                   class="text-blue-600 hover:text-blue-900" title="Lihat Detail">
+                                <a href="{{ route('admin.lansia.show', $lansia) }}"
+                                class="text-blue-600 hover:text-blue-900"
+                                title="Lihat Detail">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
                                 </a>
 
                                 <!-- Edit -->
-                                <a href="{{ route('admin.lansia.edit', $lansia) }}" 
-                                   class="text-yellow-600 hover:text-yellow-900" title="Edit">
+                                <a href="{{ route('admin.lansia.edit', $lansia) }}"
+                                class="text-yellow-600 hover:text-yellow-900"
+                                title="Edit">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
                                 </a>
 
                                 <!-- Hapus -->
-                                <form action="{{ route('admin.lansia.destroy', $lansia) }}" method="POST" 
-                                      onsubmit="return confirm('Yakin ingin menghapus data {{ $lansia->nama_lengkap }}?')" class="inline">
+                                <form action="{{ route('admin.lansia.destroy', $lansia) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus data {{ $lansia->nama_lengkap }}?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900" title="Hapus">
+                                    <button type="submit"
+                                            class="text-red-600 hover:text-red-900"
+                                            title="Hapus">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                         </svg>
                                     </button>
                                 </form>
+                                
+                                 <!-- TERMINASI -->
+                                @if($lansia->status === 'aktif')
+                                <a href="{{ route('admin.lansia.terminasi.create', $lansia->id) }}"
+                                class="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded hover:bg-red-200"
+                                title="Terminasi Lansia">
+                                    Terminasi
+                                </a>
+                                @endif
+
                             </div>
                         </td>
+
                     </tr>
                     @empty
                     <tr>
@@ -242,6 +262,14 @@
         @endif
     </div>
 </div>
+
+        <!-- TOMBOL REKAP -->
+        <div class="mt-6 flex justify-end">
+            <a href="{{ route('admin.lansia.rekap') }}"
+            class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
+                📊 Rekap Data Lansia
+            </a>
+        </div>
 
 <!-- Loading Overlay untuk Status Update -->
 <script>
