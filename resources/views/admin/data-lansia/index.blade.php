@@ -4,14 +4,22 @@
 
 @section('content')
 <div class="space-y-6">
-    
+
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Data Lansia</h1>
             <p class="text-gray-600 text-sm mt-1">Total: {{ $lansias->total() }} lansia</p>
         </div>
-        <a href="{{ route('admin.lansia.create') }}" 
+
+        <!-- TOMBOL REKAP -->
+        <div class="mt-6 flex justify-end">
+            <a href="{{ route('admin.lansia.rekap') }}" class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
+                Rekap Data Lansia
+            </a>
+        </div>
+
+        <a href="{{ route('admin.lansia.create') }}"
            class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -34,23 +42,23 @@
 
     <!-- Filter & Search -->
 <div class="bg-white rounded-lg shadow p-4">
-    <form method="GET" action="{{ route('admin.lansia.index') }}" 
+    <form method="GET" action="{{ route('admin.lansia.index') }}"
           class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
 
         <!-- Search -->
         <div class="md:col-span-5">
-            <input type="text" 
-                   name="search" 
-                   value="{{ request('search') }}" 
+            <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
                    placeholder="Cari nama lansia..."
-                   class="w-full px-4 py-2 border border-gray-300 rounded-lg 
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg
                           focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
 
         <!-- Status -->
         <div class="md:col-span-2">
             <select name="status"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg
                            focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">Semua Status</option>
                 <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
@@ -62,7 +70,7 @@
         <!-- Kondisi -->
         <!-- <div class="md:col-span-3">
             <select name="kondisi"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg
                            focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">Semua Kondisi</option>
                 <option value="sehat" {{ request('kondisi') == 'sehat' ? 'selected' : '' }}>Sehat</option>
@@ -72,7 +80,7 @@
                     Perawatan Khusus
                 </option>
             </select>
-        </div> 
+        </div>
 
         <!-- Button Cari -->
         <div class="md:col-span-2 flex gap-2">
@@ -174,7 +182,7 @@
                             <form action="{{ route('admin.lansia.update-status', $lansia) }}" method="POST" class="status-form">
                                 @csrf
                                 @method('PATCH')
-                                <select name="status" onchange="this.form.submit()" 
+                                <select name="status" onchange="this.form.submit()"
                                         class="text-xs font-semibold rounded-full border-0 focus:ring-2 focus:ring-blue-500
                                         @if($lansia->status === 'aktif') bg-green-100 text-green-800
                                         @elseif($lansia->status === 'keluar') bg-gray-100 text-gray-800
@@ -226,7 +234,7 @@
                                         </svg>
                                     </button>
                                 </form>
-                                
+
                                  <!-- TERMINASI -->
                                 @if($lansia->status === 'aktif')
                                 <a href="{{ route('admin.lansia.terminasi.create', $lansia->id) }}"
@@ -263,13 +271,7 @@
     </div>
 </div>
 
-        <!-- TOMBOL REKAP -->
-        <div class="mt-6 flex justify-end">
-            <a href="{{ route('admin.lansia.rekap') }}"
-            class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
-                📊 Rekap Data Lansia
-            </a>
-        </div>
+
 
 <!-- Loading Overlay untuk Status Update -->
 <script>

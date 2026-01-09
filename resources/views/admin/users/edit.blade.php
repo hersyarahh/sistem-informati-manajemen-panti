@@ -1,0 +1,103 @@
+@extends('layouts.app-admin')
+
+@section('title', 'Edit User')
+
+@section('content')
+<div class="space-y-6">
+
+    <div>
+        <h1 class="text-2xl font-bold text-gray-800">Edit User</h1>
+        <p class="text-sm text-gray-500">Perbarui data pengguna</p>
+    </div>
+
+    <form action="{{ route('admin.users.update', $user) }}" method="POST" class="bg-white rounded-xl shadow p-6 space-y-5">
+        @csrf
+        @method('PUT')
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}"
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                @error('name')
+                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                @error('email')
+                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                <select name="role_id"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                    <option value="">Pilih role</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
+                            {{ $role->label }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('role_id')
+                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Telepon</label>
+                <input type="text" name="phone" value="{{ old('phone', $user->phone) }}"
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                @error('phone')
+                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
+            <textarea name="address" rows="3"
+                      class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">{{ old('address', $user->address) }}</textarea>
+            @error('address')
+                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password (opsional)</label>
+                <input type="password" name="password"
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                @error('password')
+                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+                <input type="password" name="password_confirmation"
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button type="submit"
+                    class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                Simpan
+            </button>
+            <a href="{{ route('admin.users.index') }}"
+               class="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
+                Batal
+            </a>
+        </div>
+    </form>
+
+</div>
+@endsection

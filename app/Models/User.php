@@ -14,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
         'phone',
         'address',
     ];
@@ -48,19 +48,44 @@ class User extends Authenticatable
         return $this->hasMany(Kunjungan::class);
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function chatThreads()
+    {
+        return $this->hasMany(ChatThread::class, 'keluarga_user_id');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(ChatMessage::class, 'sender_id');
+    }
+
     // Helper methods
     public function isAdmin()
     {
-        return $this->role === 'admin';
+        return $this->hasRole('admin');
     }
 
     public function isKaryawan()
     {
-        return $this->role === 'karyawan';
+        return $this->hasRole('karyawan');
     }
 
     public function isKeluarga()
     {
-        return $this->role === 'keluarga';
+        return $this->hasRole('keluarga');
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->role?->name === $role;
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->role && in_array($this->role->name, $roles, true);
     }
 }

@@ -8,107 +8,264 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50 font-sans">
-    <!-- Mobile Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-blue-700 text-white sticky top-0 z-40 shadow-lg">
-        <div class="flex items-center justify-between p-4">
-            <div>
-                <h1 class="text-base font-bold">PSTW Husnul Khotimah</h1>
+<body class="m-0 p-0 bg-gray-100 font-sans">
+    <div class="relative flex min-h-screen w-screen">
+        <!-- MOBILE OVERLAY -->
+        <div id="keluarga-sidebar-overlay"
+            class="fixed inset-0 z-30 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-200 lg:hidden">
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside id="keluarga-sidebar"
+            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col min-h-screen transform transition-transform duration-200 ease-out lg:static lg:translate-x-0">
+
+            <div class="px-5 py-6">
+                <h2 class="text-xl font-bold mb-1">Menu Keluarga</h2>
                 <p class="text-xs text-blue-100">Portal Keluarga</p>
             </div>
-            <button id="mobile-menu-btn" class="focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
-    </header>
 
-    <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="hidden bg-white shadow-lg">
-        <nav class="p-4">
-            <ul class="space-y-3">
-                <li>
-                    <a href="{{ route('keluarga.dashboard') }}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 {{ request()->routeIs('keluarga.dashboard') ? 'bg-blue-50 text-blue-600' : 'text-gray-700' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            <nav class="flex flex-col space-y-3 px-5 flex-1">
+                @php
+                    $navBase = 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition';
+                    $navActive = 'bg-blue-800 text-white shadow';
+                    $navInactive = 'text-blue-100 hover:bg-blue-600 hover:text-white';
+                @endphp
+
+                @php $isActive = request()->routeIs('keluarga.dashboard'); @endphp
+                <a href="{{ route('keluarga.dashboard') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Beranda
+                </a>
+
+                @php $isActive = request()->routeIs('keluarga.profile'); @endphp
+                <a href="{{ route('keluarga.profile') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Profil Lansia
+                </a>
+
+                @php $isActive = request()->routeIs('keluarga.kegiatan'); @endphp
+                <a href="{{ route('keluarga.kegiatan') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Jadwal Kegiatan
+                </a>
+
+                @php $isActive = request()->routeIs('keluarga.riwayat-kesehatan'); @endphp
+                <a href="{{ route('keluarga.riwayat-kesehatan') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Riwayat Kesehatan
+                </a>
+
+                @php $isActive = request()->routeIs('keluarga.chat*'); @endphp
+                <a href="{{ route('keluarga.chat') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Pesan Petugas
+                </a>
+
+                <a href="#"
+                   class="{{ $navBase }} {{ $navInactive }} opacity-80"
+                   aria-disabled="true">
+                    Jadwal Kunjungan
+                </a>
+
+            </nav>
+
+            <div class="px-5 pb-4">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="w-full bg-red-500 hover:bg-red-600 text-white p-3 rounded-xl text-center text-sm">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 min-h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center">
+            <div class="w-full max-w-6xl flex flex-col gap-6">
+                <div class="flex items-center gap-3 lg:hidden">
+                    <button id="keluarga-sidebar-toggle" type="button"
+                        class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-gray-700 shadow hover:bg-gray-50"
+                        aria-controls="keluarga-sidebar" aria-expanded="false">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <span class="font-medium">Beranda</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 text-gray-700">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                        <span class="font-medium">Jadwal Kunjungan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 text-gray-700">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        <span class="font-medium">Donasi</span>
-                    </a>
-                </li>
-                <li class="pt-3 border-t">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="flex items-center space-x-3 w-full p-3 rounded-lg hover:bg-red-50 text-red-600">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                            </svg>
-                            <span class="font-medium">Keluar</span>
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </nav>
+                    </button>
+                    <span class="text-sm font-semibold text-gray-600">Menu Keluarga</span>
+                </div>
+
+                @yield('content')
+            </div>
+        </main>
     </div>
 
-    <!-- Main Content -->
-    <main class="min-h-screen pb-20">
-        @yield('content')
-    </main>
+    <script>
+        (function () {
+            const toggle = document.getElementById('keluarga-sidebar-toggle');
+            const sidebar = document.getElementById('keluarga-sidebar');
+            const overlay = document.getElementById('keluarga-sidebar-overlay');
 
-    <!-- Bottom Navigation (Mobile) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 lg:hidden z-50">
-        <div class="grid grid-cols-4 gap-1">
-            <a href="{{ route('keluarga.dashboard') }}" class="flex flex-col items-center justify-center p-3 {{ request()->routeIs('keluarga.dashboard') ? 'text-blue-600' : 'text-gray-600' }}">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
-                <span class="text-xs mt-1">Beranda</span>
-            </a>
-            <a href="#" class="flex flex-col items-center justify-center p-3 text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
-                <span class="text-xs mt-1">Kunjungan</span>
-            </a>
-            <a href="#" class="flex flex-col items-center justify-center p-3 text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span class="text-xs mt-1">Donasi</span>
-            </a>
-            <a href="#" class="flex flex-col items-center justify-center p-3 text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-                <span class="text-xs mt-1">Profil</span>
-            </a>
-        </div>
-    </nav>
+            if (!toggle || !sidebar || !overlay) {
+                return;
+            }
+
+            const openClass = 'translate-x-0';
+            const closedClass = '-translate-x-full';
+
+            const open = () => {
+                sidebar.classList.add(openClass);
+                sidebar.classList.remove(closedClass);
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
+                toggle.setAttribute('aria-expanded', 'true');
+            };
+
+            const close = () => {
+                sidebar.classList.remove(openClass);
+                sidebar.classList.add(closedClass);
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                overlay.classList.remove('opacity-100');
+                document.body.style.overflow = '';
+                toggle.setAttribute('aria-expanded', 'false');
+            };
+
+            const toggleSidebar = () => {
+                if (sidebar.classList.contains(openClass)) {
+                    close();
+                } else {
+                    open();
+                }
+            };
+
+            toggle.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', close);
+            sidebar.addEventListener('click', (event) => {
+                if (window.innerWidth >= 1024) {
+                    return;
+                }
+
+                const target = event.target;
+                if (target instanceof HTMLElement && target.closest('a')) {
+                    close();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.add('translate-x-0');
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                    overlay.classList.remove('opacity-100');
+                    document.body.style.overflow = '';
+                    toggle.setAttribute('aria-expanded', 'false');
+                } else if (!sidebar.classList.contains('translate-x-0')) {
+                    close();
+                }
+            });
+        })();
+    </script>
+
+    <div id="toast-container"
+         data-user-id="{{ auth()->id() }}"
+         class="fixed right-4 top-4 z-50 space-y-3">
+    </div>
 
     <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        (function () {
+            const container = document.getElementById('toast-container');
+            if (!container) {
+                return;
+            }
 
-        mobileMenuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+            const currentUserId = Number(container.dataset.userId);
+            const chatMessages = document.getElementById('chat-messages');
+            const activeThreadId = chatMessages ? Number(chatMessages.dataset.threadId) : null;
+
+            const showToast = ({ title, body, link }) => {
+                const toast = document.createElement('div');
+                toast.className = 'w-72 sm:w-80 rounded-xl bg-white shadow-lg ring-1 ring-black/10 p-4 flex gap-3';
+
+                const content = document.createElement('div');
+                content.className = 'flex-1';
+
+                const heading = document.createElement('p');
+                heading.className = 'text-sm font-semibold text-gray-800';
+                heading.textContent = title;
+
+                const message = document.createElement('p');
+                message.className = 'mt-1 text-sm text-gray-600';
+                message.textContent = body;
+
+                content.appendChild(heading);
+                content.appendChild(message);
+
+                if (link) {
+                    const action = document.createElement('a');
+                    action.className = 'mt-2 inline-flex text-sm font-medium text-blue-600 hover:text-blue-700';
+                    action.href = link;
+                    action.textContent = 'Buka pesan';
+                    content.appendChild(action);
+                }
+
+                const close = document.createElement('button');
+                close.type = 'button';
+                close.className = 'text-gray-400 hover:text-gray-600';
+                close.textContent = 'x';
+                close.addEventListener('click', () => toast.remove());
+
+                toast.appendChild(content);
+                toast.appendChild(close);
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 6000);
+            };
+
+            const handleMessage = (event) => {
+                if (event.sender_id === currentUserId) {
+                    return;
+                }
+
+                if (activeThreadId && Number(event.thread_id) === activeThreadId) {
+                    return;
+                }
+
+                showToast({
+                    title: `Pesan baru dari ${event.sender_name || 'Petugas'}`,
+                    body: event.body || 'Pesan baru masuk.',
+                    link: '/keluarga/pesan',
+                });
+            };
+
+            let subscribed = false;
+            const subscribe = () => {
+                if (subscribed || !window.Echo) {
+                    return subscribed;
+                }
+
+                window.Echo.private(`chat.user.${currentUserId}`)
+                    .listen('MessageSent', handleMessage);
+
+                subscribed = true;
+                return true;
+            };
+
+            if (!subscribe()) {
+                const interval = setInterval(() => {
+                    if (subscribe()) {
+                        clearInterval(interval);
+                    }
+                }, 200);
+            }
+        })();
     </script>
 </body>
 </html>

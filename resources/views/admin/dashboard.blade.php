@@ -5,15 +5,15 @@
 @section('content')
 <div class="flex flex-col h-full w-full">
 
-    <div class="px-8 pt-6">
-        <h1 class="text-3xl font-bold">Dashboard Admin</h1>
+    <div class="px-4 pt-6 sm:px-8">
+        <h1 class="text-2xl font-bold sm:text-3xl">Dashboard Admin</h1>
         <p class="text-gray-600 mb-6">Selamat datang, Admin Panti</p>
     </div>
 
-    <div class="px-8 pb-6">
+    <div class="px-4 pb-6 sm:px-8">
 
         <!-- 4 STATISTICS (1 BARIS) -->
-        <div class="grid grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
 
             <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-gray-500">Total Lansia</p>

@@ -13,9 +13,13 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard', [
             'totalLansia' => Lansia::where('status', 'aktif')->count(),
-            'totalKaryawan' => User::where('role', 'karyawan')->count(),
+            'totalKaryawan' => User::whereHas('role', function ($query) {
+                $query->where('name', 'karyawan');
+            })->count(),
             'kegiatanHariIni' => Kegiatan::whereDate('tanggal', today())->count(),
-            'totalKeluarga' => User::where('role', 'keluarga')->count(),
+            'totalKeluarga' => User::whereHas('role', function ($query) {
+                $query->where('name', 'keluarga');
+            })->count(),
         ]);
     }
 }

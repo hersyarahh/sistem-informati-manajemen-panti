@@ -9,7 +9,7 @@
             Detail Inventaris & Laporan Operasional
         </h1>
 
-        <a href="{{ route('inventaris.download-laporan', $inventaris->id) }}"
+        <a href="{{ route('admin.data-inventaris.download-laporan', $inventaris->id) }}"
             class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
             Download Laporan
         </a>

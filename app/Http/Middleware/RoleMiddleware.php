@@ -22,7 +22,7 @@ class RoleMiddleware
         $user = auth()->user();
 
         // Check if user has one of the allowed roles
-        if (!in_array($user->role, $roles)) {
+        if (!$user->hasAnyRole($roles)) {
             abort(403, 'Unauthorized action.');
         }
 

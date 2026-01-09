@@ -10,13 +10,19 @@ use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\InventarisController;
 use App\Http\Controllers\Admin\TerminasiLansiaController;
 use App\Http\Controllers\Admin\RekapLansiaController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ChatController as AdminChatController;
+use App\Http\Controllers\Keluarga\LansiaInfoController;
+use App\Http\Controllers\Keluarga\ChatController as KeluargaChatController;
 
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 
 // ======================
 //   Landing Page
 // ======================
+Broadcast::routes(['middleware' => ['auth']]);
 Route::get('/', function () {
     return view('public.home');
 })->name('home');
@@ -61,6 +67,18 @@ Route::middleware(['auth', 'role:admin'])
         // Dashboard
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])
             ->name('dashboard');
+
+        // ======================
+        // User Management
+        // ======================
+        Route::resource('users', UserController::class)->except(['show']);
+
+        // ======================
+        // Chat Keluarga
+        // ======================
+        Route::get('/chat', [AdminChatController::class, 'index'])->name('chat.index');
+        Route::get('/chat/{thread}', [AdminChatController::class, 'show'])->name('chat.show');
+        Route::post('/chat/{thread}', [AdminChatController::class, 'store'])->name('chat.store');
         
         // ======================
         // REKAP LANSIA
@@ -114,57 +132,57 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/kegiatan-rekap/export-pdf',
             [KegiatanController::class, 'exportPdf']
         )->name('kegiatan.export-pdf');
-    });
 
         // ======================
         // Inventaris
         // ======================
         // CREATE
         Route::get(
-            'admin/inventaris/create',
+            '/inventaris/create',
             [InventarisController::class, 'create']
-        )->name('admin.data-inventaris.create');
+        )->name('data-inventaris.create');
 
         // STORE
         Route::post(
-            'admin/inventaris',
+            '/inventaris',
             [InventarisController::class, 'store']
-        )->name('admin.data-inventaris.store');
+        )->name('data-inventaris.store');
 
         // INDEX
         Route::get(
-            'admin/inventaris',
+            '/inventaris',
             [InventarisController::class, 'index']
-        )->name('admin.data-inventaris.index');
+        )->name('data-inventaris.index');
 
         // EDIT & UPDATE
         Route::get(
-            'admin/inventaris/{inventaris}/edit',
+            '/inventaris/{inventaris}/edit',
             [InventarisController::class, 'edit']
-        )->name('admin.data-inventaris.edit');
+        )->name('data-inventaris.edit');
 
         Route::put(
-            'admin/inventaris/{inventaris}',
+            '/inventaris/{inventaris}',
             [InventarisController::class, 'update']
-        )->name('admin.data-inventaris.update');
+        )->name('data-inventaris.update');
 
         // DETAIL INVENTARIS
         Route::get(
-            'admin/inventaris/{id}',
+            '/inventaris/{id}',
             [InventarisController::class, 'show']
-        )->name('admin.data-inventaris.show');
+        )->name('data-inventaris.show');
 
         // DELETE
         Route::delete(
-            'admin/inventaris/{inventaris}',
+            '/inventaris/{inventaris}',
             [InventarisController::class, 'destroy']
-        )->name('admin.data-inventaris.destroy');
+        )->name('data-inventaris.destroy');
 
         //DOWNLOAD LAPORAN
         Route::get(
-            '/admin/inventaris/{id}/download-laporan',
+            '/inventaris/{id}/download-laporan',
             [InventarisController::class, 'downloadLaporan']
-        )->name('inventaris.download-laporan');
+        )->name('data-inventaris.download-laporan');
+    });
 
 
 // ======================
@@ -185,6 +203,11 @@ Route::middleware(['auth', 'role:keluarga'])
     ->name('keluarga.')
     ->group(function () {
         Route::get('/dashboard', [KeluargaDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profil-lansia', [LansiaInfoController::class, 'profile'])->name('profile');
+        Route::get('/jadwal-kegiatan', [LansiaInfoController::class, 'kegiatan'])->name('kegiatan');
+        Route::get('/riwayat-kesehatan', [LansiaInfoController::class, 'riwayat'])->name('riwayat-kesehatan');
+        Route::get('/pesan', [KeluargaChatController::class, 'index'])->name('chat');
+        Route::post('/pesan/{thread}', [KeluargaChatController::class, 'store'])->name('chat.store');
     });
 
 require __DIR__.'/auth.php';
