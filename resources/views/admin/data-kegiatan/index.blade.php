@@ -232,7 +232,7 @@
         <div class="mt-6 flex justify-end">
             <a href="{{ route('admin.kegiatan.rekap') }}"
             class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
-                📊 Rekap Kegiatan
+                Rekap Kegiatan
             </a>
         </div>
 @endsection

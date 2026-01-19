@@ -77,12 +77,12 @@
                     Inventaris
                 </a>
 
-                @php $isActive = request()->is('admin/donasi*'); @endphp
+                <!-- @php $isActive = request()->is('admin/donasi*'); @endphp
                 <a href="{{ url('/admin/donasi') }}"
                    class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
                    @if ($isActive) aria-current="page" @endif>
                     Donasi
-                </a>
+                </a> -->
             </nav>
 
             <!-- LOGOUT BUTTON -->
