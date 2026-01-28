@@ -12,20 +12,20 @@
             <p class="text-gray-600 text-sm mt-1">Total: {{ $lansias->total() }} lansia</p>
         </div>
 
-        <!-- TOMBOL REKAP -->
-        <div class="mt-6 flex justify-end">
-            <a href="{{ route('admin.lansia.rekap') }}" class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <a href="{{ route('admin.lansia.rekap') }}"
+               class="inline-flex items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
                 Rekap Data Lansia
             </a>
-        </div>
 
-        <a href="{{ route('admin.lansia.create') }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-            </svg>
-            Input Data Baru
-        </a>
+            <a href="{{ route('admin.lansia.create') }}"
+               class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Input Data Baru
+            </a>
+        </div>
     </div>
 
     <!-- Success Message -->
@@ -177,22 +177,15 @@
                             </span>
                         </td> -->
 
-                        <!-- Status (Quick Edit) -->
+                        <!-- Status -->
                         <td class="px-4 py-4 whitespace-nowrap">
-                            <form action="{{ route('admin.lansia.update-status', $lansia) }}" method="POST" class="status-form">
-                                @csrf
-                                @method('PATCH')
-                                <select name="status" onchange="this.form.submit()"
-                                        class="text-xs font-semibold rounded-full border-0 focus:ring-2 focus:ring-blue-500
-                                        @if($lansia->status === 'aktif') bg-green-100 text-green-800
-                                        @elseif($lansia->status === 'keluar') bg-gray-100 text-gray-800
-                                        @else bg-red-100 text-red-800
-                                        @endif">
-                                    <option value="aktif" {{ $lansia->status === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                    <option value="keluar" {{ $lansia->status === 'keluar' ? 'selected' : '' }}>Keluar</option>
-                                    <option value="meninggal" {{ $lansia->status === 'meninggal' ? 'selected' : '' }}>Meninggal</option>
-                                </select>
-                            </form>
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full
+                                @if($lansia->status === 'aktif') bg-green-100 text-green-800
+                                @elseif($lansia->status === 'keluar') bg-gray-100 text-gray-800
+                                @else bg-red-100 text-red-800
+                                @endif">
+                                {{ ucfirst($lansia->status) }}
+                            </span>
                         </td>
 
                         <!-- Aksi -->
@@ -270,19 +263,4 @@
         @endif
     </div>
 </div>
-
-
-
-<!-- Loading Overlay untuk Status Update -->
-<script>
-document.querySelectorAll('.status-form').forEach(form => {
-    form.addEventListener('submit', function() {
-        const overlay = document.createElement('div');
-        overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        overlay.innerHTML = '<div class="bg-white p-4 rounded-lg"><p class="text-gray-700">Memperbarui status...</p></div>';
-        document.body.appendChild(overlay);
-    });
-});
-</script>
-
 @endsection

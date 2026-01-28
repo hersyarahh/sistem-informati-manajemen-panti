@@ -16,7 +16,24 @@ class ChatController extends Controller
             ->orderByDesc('updated_at')
             ->get();
 
-        return view('admin.chat.index', compact('threads'));
+        if (request()->expectsJson()) {
+            return response()->json([
+                'data' => $threads->map(function (ChatThread $thread) {
+                    return [
+                        'id' => $thread->id,
+                        'lansia_name' => $thread->lansia?->nama_lengkap,
+                        'keluarga_name' => $thread->keluarga?->name,
+                        'keluarga_id' => $thread->keluarga?->id,
+                        'latest_message' => $thread->latestMessage?->body,
+                        'updated_at' => $thread->updated_at?->toIso8601String(),
+                    ];
+                }),
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('message', 'Gunakan widget chat untuk melihat pesan keluarga.');
     }
 
     public function show(ChatThread $thread)
@@ -28,10 +45,30 @@ class ChatController extends Controller
             ->orderBy('created_at')
             ->get();
 
-        return view('admin.chat.show', [
-            'thread' => $thread,
-            'messages' => $messages,
-        ]);
+        if (request()->expectsJson()) {
+            return response()->json([
+                'thread' => [
+                    'id' => $thread->id,
+                    'lansia_name' => $thread->lansia?->nama_lengkap,
+                    'keluarga_name' => $thread->keluarga?->name,
+                    'keluarga_id' => $thread->keluarga?->id,
+                ],
+                'messages' => $messages->map(function (ChatMessage $message) {
+                    return [
+                        'id' => $message->id,
+                        'thread_id' => $message->thread_id,
+                        'body' => $message->body,
+                        'sender_id' => $message->sender_id,
+                        'sender_name' => $message->sender?->name,
+                        'created_at' => $message->created_at?->toIso8601String(),
+                    ];
+                }),
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.dashboard')
+            ->with('message', 'Gunakan widget chat untuk melihat pesan keluarga.');
     }
 
     public function store(Request $request, ChatThread $thread)

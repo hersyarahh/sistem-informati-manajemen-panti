@@ -74,7 +74,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('users', UserController::class)->except(['show']);
 
         // ======================
-        // Chat Keluarga
+        // Chat Keluarga (Widget)
         // ======================
         Route::get('/chat', [AdminChatController::class, 'index'])->name('chat.index');
         Route::get('/chat/{thread}', [AdminChatController::class, 'show'])->name('chat.show');
@@ -207,6 +207,8 @@ Route::middleware(['auth', 'role:keluarga'])
         Route::get('/jadwal-kegiatan', [LansiaInfoController::class, 'kegiatan'])->name('kegiatan');
         Route::get('/riwayat-kesehatan', [LansiaInfoController::class, 'riwayat'])->name('riwayat-kesehatan');
         Route::get('/pesan', [KeluargaChatController::class, 'index'])->name('chat');
+        Route::get('/pesan/kontak', [KeluargaChatController::class, 'contacts'])->name('chat.contacts');
+        Route::post('/pesan/assign', [KeluargaChatController::class, 'assignAdmin'])->name('chat.assign');
         Route::post('/pesan/{thread}', [KeluargaChatController::class, 'store'])->name('chat.store');
     });
 

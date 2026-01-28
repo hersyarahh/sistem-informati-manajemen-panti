@@ -12,6 +12,7 @@ class ChatThread extends Model
     protected $fillable = [
         'lansia_id',
         'keluarga_user_id',
+        'assigned_admin_id',
     ];
 
     public function lansia()
@@ -22,6 +23,11 @@ class ChatThread extends Model
     public function keluarga()
     {
         return $this->belongsTo(User::class, 'keluarga_user_id');
+    }
+
+    public function assignedAdmin()
+    {
+        return $this->belongsTo(User::class, 'assigned_admin_id');
     }
 
     public function messages()
