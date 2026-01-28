@@ -24,12 +24,12 @@
 
             <a href="{{ route('admin.kegiatan.edit', $kegiatan) }}"
                 class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
-                ✏️ Edit
+                Edit
             </a>
 
             <a href="{{ route('admin.kegiatan.kehadiran', $kegiatan->id) }}"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                📋 Kelola Kehadiran
+                Kelola Kehadiran
             </a>
         </div>
     </div>

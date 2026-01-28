@@ -80,12 +80,10 @@
                     <th class="px-4 py-3 text-left">No</th>
                     <th class="px-4 py-3 text-left">Nama Barang</th>
                     <th class="px-4 py-3 text-left">Kategori</th>
-                    <th class="px-4 py-3 text-left">Jenis</th>
+                    <!-- <th class="px-4 py-3 text-left">Jenis</th> -->
                     <th class="px-4 py-3 text-center">Jumlah</th>
                     <th class="px-4 py-3 text-center">Kondisi</th>
                     <th class="px-4 py-3 text-left">Sumber Dana</th>
-                    <th class="px-4 py-3 text-center">Tahun</th>
-                    <th class="px-4 py-3 text-left">Lokasi</th>
                     <th class="px-4 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -98,7 +96,7 @@
                         {{ $item->nama_barang }}
                     </td>
                     <td class="px-4 py-3">{{ $item->kategori }}</td>
-                    <td class="px-4 py-3">{{ $item->jenis }}</td>
+                    <!-- <td class="px-4 py-3">{{ $item->jenis }}</td> -->
                     <td class="px-4 py-3 text-center">{{ $item->jumlah }}</td>
                     <td class="px-4 py-3 text-center">
                         <span class="px-3 py-1 rounded-full text-xs
@@ -110,8 +108,8 @@
                         </span>
                     </td>
                     <td class="px-4 py-3">{{ $item->sumber_dana }}</td>
-                    <td class="px-4 py-3 text-center">{{ $item->tahun_pengadaan }}</td>
-                    <td class="px-4 py-3">{{ $item->lokasi }}</td>
+                    <!-- <td class="px-4 py-3 text-center">{{ $item->tahun_pengadaan }}</td>
+                    <td class="px-4 py-3">{{ $item->lokasi }}</td> -->
                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                         <div class="flex items-center gap-2">
                             <!-- Detail -->
