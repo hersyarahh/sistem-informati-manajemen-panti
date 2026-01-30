@@ -225,7 +225,7 @@ class LansiaController extends Controller
         $lansia->update($validated);
 
         return redirect()
-            ->route('admin.lansia.show', $lansia->id)
+            ->route('admin.lansia.index')
             ->with('success', 'Data lansia berhasil diperbarui!');
     }
 
