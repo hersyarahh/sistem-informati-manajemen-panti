@@ -180,52 +180,6 @@
             </div>
         </div>
 
-         <!-- DATA KESEHATAN
-        <div class="p-6 border-b">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                </svg>
-                Data Kesehatan
-            </h2>
-
-            <<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kondisi Kesehatan <span class="text-red-500">*</span></label>
-                    <select name="kondisi_kesehatan" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">-- Pilih Kondisi --</option>
-                        <option value="sehat" {{ old('kondisi_kesehatan') == 'sehat' ? 'selected' : '' }}>Sehat</option>
-                        <option value="sakit_ringan" {{ old('kondisi_kesehatan') == 'sakit_ringan' ? 'selected' : '' }}>Sakit Ringan</option>
-                        <option value="sakit_berat" {{ old('kondisi_kesehatan') == 'sakit_berat' ? 'selected' : '' }}>Sakit Berat</option>
-                        <option value="perawatan_khusus" {{ old('kondisi_kesehatan') == 'perawatan_khusus' ? 'selected' : '' }}>Perawatan Khusus</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                    <select name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="aktif" {{ old('status', 'aktif') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                        <option value="keluar" {{ old('status') == 'keluar' ? 'selected' : '' }}>Keluar</option>
-                        <option value="meninggal" {{ old('status') == 'meninggal' ? 'selected' : '' }}>Meninggal</option>
-                    </select>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit</label>
-                    <textarea name="riwayat_penyakit" rows="3"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              placeholder="Contoh: Hipertensi, Diabetes, Asam Urat">{{ old('riwayat_penyakit') }}</textarea>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Alergi</label>
-                    <textarea name="alergi" rows="2"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              placeholder="Contoh: Seafood, Obat tertentu, Debu">{{ old('alergi') }}</textarea>
-                </div>
-            </div>
-        </div>-->
-
         <!-- KONTAK DARURAT -->
         <div class="p-6 border-b">
             <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">

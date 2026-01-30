@@ -20,10 +20,10 @@
                 <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia }}</h2>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow">
+            <!-- <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-gray-500">Total Karyawan</p>
                 <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan }}</h2>
-            </div>
+            </div> -->
 
             <div class="bg-white p-6 rounded-xl shadow">
                 <p class="text-gray-500">Kegiatan Hari Ini</p>
