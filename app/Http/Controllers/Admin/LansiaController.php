@@ -22,14 +22,6 @@ class LansiaController extends Controller
             $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
         }
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->filled('kondisi')) {
-            $query->where('kondisi_kesehatan', $request->kondisi);
-        }
-
         $lansias = $query->orderBy('created_at', 'desc')->paginate(15);
 
         return view('admin.data-lansia.index', compact('lansias'));
@@ -72,8 +64,7 @@ class LansiaController extends Controller
             'alamat_asal' => 'required|string',
             'no_kamar' => 'nullable|string|max:50',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'kondisi_kesehatan' => 'required|in:sehat,sakit_ringan,sakit_berat,perawatan_khusus',
-            'status' => 'required|in:aktif,keluar,meninggal',
+            // 'status' => 'required|in:aktif,keluar,meninggal',
             'riwayat_penyakit' => 'nullable|string',
             'alergi' => 'nullable|string',
             'kontak_darurat_nama' => 'nullable|string|max:255',
@@ -166,7 +157,6 @@ class LansiaController extends Controller
 
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
-            'kondisi_kesehatan' => 'required|in:sehat,sakit_ringan,sakit_berat,perawatan_khusus',
             'status' => 'required|in:aktif,keluar,meninggal',
             'riwayat_penyakit' => 'nullable|string',
             'alergi' => 'nullable|string',

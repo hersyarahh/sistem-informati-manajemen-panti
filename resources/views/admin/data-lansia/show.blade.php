@@ -88,43 +88,16 @@
                     <p class="text-sm text-gray-500">No. Kamar</p>
                     <p class="font-semibold">{{ $lansia->no_kamar ?? '-' }}</p>
                 </div>
-            </div>
-        </div>
 
-        <hr class="my-6">
+                <div>
+                    <p class="text-sm text-gray-500">Alamat Asal</p>
+                    <p class="font-semibold">{{ $lansia->alamat_asal }}</p>
+                </div>
 
-        <!-- Informasi Tambahan -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <p class="text-sm text-gray-500">Alamat Asal</p>
-                <p>{{ $lansia->alamat_asal }}</p>
-            </div>
-
-            <div>
-                <p class="text-sm text-gray-500">Kondisi Kesehatan</p>
-                <span class="inline-block mt-1 px-3 py-1 rounded-full text-sm font-semibold
-                    @if($lansia->kondisi_kesehatan === 'sehat') bg-green-100 text-green-800
-                    @elseif($lansia->kondisi_kesehatan === 'sakit_ringan') bg-yellow-100 text-yellow-800
-                    @elseif($lansia->kondisi_kesehatan === 'sakit_berat') bg-orange-100 text-orange-800
-                    @else bg-red-100 text-red-800
-                    @endif">
-                    {{ ucfirst(str_replace('_',' ', $lansia->kondisi_kesehatan)) }}
-                </span>
-            </div>
-
-            <div>
-                <p class="text-sm text-gray-500">Status</p>
-                <p class="font-semibold capitalize">{{ $lansia->status }}</p>
-            </div>
-
-            <div>
-                <p class="text-sm text-gray-500">Riwayat Penyakit</p>
-                <p>{{ $lansia->riwayat_penyakit ?? '-' }}</p>
-            </div>
-
-            <div>
-                <p class="text-sm text-gray-500">Alergi</p>
-                <p>{{ $lansia->alergi ?? '-' }}</p>
+                <div>
+                    <p class="text-sm text-gray-500">Status</p>
+                    <p class="font-semibold capitalize">{{ $lansia->status }}</p>
+                </div>
             </div>
         </div>
 
