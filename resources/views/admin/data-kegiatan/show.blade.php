@@ -114,9 +114,6 @@
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                             Status Kehadiran
                         </th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                            Catatan
-                        </th>
                     </tr>
                 </thead>
 
@@ -142,14 +139,10 @@
                             </span>
                             @endif
                         </td>
-
-                        <td class="px-4 py-3 text-sm text-gray-600">
-                            {{ $lansia->pivot->catatan ?? '-' }}
-                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-6 text-center text-gray-500">
+                        <td colspan="3" class="px-4 py-6 text-center text-gray-500">
                             Belum ada data kehadiran.
                         </td>
                     </tr>
