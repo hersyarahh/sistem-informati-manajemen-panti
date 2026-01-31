@@ -16,14 +16,18 @@
             <table class="w-full border border-gray-300 rounded">
                 <thead class="bg-gray-100">
                     <tr>
+                        <th class="border p-3 text-center w-12">No</th>
                         <th class="border p-3 text-left">Nama Lengkap</th>
                         <th class="border p-3 text-center">Hadir</th>
                         <th class="border p-3 text-center">Tidak Hadir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($lansias as $lansia)
+                    @forelse ($lansias as $index => $lansia)
                     <tr class="hover:bg-gray-50">
+                        <td class="border p-3 text-center">
+                            {{ $index + 1 }}
+                        </td>
                         <td class="border p-3">
                             {{ $lansia->nama_lengkap }}
                         </td>
@@ -44,7 +48,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-center p-4 text-gray-500">
+                        <td colspan="4" class="text-center p-4 text-gray-500">
                             Tidak ada data lansia aktif
                         </td>
                     </tr>

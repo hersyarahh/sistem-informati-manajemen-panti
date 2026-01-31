@@ -2,52 +2,86 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <!-- Header Section -->
-    <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg p-6 mb-6">
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-white mb-2">📊 Rekap Kegiatan Lansia</h1>
-                <p class="text-blue-100">Laporan dan statistik kehadiran kegiatan</p>
-            </div>
-            <div class="text-right">
-                <div class="text-white text-sm opacity-90">Periode</div>
-                <div class="text-white text-xl font-bold">{{ request('bulan') ? date('F Y', strtotime(request('bulan').'-01')) : date('F Y') }}</div>
-            </div>
-        </div>
-    </div>
 
     <!-- Filter & Export Section -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
         <form method="GET" action="{{ route('admin.kegiatan.rekap') }}" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Filter Bulan -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        📅 Filter Bulan
-                    </label>
-                    <input type="month"
-                        name="bulan"
-                        value="{{ request('bulan', date('Y-m')) }}"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                @php
+                $bulanParam = request('bulan', date('Y-m'));
+                $selectedYear  = substr($bulanParam, 0, 4);
+                $selectedMonth = substr($bulanParam, 5, 2);
 
-                <!-- Filter Jenis Kegiatan -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        🎯 Jenis Kegiatan
-                    </label>
-                    <select name="jenis"
-                        class="min-w-[180px] px-4 py-2 border border-gray-300 rounded-lg
-                            focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Semua Jenis</option>
-                        <option value="Olahraga" {{ request('jenis') == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
-                        <option value="Kesehatan" {{ request('jenis') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
-                        <option value="Keagamaan" {{ request('jenis') == 'Keagamaan' ? 'selected' : '' }}>Keagamaan</option>
-                        <option value="Sosial" {{ request('jenis') == 'Sosial' ? 'selected' : '' }}>Sosial</option>
-                        <option value="Hiburan" {{ request('jenis') == 'Hiburan' ? 'selected' : '' }}>Hiburan</option>
-                    </select>
+                $currentYear = (int) date('Y');
+                $years = range($currentYear - 5, $currentYear + 1);
 
-                </div>
+                $months = [
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                ];
+            @endphp
+
+            <!-- Tahun -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Tahun
+                </label>
+                <select name="tahun"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2
+                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    @foreach($years as $y)
+                        <option value="{{ $y }}" {{ (string)$y === (string)$selectedYear ? 'selected' : '' }}>
+                            {{ $y }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Bulan -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Bulan
+                </label>
+                <select name="bulan_only"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2
+                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    @foreach($months as $num => $name)
+                        <option value="{{ $num }}" {{ $num === $selectedMonth ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <!-- Tetap dikirim ke backend sebagai YYYY-MM -->
+                <input type="hidden" name="bulan" id="bulanHidden" value="{{ $bulanParam }}">
+            </div>
+
+            <!-- Jenis Kegiatan -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Jenis Kegiatan
+                </label>
+                <select name="jenis"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Semua Jenis</option>
+                    <option value="Olahraga" {{ request('jenis') == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
+                    <option value="Kesehatan" {{ request('jenis') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
+                    <option value="Keagamaan" {{ request('jenis') == 'Keagamaan' ? 'selected' : '' }}>Keagamaan</option>
+                    <option value="Sosial" {{ request('jenis') == 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                    <option value="Hiburan" {{ request('jenis') == 'Hiburan' ? 'selected' : '' }}>Hiburan</option>
+                </select>
+            </div>
 
                 <!-- Tombol Filter -->
                 <div class="flex items-end">
@@ -55,7 +89,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                         </svg>
-                        Filter
+                        Tampilkan
                     </button>
                 </div>
 
@@ -184,4 +218,23 @@
         </a>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var yearSel  = document.querySelector('select[name="tahun"]');
+    var monthSel = document.querySelector('select[name="bulan_only"]');
+    var hidden   = document.getElementById('bulanHidden');
+
+    function syncBulan() {
+        if (!yearSel || !monthSel || !hidden) return;
+        hidden.value = yearSel.value + '-' + monthSel.value;
+    }
+
+    if (yearSel) yearSel.addEventListener('change', syncBulan);
+    if (monthSel) monthSel.addEventListener('change', syncBulan);
+
+    syncBulan();
+});
+</script>
+
 @endsection

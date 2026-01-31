@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Lansia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class LansiaController extends Controller
@@ -20,6 +19,10 @@ class LansiaController extends Controller
 
         if ($request->filled('search')) {
             $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
 
         $lansias = $query->orderBy('created_at', 'desc')->paginate(15);
@@ -61,6 +64,7 @@ class LansiaController extends Controller
             'nik' => 'required|string|max:16|unique:lansias,nik',
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',
+            'tanggal_masuk' => 'required|date',
             'alamat_asal' => 'required|string',
             'no_kamar' => 'nullable|string|max:50',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -82,9 +86,6 @@ class LansiaController extends Controller
             'dokumen_surat_sehat' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'dokumen_surat_pengantar' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
-
-        // otomatis isi tanggal masuk
-        $validated['tanggal_masuk'] = Carbon::now()->toDateString();
 
         // DAFTAR FILE YANG PERLU DISIMPAN
         $fileFields = [

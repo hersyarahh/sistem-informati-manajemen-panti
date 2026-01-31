@@ -137,7 +137,9 @@ class KegiatanController extends Controller
     // ======================
     public function kehadiran(Kegiatan $kegiatan)
     {
-        $lansias = Lansia::orderBy('nama_lengkap')->get();
+        $lansias = Lansia::where('status', 'aktif')
+            ->orderBy('nama_lengkap')
+            ->get();
 
         $kehadiran = Kehadiran::where('kegiatan_id', $kegiatan->id)
             ->pluck('status_kehadiran', 'lansia_id')

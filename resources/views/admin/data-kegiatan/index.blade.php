@@ -11,13 +11,21 @@
             <h1 class="text-2xl font-bold text-gray-800">Data Kegiatan</h1>
             <p class="text-gray-600 text-sm mt-1">Total: {{ $kegiatans->total() }} kegiatan</p>
         </div>
-        <a href="{{ route('admin.kegiatan.create') }}" 
-           class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-            </svg>
-            Tambah Kegiatan
-        </a>
+
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.kegiatan.rekap') }}"
+            class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
+                Rekap Kegiatan
+            </a>
+
+            <a href="{{ route('admin.kegiatan.create') }}" 
+            class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Tambah Kegiatan
+            </a>
+        </div>
     </div>
 
     <!-- Success Message -->
@@ -228,11 +236,4 @@
         @endif
     </div>
 </div>
-         <!-- TOMBOL REKAP -->
-        <div class="mt-6 flex justify-end">
-            <a href="{{ route('admin.kegiatan.rekap') }}"
-            class="px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700">
-                Rekap Kegiatan
-            </a>
-        </div>
 @endsection

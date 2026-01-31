@@ -69,6 +69,78 @@
             @enderror
         </div>
 
+        <div class="border-t pt-5">
+            <h2 class="text-sm font-semibold text-gray-700 mb-3">Data Keluarga (khusus role Keluarga)</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Lansia</label>
+                    <select name="lansia_id"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                        <option value="">Pilih lansia</option>
+                        @foreach ($lansias as $lansia)
+                            <option value="{{ $lansia->id }}" {{ old('lansia_id') == $lansia->id ? 'selected' : '' }}>
+                                {{ $lansia->nama_lengkap }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('lansia_id')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Hubungan</label>
+                    <input type="text" name="hubungan" value="{{ old('hubungan') }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300"
+                           placeholder="Anak / Cucu / Wali">
+                    @error('hubungan')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap Keluarga</label>
+                    <input type="text" name="keluarga_nama_lengkap" value="{{ old('keluarga_nama_lengkap', old('name')) }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                    @error('keluarga_nama_lengkap')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">No. Telepon Keluarga</label>
+                    <input type="text" name="keluarga_no_telp" value="{{ old('keluarga_no_telp', old('phone')) }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                    @error('keluarga_no_telp')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email Keluarga</label>
+                    <input type="email" name="keluarga_email" value="{{ old('keluarga_email', old('email')) }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                    @error('keluarga_email')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Keluarga</label>
+                    <input type="text" name="keluarga_alamat" value="{{ old('keluarga_alamat', old('address')) }}"
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                    @error('keluarga_alamat')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>

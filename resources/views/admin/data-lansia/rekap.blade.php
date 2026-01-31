@@ -87,7 +87,7 @@
 
                         {{-- TGL MASUK --}}
                         <td class="border px-3 py-2">
-                            {{ $lansia->tanggal_masuk->format('d-m-Y') }}
+                            {{ $lansia->tanggal_masuk->format('d/m/Y') }}
                         </td>
 
                         {{-- STATUS --}}
@@ -104,7 +104,7 @@
                         {{-- TGL KELUAR --}}
                         <td class="border px-3 py-2">
                             {{ $lansia->terminasi?->tanggal_keluar
-                                ? $lansia->terminasi->tanggal_keluar->format('d-m-Y')
+                                ? $lansia->terminasi->tanggal_keluar->format('d/m/Y')
                                 : '-' }}
                         </td>
 
