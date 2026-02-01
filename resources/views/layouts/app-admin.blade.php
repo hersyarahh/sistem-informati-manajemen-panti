@@ -11,7 +11,7 @@
 
 <body class="m-0 p-0 bg-gray-100 overflow-hidden">
 
-    <div class="relative flex h-screen w-screen">
+    <div class="relative h-screen w-screen">
 
         <!-- MOBILE OVERLAY -->
         <div id="admin-sidebar-overlay"
@@ -20,7 +20,7 @@
 
         <!-- SIDEBAR -->
         <aside id="admin-sidebar"
-            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col h-screen transform transition-transform duration-200 ease-out lg:sticky lg:top-0 lg:translate-x-0">
+            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col h-screen transform transition-transform duration-200 ease-out lg:translate-x-0">
 
             <!-- TITLE -->
             <div class="px-5 py-6">
@@ -93,9 +93,9 @@
 
 
         <!-- MAIN CONTENT -->
-        <main class="flex-1 h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center">
+        <main class="h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center lg:pl-64">
             <div class="w-full max-w-6xl flex flex-col gap-6">
-                <div class="flex items-center gap-3 lg:hidden">
+                <div class="fixed left-4 top-4 z-50 flex items-center gap-3 lg:static lg:z-auto lg:hidden">
                     <button id="admin-sidebar-toggle" type="button"
                         class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-gray-700 shadow hover:bg-gray-50"
                         aria-controls="admin-sidebar" aria-expanded="false">
@@ -104,7 +104,7 @@
                                 d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <span class="text-sm font-semibold text-gray-600">Menu Admin</span>
+                    <span id="admin-sidebar-label" class="hidden text-sm font-semibold text-gray-600">Menu Admin</span>
                 </div>
                 @yield('content')
             </div>
@@ -117,8 +117,10 @@
             const toggle = document.getElementById('admin-sidebar-toggle');
             const sidebar = document.getElementById('admin-sidebar');
             const overlay = document.getElementById('admin-sidebar-overlay');
+            const label = document.getElementById('admin-sidebar-label');
+            const pageTitle = document.querySelector('main h1');
 
-            if (!toggle || !sidebar || !overlay) {
+            if (!toggle || !sidebar || !overlay || !label) {
                 return;
             }
 
@@ -172,10 +174,16 @@
                     overlay.classList.remove('opacity-100');
                     document.body.style.overflow = '';
                     toggle.setAttribute('aria-expanded', 'false');
+                pageTitle?.classList.remove('pl-8');
                 } else if (!sidebar.classList.contains('translate-x-0')) {
                     close();
+                    pageTitle?.classList.add('pl-8');
                 }
             });
+
+            if (window.innerWidth < 1024) {
+                pageTitle?.classList.add('pl-8');
+            }
         })();
     </script>
 

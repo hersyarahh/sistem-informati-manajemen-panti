@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="m-0 p-0 bg-gray-100 font-sans">
-    <div class="relative flex min-h-screen w-screen">
+    <div class="relative min-h-screen w-screen">
         <!-- MOBILE OVERLAY -->
         <div id="keluarga-sidebar-overlay"
             class="fixed inset-0 z-30 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-200 lg:hidden">
@@ -17,7 +17,7 @@
 
         <!-- SIDEBAR -->
         <aside id="keluarga-sidebar"
-            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col min-h-screen transform transition-transform duration-200 ease-out lg:static lg:translate-x-0">
+            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col min-h-screen transform transition-transform duration-200 ease-out lg:translate-x-0">
 
             <div class="px-5 py-6">
                 <h2 class="text-xl font-bold mb-1">Menu Keluarga</h2>
@@ -66,9 +66,9 @@
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="flex-1 min-h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center">
+        <main class="min-h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center lg:pl-64">
             <div class="w-full max-w-6xl flex flex-col gap-6">
-                <div class="flex items-center gap-3 lg:hidden">
+                <div class="fixed left-4 top-4 z-50 flex items-center gap-3 lg:static lg:z-auto lg:hidden">
                     <button id="keluarga-sidebar-toggle" type="button"
                         class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-gray-700 shadow hover:bg-gray-50"
                         aria-controls="keluarga-sidebar" aria-expanded="false">
