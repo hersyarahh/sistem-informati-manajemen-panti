@@ -62,25 +62,6 @@
                         <p class="font-semibold text-gray-800">{{ $lansia->alamat_asal ?? '-' }}</p>
                     </div>
                     <div>
-                        <p class="text-gray-500">Kondisi Kesehatan</p>
-                        <span class="inline-flex items-center mt-1 px-3 py-1 rounded-full text-xs font-semibold
-                            @if($lansia->kondisi_kesehatan === 'sehat') bg-green-100 text-green-800
-                            @elseif($lansia->kondisi_kesehatan === 'sakit_ringan') bg-yellow-100 text-yellow-800
-                            @elseif($lansia->kondisi_kesehatan === 'sakit_berat') bg-orange-100 text-orange-800
-                            @else bg-red-100 text-red-800
-                            @endif">
-                            {{ ucfirst(str_replace('_', ' ', $lansia->kondisi_kesehatan)) }}
-                        </span>
-                    </div>
-                    <div>
-                        <p class="text-gray-500">Riwayat Penyakit</p>
-                        <p class="font-semibold text-gray-800">{{ $lansia->riwayat_penyakit ?? '-' }}</p>
-                    </div>
-                    <div>
-                        <p class="text-gray-500">Alergi</p>
-                        <p class="font-semibold text-gray-800">{{ $lansia->alergi ?? '-' }}</p>
-                    </div>
-                    <div>
                         <p class="text-gray-500">Status</p>
                         <p class="font-semibold text-gray-800">{{ $lansia->status ?? '-' }}</p>
                     </div>

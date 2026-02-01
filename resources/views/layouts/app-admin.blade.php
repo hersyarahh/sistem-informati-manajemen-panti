@@ -9,9 +9,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="m-0 p-0 bg-gray-100">
+<body class="m-0 p-0 bg-gray-100 overflow-hidden">
 
-    <div class="relative flex min-h-screen w-screen">
+    <div class="relative flex h-screen w-screen">
 
         <!-- MOBILE OVERLAY -->
         <div id="admin-sidebar-overlay"
@@ -20,7 +20,7 @@
 
         <!-- SIDEBAR -->
         <aside id="admin-sidebar"
-            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col min-h-screen transform transition-transform duration-200 ease-out lg:static lg:translate-x-0">
+            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col h-screen transform transition-transform duration-200 ease-out lg:sticky lg:top-0 lg:translate-x-0">
 
             <!-- TITLE -->
             <div class="px-5 py-6">
@@ -93,7 +93,7 @@
 
 
         <!-- MAIN CONTENT -->
-        <main class="flex-1 min-h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center">
+        <main class="flex-1 h-screen overflow-auto px-4 py-6 sm:px-8 sm:py-8 flex items-start justify-center">
             <div class="w-full max-w-6xl flex flex-col gap-6">
                 <div class="flex items-center gap-3 lg:hidden">
                     <button id="admin-sidebar-toggle" type="button"
@@ -414,6 +414,7 @@
             };
 
             const requestJson = async (url, options = {}) => {
+                const socketId = window.Echo?.socketId?.();
                 const response = await fetch(url, {
                     credentials: 'same-origin',
                     ...options,
@@ -421,6 +422,7 @@
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
+                        ...(socketId ? { 'X-Socket-ID': socketId } : {}),
                         ...(options.headers || {}),
                     },
                 });

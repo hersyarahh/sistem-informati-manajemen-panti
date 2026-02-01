@@ -16,29 +16,20 @@
         <div class="mt-4 space-y-3">
             @forelse ($kegiatan_hari_ini as $kegiatan)
                 @php
-                    $kehadiran = $kegiatan->kehadirans->first();
-                    $statusKehadiran = null;
-
-                    if ($kehadiran) {
-                        if (isset($kehadiran->status_kehadiran)) {
-                            $statusKehadiran = $kehadiran->status_kehadiran;
-                        } elseif (isset($kehadiran->hadir)) {
-                            $statusKehadiran = $kehadiran->hadir ? 'hadir' : 'tidak_hadir';
-                        }
-                    }
+                    $kehadiranLansia = $kegiatan->lansias->first();
+                    $statusKehadiran = $kehadiranLansia?->pivot?->status_kehadiran ?? 'belum_absen';
                 @endphp
                 <div class="border border-gray-100 rounded-lg p-4">
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <p class="font-semibold text-gray-800">{{ $kegiatan->nama_kegiatan }}</p>
-                        @if ($statusKehadiran)
-                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold
-                                @if($statusKehadiran === 'hadir') bg-green-100 text-green-700
-                                @elseif($statusKehadiran === 'izin') bg-yellow-100 text-yellow-700
-                                @else bg-gray-100 text-gray-700
-                                @endif">
-                                {{ ucfirst(str_replace('_', ' ', $statusKehadiran)) }}
-                            </span>
-                        @endif
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold
+                            @if($statusKehadiran === 'hadir') bg-green-100 text-green-700
+                            @elseif($statusKehadiran === 'tidak_hadir') bg-red-100 text-red-700
+                            @elseif($statusKehadiran === 'izin') bg-yellow-100 text-yellow-700
+                            @else bg-gray-100 text-gray-700
+                            @endif">
+                            {{ $statusKehadiran === 'belum_absen' ? 'Belum Absen' : ucfirst(str_replace('_', ' ', $statusKehadiran)) }}
+                        </span>
                     </div>
                     <p class="text-sm text-gray-600 mt-1">
                         {{ $kegiatan->waktu_mulai }} - {{ $kegiatan->waktu_selesai }} - {{ $kegiatan->lokasi }}

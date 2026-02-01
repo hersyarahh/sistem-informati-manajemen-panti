@@ -32,7 +32,7 @@ class LansiaInfoController extends Controller
         $lansia = $keluargaLansia->lansia;
 
         $kegiatanHariIni = Kegiatan::whereDate('tanggal', today())
-            ->with(['kehadirans' => function ($query) use ($lansia) {
+            ->with(['lansias' => function ($query) use ($lansia) {
                 $query->where('lansia_id', $lansia->id);
             }])
             ->orderBy('waktu_mulai')

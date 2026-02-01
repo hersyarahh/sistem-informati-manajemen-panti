@@ -33,4 +33,12 @@ if (broadcastDriver === 'reverb' || broadcastDriver === 'pusher') {
             },
         },
     });
+
+    window.axios.interceptors.request.use((config) => {
+        const socketId = window.Echo?.socketId?.();
+        if (socketId) {
+            config.headers['X-Socket-ID'] = socketId;
+        }
+        return config;
+    });
 }

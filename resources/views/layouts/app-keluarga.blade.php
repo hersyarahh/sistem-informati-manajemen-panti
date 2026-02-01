@@ -52,19 +52,6 @@
                     Jadwal Kegiatan
                 </a>
 
-                @php $isActive = request()->routeIs('keluarga.riwayat-kesehatan'); @endphp
-                <a href="{{ route('keluarga.riwayat-kesehatan') }}"
-                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
-                   @if ($isActive) aria-current="page" @endif>
-                    Riwayat Kesehatan
-                </a>
-
-                <a href="#"
-                   class="{{ $navBase }} {{ $navInactive }} opacity-80"
-                   aria-disabled="true">
-                    Jadwal Kunjungan
-                </a>
-
             </nav>
 
             <div class="px-5 pb-4">
@@ -374,6 +361,7 @@
             };
 
             const requestJson = async (url, options = {}) => {
+                const socketId = window.Echo?.socketId?.();
                 const response = await fetch(url, {
                     credentials: 'same-origin',
                     ...options,
@@ -381,6 +369,7 @@
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
+                        ...(socketId ? { 'X-Socket-ID': socketId } : {}),
                         ...(options.headers || {}),
                     },
                 });

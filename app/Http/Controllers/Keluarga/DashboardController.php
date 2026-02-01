@@ -7,9 +7,7 @@ use App\Models\Lansia;
 use App\Models\KeluargaLansia;
 use App\Models\Kegiatan;
 use App\Models\Kunjungan;
-use App\Models\RiwayatKesehatan;
 use App\Models\JadwalObat;
-use App\Models\Kehadiran;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -33,12 +31,6 @@ class DashboardController extends Controller
         $kegiatanQuery = Kegiatan::whereDate('tanggal', today())
             ->orderBy('waktu_mulai');
 
-        if (Kehadiran::where('lansia_id', $lansia->id)->exists()) {
-            $kegiatanQuery->whereHas('kehadirans', function ($query) use ($lansia) {
-                $query->where('lansia_id', $lansia->id);
-            });
-        }
-
         $data = [
             'lansia' => $lansia,
             'keluarga_lansia' => $keluargaLansia,
@@ -47,10 +39,6 @@ class DashboardController extends Controller
                 ->where('user_id', auth()->id())
                 ->where('tanggal_kunjungan', '>=', today())
                 ->orderBy('tanggal_kunjungan')
-                ->get(),
-            'riwayat_kesehatan' => RiwayatKesehatan::where('lansia_id', $lansia->id)
-                ->orderBy('tanggal_periksa', 'desc')
-                ->take(5)
                 ->get(),
             'jadwal_obat_aktif' => JadwalObat::where('lansia_id', $lansia->id)
                 ->where('status', 'aktif')

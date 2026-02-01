@@ -73,10 +73,6 @@
                                 {{ ucfirst(str_replace('_', ' ', $lansia->kondisi_kesehatan)) }}
                             </span>
                         </div>
-                        <div>
-                            <p class="text-gray-500">Riwayat Penyakit</p>
-                            <p class="font-semibold text-gray-800">{{ $lansia->riwayat_penyakit ?? '-' }}</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -112,35 +108,6 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow p-5 sm:p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h3 class="text-base font-semibold text-gray-800">Riwayat Kesehatan</h3>
-                        <p class="text-sm text-gray-500">Pemeriksaan terakhir lansia</p>
-                    </div>
-                </div>
-
-                <div class="space-y-3">
-                    @forelse ($riwayat_kesehatan as $riwayat)
-                        <div class="border border-gray-100 rounded-lg p-4">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <p class="font-semibold text-gray-800">{{ $riwayat->jenis_pemeriksaan }}</p>
-                                <span class="text-xs text-gray-400">{{ $riwayat->tanggal_periksa?->format('d/m/Y') }}</span>
-                            </div>
-                            <div class="text-sm text-gray-600 space-y-1 mt-2">
-                                <p><span class="font-medium">Keluhan:</span> {{ $riwayat->keluhan ?? '-' }}</p>
-                                <p><span class="font-medium">Diagnosa:</span> {{ $riwayat->diagnosa ?? '-' }}</p>
-                                <p><span class="font-medium">Tindakan:</span> {{ $riwayat->tindakan ?? '-' }}</p>
-                                <p><span class="font-medium">Resep:</span> {{ $riwayat->resep_obat ?? '-' }}</p>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="text-sm text-gray-500 text-center py-6">
-                            Riwayat kesehatan belum tersedia.
-                        </div>
-                    @endforelse
-                </div>
-            </div>
         </div>
     @endif
 </div>
