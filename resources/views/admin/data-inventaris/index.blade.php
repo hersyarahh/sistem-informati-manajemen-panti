@@ -22,7 +22,7 @@
     </div>
 
     {{-- Filter --}}
-<div class="bg-white rounded-xl shadow p-4 mb-6">
+<div class="bg-white rounded-xl shadow p-4">
     <form method="GET"
           action="{{ route('admin.data-inventaris.index') }}"
           class="flex flex-wrap gap-3 items-center">

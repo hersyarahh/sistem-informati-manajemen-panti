@@ -209,7 +209,7 @@
         <table>
             <tr>
                 <td class="label">Periode Laporan:</td>
-                <td>{{ date('F Y', strtotime($bulan)) }}</td>
+                <td>{{ $periodeLabel }}</td>
             </tr>
             @if($jenis)
             <tr>

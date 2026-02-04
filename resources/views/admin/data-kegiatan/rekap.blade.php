@@ -1,79 +1,84 @@
 @extends('layouts.app-admin')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
+<div class="bg-white p-6 rounded-lg shadow w-full">
 
-    <!-- Filter & Export Section -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <form method="GET" action="{{ route('admin.kegiatan.rekap') }}" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
-                @php
-                $bulanParam = request('bulan', date('Y-m'));
-                $selectedYear  = substr($bulanParam, 0, 4);
-                $selectedMonth = substr($bulanParam, 5, 2);
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-bold">Rekap Data Kegiatan</h2>
 
-                $currentYear = (int) date('Y');
-                $years = range($currentYear - 5, $currentYear + 1);
+        <a href="{{ route('admin.kegiatan.index') }}"
+           class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+            Kembali
+        </a>
+    </div>
 
-                $months = [
-                    '01' => 'Januari',
-                    '02' => 'Februari',
-                    '03' => 'Maret',
-                    '04' => 'April',
-                    '05' => 'Mei',
-                    '06' => 'Juni',
-                    '07' => 'Juli',
-                    '08' => 'Agustus',
-                    '09' => 'September',
-                    '10' => 'Oktober',
-                    '11' => 'November',
-                    '12' => 'Desember',
-                ];
-            @endphp
+    @php
+        $months = [
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        ];
 
-            <!-- Tahun -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Tahun
-                </label>
-                <select name="tahun"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    @foreach($years as $y)
-                        <option value="{{ $y }}" {{ (string)$y === (string)$selectedYear ? 'selected' : '' }}>
+        $periode = $periode ?? request('periode', 'bulan');
+        $tahun = $tahun ?? request('tahun', now()->year);
+        $bulan = $bulan ?? request('bulan');
+
+        if ($periode === 'bulan' && !$bulan) {
+            $bulan = now()->format('m');
+        }
+    @endphp
+
+    <div class="mb-6 bg-gray-50 border rounded-lg p-4">
+        <form method="GET" action="{{ route('admin.kegiatan.rekap') }}" class="flex flex-wrap items-end gap-6">
+            <div class="w-[300px]">
+                <label class="text-sm text-gray-600">Periode Rekap</label>
+                <div class="mt-1 flex items-center gap-6 rounded border bg-white px-3 py-2">
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                        <input type="radio" name="periode" value="bulan" {{ $periode === 'bulan' ? 'checked' : '' }}>
+                        Bulanan
+                    </label>
+                    <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                        <input type="radio" name="periode" value="tahun" {{ $periode === 'tahun' ? 'checked' : '' }}>
+                        Tahunan
+                    </label>
+                </div>
+            </div>
+
+            <div class="w-[140px]">
+                <label class="text-sm text-gray-600">Tahun</label>
+                <select name="tahun" class="w-full border rounded px-3 py-2">
+                    @for ($y = now()->year; $y >= 2015; $y--)
+                        <option value="{{ $y }}" {{ (string)$tahun === (string)$y ? 'selected' : '' }}>
                             {{ $y }}
                         </option>
-                    @endforeach
+                    @endfor
                 </select>
             </div>
 
-            <!-- Bulan -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Bulan
-                </label>
-                <select name="bulan_only"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <div class="w-[180px]">
+                <label class="text-sm text-gray-600">Bulan</label>
+                <select name="bulan" class="w-full border rounded px-3 py-2" {{ $periode === 'tahun' ? 'disabled' : '' }}>
+                    <option value="">Semua Bulan</option>
                     @foreach($months as $num => $name)
-                        <option value="{{ $num }}" {{ $num === $selectedMonth ? 'selected' : '' }}>
+                        <option value="{{ $num }}" {{ (string)$bulan === (string)$num ? 'selected' : '' }}>
                             {{ $name }}
                         </option>
                     @endforeach
                 </select>
-
-                <!-- Tetap dikirim ke backend sebagai YYYY-MM -->
-                <input type="hidden" name="bulan" id="bulanHidden" value="{{ $bulanParam }}">
             </div>
 
-            <!-- Jenis Kegiatan -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Jenis Kegiatan
-                </label>
-                <select name="jenis"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <div class="w-[200px]">
+                <label class="text-sm text-gray-600">Jenis Kegiatan</label>
+                <select name="jenis" class="w-full border rounded px-3 py-2">
                     <option value="">Semua Jenis</option>
                     <option value="Olahraga" {{ request('jenis') == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
                     <option value="Kesehatan" {{ request('jenis') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
@@ -83,39 +88,26 @@
                 </select>
             </div>
 
-                <!-- Tombol Filter -->
-                <div class="flex items-end">
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg transition duration-200 flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                        </svg>
-                        Tampilkan
-                    </button>
-                </div>
-
-                <!-- Tombol Reset -->
-                <div class="flex items-end">
-                    <a href="{{ route('admin.kegiatan.rekap') }}" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-medium px-6 py-2 rounded-lg transition duration-200 text-center">
-                        Reset
-                    </a>
-                </div>
-            </div>
-        </form>
-
-        <!-- Export Buttons -->
-        <div class="mt-6 pt-6 border-t border-gray-200">
-            <div class="flex flex-wrap gap-3">
-                <p class="text-sm font-medium text-gray-700 w-full mb-2">📥 Export Data:</p>
-
-                <a href="{{ route('admin.kegiatan.export-pdf', request()->query()) }}"
-                    class="bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-2.5 rounded-lg transition duration-200 flex items-center gap-2 shadow-sm">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" />
-                    </svg>
-                    PDF (.pdf)
+            <div class="flex gap-3">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Tampilkan
+                </button>
+                <a href="{{ route('admin.kegiatan.rekap') }}"
+                   class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center">
+                    Reset
                 </a>
             </div>
+        </form>
+    </div>
+
+    <div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="text-xs text-gray-500">
+            Export mengikuti filter periode yang dipilih.
         </div>
+        <a href="{{ route('admin.kegiatan.export-pdf', request()->query()) }}"
+           class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-center md:w-auto">
+            PDF (.pdf)
+        </a>
     </div>
 
     <!-- Data Table -->
@@ -207,34 +199,28 @@
         </div>
     </div>
 
-    <!-- Back Button -->
-    <div class="mt-6">
-        <a href="{{ route('admin.kegiatan.index') }}"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition duration-200 shadow-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Kembali
-        </a>
-    </div>
+    <script>
+        (function () {
+            const bulanSelect = document.querySelector('select[name="bulan"]');
+            const periodeInputs = document.querySelectorAll('input[name="periode"]');
+
+            if (!bulanSelect || !periodeInputs.length) {
+                return;
+            }
+
+            const updateBulanState = () => {
+                const selected = document.querySelector('input[name="periode"]:checked');
+                const isBulanan = selected?.value === 'bulan';
+                bulanSelect.disabled = !isBulanan;
+            };
+
+            periodeInputs.forEach((input) => {
+                input.addEventListener('change', updateBulanState);
+            });
+
+            updateBulanState();
+        })();
+    </script>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    var yearSel  = document.querySelector('select[name="tahun"]');
-    var monthSel = document.querySelector('select[name="bulan_only"]');
-    var hidden   = document.getElementById('bulanHidden');
-
-    function syncBulan() {
-        if (!yearSel || !monthSel || !hidden) return;
-        hidden.value = yearSel.value + '-' + monthSel.value;
-    }
-
-    if (yearSel) yearSel.addEventListener('change', syncBulan);
-    if (monthSel) monthSel.addEventListener('change', syncBulan);
-
-    syncBulan();
-});
-</script>
 
 @endsection

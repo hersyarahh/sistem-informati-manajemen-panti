@@ -3,41 +3,93 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
-<div class="flex flex-col h-full w-full">
-
-    <div class="px-4 pt-6 sm:px-8">
+<div class="space-y-6">
+    <div>
         <h1 class="text-2xl font-bold sm:text-3xl">Dashboard Admin</h1>
-        <p class="text-gray-600 mb-6">Selamat datang, Admin Panti</p>
+        <p class="text-gray-600">Selamat datang, Admin Panti</p>
     </div>
 
-    <div class="px-4 pb-6 sm:px-8">
+    <!-- 4 STATISTICS (1 BARIS) -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+        <div class="bg-white p-6 rounded-xl shadow">
+            <p class="text-gray-500">Total Lansia</p>
+            <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia }}</h2>
+        </div>
 
-        <!-- 4 STATISTICS (1 BARIS) -->
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+        <div class="bg-white p-6 rounded-xl shadow">
+            <p class="text-gray-500">Total Karyawan</p>
+            <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan }}</h2>
+        </div>
 
-            <div class="bg-white p-6 rounded-xl shadow">
-                <p class="text-gray-500">Total Lansia</p>
-                <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia }}</h2>
-            </div>
-
-            <!-- <div class="bg-white p-6 rounded-xl shadow">
-                <p class="text-gray-500">Total Karyawan</p>
-                <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan }}</h2>
-            </div> -->
-
-            <div class="bg-white p-6 rounded-xl shadow">
-                <p class="text-gray-500">Kegiatan Hari Ini</p>
-                <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni }}</h2>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow">
-                <p class="text-gray-500">Total Keluarga</p>
-                <h2 class="text-3xl font-bold text-orange-600 mt-2">{{ $totalKeluarga }}</h2>
-            </div>
-
+        <div class="bg-white p-6 rounded-xl shadow">
+            <p class="text-gray-500">Kegiatan Hari Ini</p>
+            <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni }}</h2>
         </div>
 
     </div>
 
+    @php
+        $chartLabels = collect($lansiaYearLabels)->values();
+        $chartData = collect($lansiaYearCounts)->values();
+    @endphp
+
+    <div class="bg-white p-6 rounded-xl shadow">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <div>
+                <h2 class="text-lg font-semibold text-gray-800">Total Lansia per Tahun</h2>
+            </div>
+        </div>
+
+        <div class="h-[260px]">
+            <canvas id="lansiaYearChart"></canvas>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+    (function () {
+        const ctx = document.getElementById('lansiaYearChart');
+        if (!ctx) return;
+
+        const labels = @json($chartLabels);
+        const data = @json($chartData);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Jumlah Lansia',
+                    data,
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    borderWidth: 2,
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        position: 'right',
+                        display: false,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    })();
+</script>
 @endsection

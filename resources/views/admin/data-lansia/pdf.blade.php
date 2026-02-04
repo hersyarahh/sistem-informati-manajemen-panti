@@ -4,39 +4,39 @@
     <meta charset="utf-8">
     <title>Data Lansia</title>
     <style>
-        @page { margin: 20mm 15mm; }
+        @page { margin: 12mm 12mm; }
 
         body {
             font-family: Arial, sans-serif;
-            font-size: 11pt;
+            font-size: 10pt;
             color: #333;
-            line-height: 1.45;
+            line-height: 1.35;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
             border-bottom: 3px solid #2563eb;
         }
         .header h1 {
             margin: 0;
-            font-size: 20pt;
+            font-size: 18pt;
             color: #1e40af;
             font-weight: bold;
             letter-spacing: .3px;
         }
         .header h2 {
             margin: 5px 0 0 0;
-            font-size: 12pt;
+            font-size: 10pt;
             color: #666;
             font-weight: normal;
         }
 
         .info-box {
             background: #f3f4f6;
-            padding: 12px 14px;
-            margin-bottom: 14px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
             border-radius: 6px;
             border-left: 4px solid #2563eb;
         }
@@ -45,10 +45,10 @@
         .info-box .label { font-weight: bold; width: 160px; color: #555; }
 
         .section-title {
-            margin-top: 14px;
-            margin-bottom: 8px;
+            margin-top: 10px;
+            margin-bottom: 6px;
             font-weight: bold;
-            font-size: 12pt;
+            font-size: 10.5pt;
             color: #1e40af;
         }
 
@@ -56,7 +56,7 @@
             border: 1px solid #e5e7eb;
             border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         table.list-table {
@@ -64,10 +64,10 @@
             border-collapse: collapse;
         }
         table.list-table td {
-            padding: 9px 12px;
+            padding: 7px 10px;
             border-bottom: 1px solid #e5e7eb;
             vertical-align: top;
-            font-size: 10.8pt;
+            font-size: 10pt;
         }
         table.list-table tr:last-child td { border-bottom: none; }
 
@@ -95,13 +95,11 @@
         .badge-default { background: #e5e7eb; color: #374151; }
 
         .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0; right: 0;
+            margin-top: 6px;
             text-align: center;
             font-size: 9pt;
             color: #6b7280;
-            padding: 10px 0;
+            padding-top: 6px;
             border-top: 1px solid #e5e7eb;
         }
 
@@ -147,6 +145,26 @@
                 <td class="v">{{ $lansia->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
             </tr>
             <tr>
+                <td class="k">Tempat Lahir</td>
+                <td class="v">{{ $lansia->tempat_lahir ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td class="k">Tanggal Lahir</td>
+                <td class="v">{{ $lansia->tanggal_lahir?->format('d/m/Y') ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td class="k">Agama</td>
+                <td class="v">{{ $lansia->agama ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td class="k">Nomor Kartu Keluarga</td>
+                <td class="v">{{ $lansia->nomor_kk ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td class="k">Pendidikan Terakhir</td>
+                <td class="v">{{ $lansia->pendidikan_terakhir ?? '-' }}</td>
+            </tr>
+            <tr>
                 <td class="k">Tanggal Masuk</td>
                 <td class="v">{{ \Carbon\Carbon::parse($lansia->tanggal_masuk)->format('d/m/Y') }}</td>
             </tr>
@@ -164,6 +182,10 @@
             <tr>
                 <td class="k">Alamat Asal</td>
                 <td class="v">{{ $lansia->alamat_asal ?? '-' }}</td>
+            </tr>
+            <tr>
+                <td class="k">Daerah Asal</td>
+                <td class="v">{{ $lansia->daerah_asal ?? '-' }}</td>
             </tr>
         </table>
     </div>

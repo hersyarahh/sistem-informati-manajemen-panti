@@ -7,7 +7,7 @@
 
     <h2 class="text-xl font-bold mb-6">Form Terminasi Lansia</h2>
 
-    <form action="{{ route('admin.lansia.terminasi.store', $lansia->id) }}" method="POST">
+    <form action="{{ route('admin.lansia.terminasi.store', $lansia->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Nama Lansia (readonly) -->
@@ -52,6 +52,14 @@
             <label class="block text-sm font-medium text-gray-700">Alasan / Keterangan</label>
             <textarea name="keterangan" rows="3"
                       class="w-full px-3 py-2 border rounded-lg"></textarea>
+        </div>
+
+        <!-- Surat Terminasi -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">Surat Terminasi</label>
+            <input type="file" name="dokumen_surat_terminasi" accept=".pdf,.jpg,.jpeg,.png"
+                   class="w-full px-3 py-2 border rounded-lg">
+            <p class="text-xs text-gray-500 mt-1">Upload surat terminasi (PDF/JPG/PNG, Max 2MB)</p>
         </div>
 
         <div class="flex justify-end gap-2">

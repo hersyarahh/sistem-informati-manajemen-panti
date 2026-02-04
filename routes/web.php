@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Karyawan\DashboardController as KaryawanDashboardController;
-use App\Http\Controllers\Keluarga\DashboardController as KeluargaDashboardController;
+use App\Http\Controllers\Karyawan\LansiaController as KaryawanLansiaController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\Admin\LansiaController;
 use App\Http\Controllers\Admin\KegiatanController;
@@ -11,9 +11,7 @@ use App\Http\Controllers\Admin\InventarisController;
 use App\Http\Controllers\Admin\TerminasiLansiaController;
 use App\Http\Controllers\Admin\RekapLansiaController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ChatController as AdminChatController;
-use App\Http\Controllers\Keluarga\LansiaInfoController;
-use App\Http\Controllers\Keluarga\ChatController as KeluargaChatController;
+use App\Http\Controllers\Admin\RiwayatKesehatanController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -42,7 +40,6 @@ Route::get('/dashboard', function () {
 
     if ($user->isAdmin()) return redirect()->route('admin.dashboard');
     if ($user->isKaryawan()) return redirect()->route('karyawan.dashboard');
-    if ($user->isKeluarga()) return redirect()->route('keluarga.dashboard');
 
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -74,23 +71,30 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('users', UserController::class)->except(['show']);
 
         // ======================
-        // Chat Keluarga (Widget)
+        // Riwayat Kesehatan
         // ======================
-        Route::get('/chat', [AdminChatController::class, 'index'])->name('chat.index');
-        Route::get('/chat/{thread}', [AdminChatController::class, 'show'])->name('chat.show');
-        Route::post('/chat/{thread}', [AdminChatController::class, 'store'])->name('chat.store');
-        
+        Route::get('/riwayat-kesehatan', [RiwayatKesehatanController::class, 'index'])
+            ->name('riwayat-kesehatan.index');
+        Route::get('/riwayat-kesehatan/{lansia}', [RiwayatKesehatanController::class, 'show'])
+            ->name('riwayat-kesehatan.show');
+
         // ======================
         // REKAP LANSIA
         // ======================
         Route::get('/lansia/rekap', [RekapLansiaController::class, 'index'])
             ->name('lansia.rekap');
+        Route::get('/lansia/rekap-excel', [RekapLansiaController::class, 'exportExcel'])
+            ->name('lansia.rekap-excel');
 
         // ======================
-        // Lansia
+        // Lansia (Admin only)
         // ======================
-        Route::resource('lansia', LansiaController::class)
-            ->parameters(['lansia' => 'lansia']);
+        Route::get('/lansia/create', [LansiaController::class, 'create'])
+            ->name('lansia.create');
+        Route::post('/lansia', [LansiaController::class, 'store'])
+            ->name('lansia.store');
+        Route::delete('/lansia/{lansia}', [LansiaController::class, 'destroy'])
+            ->name('lansia.destroy');
 
         Route::get('/lansia/{lansia}/download', [LansiaController::class, 'download'])
             ->name('lansia.download');
@@ -98,11 +102,10 @@ Route::middleware(['auth', 'role:admin'])
         Route::patch('/lansia/{lansia}/status', [LansiaController::class, 'updateStatus'])
             ->name('lansia.update-status');
 
-        Route::get('/lansia/{lansia}/terminasi',[TerminasiLansiaController::class, 'create'])
-        ->name('lansia.terminasi.create');
-
+        Route::get('/lansia/{lansia}/terminasi', [TerminasiLansiaController::class, 'create'])
+            ->name('lansia.terminasi.create');
         Route::post('/lansia/{lansia}/terminasi', [TerminasiLansiaController::class, 'store'])
-        ->name('lansia.terminasi.store');
+            ->name('lansia.terminasi.store');
 
         // ======================
         // Kegiatan
@@ -184,6 +187,24 @@ Route::middleware(['auth', 'role:admin'])
         )->name('data-inventaris.download-laporan');
     });
 
+// ======================
+//  Admin + Karyawan akses lansia
+// ======================
+Route::middleware(['auth', 'role:admin,karyawan'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/lansia', [LansiaController::class, 'index'])
+            ->name('lansia.index');
+        Route::get('/lansia/{lansia}', [LansiaController::class, 'show'])
+            ->name('lansia.show');
+        Route::get('/lansia/{lansia}/edit', [LansiaController::class, 'edit'])
+            ->name('lansia.edit');
+        Route::put('/lansia/{lansia}', [LansiaController::class, 'update'])
+            ->name('lansia.update');
+        Route::patch('/lansia/{lansia}', [LansiaController::class, 'update']);
+    });
+
 
 // ======================
 //  Karyawan
@@ -193,23 +214,11 @@ Route::middleware(['auth', 'role:karyawan'])
     ->name('karyawan.')
     ->group(function () {
         Route::get('/dashboard', [KaryawanDashboardController::class, 'index'])->name('dashboard');
-    });
-
-// ======================
-//  Keluarga
-// ======================
-Route::middleware(['auth', 'role:keluarga'])
-    ->prefix('keluarga')
-    ->name('keluarga.')
-    ->group(function () {
-        Route::get('/dashboard', [KeluargaDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/profil-lansia', [LansiaInfoController::class, 'profile'])->name('profile');
-        Route::get('/jadwal-kegiatan', [LansiaInfoController::class, 'kegiatan'])->name('kegiatan');
-        Route::get('/riwayat-kesehatan', [LansiaInfoController::class, 'riwayat'])->name('riwayat-kesehatan');
-        Route::get('/pesan', [KeluargaChatController::class, 'index'])->name('chat');
-        Route::get('/pesan/kontak', [KeluargaChatController::class, 'contacts'])->name('chat.contacts');
-        Route::post('/pesan/assign', [KeluargaChatController::class, 'assignAdmin'])->name('chat.assign');
-        Route::post('/pesan/{thread}', [KeluargaChatController::class, 'store'])->name('chat.store');
+        Route::get('/riwayat-kesehatan', [KaryawanDashboardController::class, 'riwayatKesehatan'])->name('riwayat-kesehatan');
+        Route::get('/riwayat-kegiatan', [KaryawanDashboardController::class, 'riwayatKegiatan'])->name('riwayat-kegiatan');
+        Route::get('/lansia/{lansia}/edit', [KaryawanLansiaController::class, 'edit'])->name('lansia.edit');
+        Route::put('/lansia/{lansia}', [KaryawanLansiaController::class, 'update'])->name('lansia.update');
+        Route::patch('/lansia/{lansia}', [KaryawanLansiaController::class, 'update']);
     });
 
 require __DIR__.'/auth.php';

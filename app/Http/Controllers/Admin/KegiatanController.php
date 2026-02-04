@@ -138,6 +138,7 @@ class KegiatanController extends Controller
     public function kehadiran(Kegiatan $kegiatan)
     {
         $lansias = Lansia::where('status', 'aktif')
+            ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal)
             ->orderBy('nama_lengkap')
             ->get();
 
@@ -186,10 +187,19 @@ class KegiatanController extends Controller
         $query = Kegiatan::with('lansias')
             ->orderBy('tanggal', 'desc');
 
-        // Filter bulan
-        if ($request->filled('bulan')) {
-            $query->whereYear('tanggal', date('Y', strtotime($request->bulan)))
-                ->whereMonth('tanggal', date('m', strtotime($request->bulan)));
+        $periode = $request->input('periode', 'bulan');
+        $tahun = (int) $request->input('tahun', now()->year);
+        $bulan = $request->input('bulan');
+
+        if ($periode === 'bulan') {
+            if (!$bulan) {
+                $bulan = now()->format('m');
+            }
+
+            $query->whereYear('tanggal', $tahun)
+                ->whereMonth('tanggal', $bulan);
+        } else {
+            $query->whereYear('tanggal', $tahun);
         }
 
         // Filter jenis
@@ -206,7 +216,10 @@ class KegiatanController extends Controller
             return $kegiatan;
         });
 
-        return view('admin.data-kegiatan.rekap', compact('kegiatans'));
+        return view(
+            'admin.data-kegiatan.rekap',
+            compact('kegiatans', 'periode', 'tahun', 'bulan')
+        );
     }
 
     // ======================
@@ -230,15 +243,22 @@ class KegiatanController extends Controller
     // ======================
     public function exportPdf(Request $request)
     {
-        $bulan = $request->bulan ?? date('Y-m');
+        $periode = $request->input('periode', 'bulan');
+        $tahun = (int) $request->input('tahun', now()->year);
+        $bulan = $request->input('bulan');
         $jenis = $request->jenis;
 
         $query = Kegiatan::with('lansias');
 
-        // Filter bulan
-        if ($bulan) {
-            $query->whereYear('tanggal', substr($bulan, 0, 4))
-                ->whereMonth('tanggal', substr($bulan, 5, 2));
+        if ($periode === 'bulan') {
+            if (!$bulan) {
+                $bulan = now()->format('m');
+            }
+
+            $query->whereYear('tanggal', $tahun)
+                ->whereMonth('tanggal', $bulan);
+        } else {
+            $query->whereYear('tanggal', $tahun);
         }
 
         // Filter jenis
@@ -261,11 +281,33 @@ class KegiatanController extends Controller
             ? round($totalHadir / $totalKegiatan, 1)
             : 0;
 
+        $months = [
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        ];
+
+        $periodeLabel = $periode === 'tahun'
+            ? 'Tahun ' . $tahun
+            : (($months[$bulan] ?? 'Semua Bulan') . ' ' . $tahun);
+
         $pdf = Pdf::loadView(
             'admin.data-kegiatan.rekap-pdf',
             compact(
                 'kegiatans',
+                'periode',
+                'tahun',
                 'bulan',
+                'periodeLabel',
                 'jenis',
                 'totalKegiatan',
                 'totalHadir',

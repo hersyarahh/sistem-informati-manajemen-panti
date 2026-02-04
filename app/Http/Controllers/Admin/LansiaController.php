@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lansia;
+use App\Models\RiwayatKesehatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -25,7 +26,7 @@ class LansiaController extends Controller
             $query->where('status', $request->status);
         }
 
-        $lansias = $query->orderBy('created_at', 'desc')->paginate(15);
+        $lansias = $query->orderBy('created_at', 'desc')->paginate(6)->withQueryString();
 
         return view('admin.data-lansia.index', compact('lansias'));
     }
@@ -62,10 +63,15 @@ class LansiaController extends Controller
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'nik' => 'required|string|max:16|unique:lansias,nik',
+            'tempat_lahir' => 'nullable|string|max:150',
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',
+            'agama' => 'nullable|string|max:100',
+            'nomor_kk' => 'nullable|string|max:32',
+            'pendidikan_terakhir' => 'nullable|string|max:100',
             'tanggal_masuk' => 'required|date',
             'alamat_asal' => 'required|string',
+            'daerah_asal' => 'nullable|string|max:150',
             'no_kamar' => 'nullable|string|max:50',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             // 'status' => 'required|in:aktif,keluar,meninggal',
@@ -150,10 +156,15 @@ class LansiaController extends Controller
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'nik' => 'required|string|max:16|unique:lansias,nik,' . $lansia->id,
+            'tempat_lahir' => 'nullable|string|max:150',
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',
+            'agama' => 'nullable|string|max:100',
+            'nomor_kk' => 'nullable|string|max:32',
+            'pendidikan_terakhir' => 'nullable|string|max:100',
             'tanggal_masuk' => 'required|date',
             'alamat_asal' => 'required|string',
+            'daerah_asal' => 'nullable|string|max:150',
             'no_kamar' => 'nullable|string|max:50',
 
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -178,6 +189,17 @@ class LansiaController extends Controller
             'dokumen_surat_terlantar' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'dokumen_surat_sehat' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
             'dokumen_surat_pengantar' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            // Riwayat Kesehatan (opsional)
+            'riwayat_tanggal_periksa' => 'nullable|date',
+            'riwayat_jenis_pemeriksaan' => 'nullable|string|max:255',
+            'riwayat_keluhan' => 'nullable|string',
+            'riwayat_diagnosa' => 'nullable|string',
+            'riwayat_tindakan' => 'nullable|string',
+            'riwayat_resep_obat' => 'nullable|string',
+            'riwayat_nama_dokter' => 'nullable|string|max:255',
+            'riwayat_nama_petugas' => 'nullable|string|max:255',
+            'riwayat_catatan' => 'nullable|string',
+            'riwayat_file_hasil' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
 
         /**
@@ -225,9 +247,50 @@ class LansiaController extends Controller
 
         $lansia->update($validated);
 
-        return redirect()
-            ->route('admin.lansia.index')
-            ->with('success', 'Data lansia berhasil diperbarui!');
+        $riwayatFields = [
+            'riwayat_tanggal_periksa',
+            'riwayat_jenis_pemeriksaan',
+            'riwayat_keluhan',
+            'riwayat_diagnosa',
+            'riwayat_tindakan',
+            'riwayat_resep_obat',
+            'riwayat_nama_dokter',
+            'riwayat_nama_petugas',
+            'riwayat_catatan',
+        ];
+
+        $riwayatFilled = collect($riwayatFields)->contains(function ($field) use ($request) {
+            return $request->filled($field);
+        }) || $request->hasFile('riwayat_file_hasil');
+
+        if ($riwayatFilled) {
+            $riwayatData = [
+                'lansia_id' => $lansia->id,
+                'tanggal_periksa' => $request->input('riwayat_tanggal_periksa'),
+                'jenis_pemeriksaan' => $request->input('riwayat_jenis_pemeriksaan'),
+                'keluhan' => $request->input('riwayat_keluhan'),
+                'diagnosa' => $request->input('riwayat_diagnosa'),
+                'tindakan' => $request->input('riwayat_tindakan'),
+                'resep_obat' => $request->input('riwayat_resep_obat'),
+                'nama_dokter' => $request->input('riwayat_nama_dokter'),
+                'nama_petugas' => $request->input('riwayat_nama_petugas'),
+                'catatan' => $request->input('riwayat_catatan'),
+            ];
+
+            if ($request->hasFile('riwayat_file_hasil')) {
+                $riwayatData['file_hasil'] = $request
+                    ->file('riwayat_file_hasil')
+                    ->store('dokumen/riwayat-kesehatan', 'public');
+            }
+
+            RiwayatKesehatan::create($riwayatData);
+        }
+
+        $redirectTo = $request->input('redirect_to');
+
+        return $redirectTo
+            ? redirect($redirectTo)->with('success', 'Data lansia berhasil diperbarui!')
+            : redirect()->route('admin.lansia.index')->with('success', 'Data lansia berhasil diperbarui!');
     }
 
     // =========================

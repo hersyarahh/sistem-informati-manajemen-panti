@@ -63,6 +63,11 @@
                 </div>
 
                 <div>
+                    <p class="text-sm text-gray-500">Nomor Kartu Keluarga</p>
+                    <p class="font-semibold">{{ $lansia->nomor_kk ?? '-' }}</p>
+                </div>
+
+                <div>
                     <p class="text-sm text-gray-500">Jenis Kelamin</p>
                     <p class="font-semibold">
                         {{ $lansia->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
@@ -70,11 +75,38 @@
                 </div>
 
                 <div>
-                    <p class="text-sm text-gray-500">Umur</p>
+                    <p class="text-sm text-gray-500">Tempat Lahir</p>
+                    <p class="font-semibold">{{ $lansia->tempat_lahir ?? '-' }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Tanggal Lahir</p>
                     <p class="font-semibold">
-                        {{ $lansia->umur() }} tahun
-                        ({{ $lansia->tanggal_lahir->format('d/m/Y') }})
+                        {{ $lansia->tanggal_lahir->format('d/m/Y') }}
+                        @if ($lansia->umur())
+                            ({{ $lansia->umur() }} tahun)
+                        @endif
                     </p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Agama</p>
+                    <p class="font-semibold">{{ $lansia->agama ?? '-' }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Pendidikan Terakhir</p>
+                    <p class="font-semibold">{{ $lansia->pendidikan_terakhir ?? '-' }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Daerah Asal</p>
+                    <p class="font-semibold">{{ $lansia->daerah_asal ?? '-' }}</p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500">Alamat Asal</p>
+                    <p class="font-semibold">{{ $lansia->alamat_asal }}</p>
                 </div>
 
                 <div>
@@ -87,11 +119,6 @@
                 <div>
                     <p class="text-sm text-gray-500">No. Kamar</p>
                     <p class="font-semibold">{{ $lansia->no_kamar ?? '-' }}</p>
-                </div>
-
-                <div>
-                    <p class="text-sm text-gray-500">Alamat Asal</p>
-                    <p class="font-semibold">{{ $lansia->alamat_asal }}</p>
                 </div>
 
                 <div>
@@ -139,9 +166,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 @php
                     $dokumen = [
-                        'Surat Pernyataan Tinggal' => 'dokumen_surat_pernyataan_tinggal',
+                        'Pas Foto' => 'foto',
                         'Surat Terminasi' => 'dokumen_surat_terminasi',
-                        'Berita Acara' => 'dokumen_berita_acara',
                         'KTP' => 'dokumen_ktp',
                         'Kartu Keluarga' => 'dokumen_kk',
                         'BPJS' => 'dokumen_bpjs',
@@ -158,7 +184,7 @@
                             <a href="{{ asset('storage/' . $lansia->$field) }}"
                                target="_blank"
                                class="text-blue-600 hover:underline text-sm">
-                                Lihat Dokumen
+                                {{ $field === 'foto' ? 'Lihat Foto' : 'Lihat Dokumen' }}
                             </a>
                         @else
                             <p class="text-gray-400 text-sm">Tidak ada</p>

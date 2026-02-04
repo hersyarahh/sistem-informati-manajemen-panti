@@ -3,7 +3,7 @@
 @section('title', 'Tambah Data Lansia')
 
 @section('content')
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="w-full max-w-none space-y-6">
 
     <!-- Header -->
     <div class="flex items-center justify-between">
@@ -53,20 +53,28 @@
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
                     <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Masukkan nama lengkap">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">NIK <span class="text-red-500">*</span></label>
                     <input type="text" name="nik" value="{{ old('nik') }}" required maxlength="16"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="16 digit NIK">
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Kartu Keluarga</label>
+                    <input type="text" name="nomor_kk" value="{{ old('nomor_kk') }}"
+                           maxlength="16"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Nomor KK">
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
-                    <select name="jenis_kelamin" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="jenis_kelamin" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">-- Pilih Jenis Kelamin --</option>
                         <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
@@ -74,37 +82,77 @@
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Kota/Kabupaten kelahiran">
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir <span class="text-red-500">*</span></label>
                     <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Agama</label>
+                    <select name="agama"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">-- Pilih Agama --</option>
+                        @php
+                            $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
+                        @endphp
+                        @foreach ($agamaOptions as $option)
+                            <option value="{{ $option }}" {{ old('agama') === $option ? 'selected' : '' }}>
+                                {{ $option }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pendidikan Terakhir</label>
+                    <select name="pendidikan_terakhir"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">-- Pilih Pendidikan --</option>
+                        @php
+                            $pendidikanOptions = ['Tidak Sekolah', 'SD', 'SMP', 'SMA/SMK', 'D1/D2/D3', 'S1', 'S2', 'S3', 'Lainnya'];
+                        @endphp
+                        @foreach ($pendidikanOptions as $option)
+                            <option value="{{ $option }}" {{ old('pendidikan_terakhir') === $option ? 'selected' : '' }}>
+                                {{ $option }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Daerah Asal</label>
+                    <input type="text" name="daerah_asal" value="{{ old('daerah_asal') }}"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Kota/Kabupaten asal">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Asal <span class="text-red-500">*</span></label>
+                    <input type="text" name="alamat_asal" value="{{ old('alamat_asal') }}" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Alamat lengkap sebelum masuk panti">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Masuk <span class="text-red-500">*</span></label>
                     <input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk') }}" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Asal <span class="text-red-500">*</span></label>
-                    <textarea name="alamat_asal" required rows="2"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              placeholder="Alamat lengkap sebelum masuk panti">{{ old('alamat_asal') }}</textarea>
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">No Kamar</label>
                     <input type="text" name="no_kamar" value="{{ old('no_kamar') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Contoh: A-101">
                 </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Pas Foto <span class="text-red-500">*</span></label>
-                    <input type="file" name="foto" accept="image/*" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG. Ukuran 3x4 cm (Max 2MB)</p>
-                </div>
             </div>
         </div>
 
@@ -117,64 +165,74 @@
                 Dokumen Persyaratan
             </h2>
 
-            <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Pas Foto -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        1. Pas Foto <span class="text-red-500">*</span>
+                    </label>
+                    <input type="file" name="foto" accept="image/*" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <p class="text-xs text-gray-500 mt-1">Format: JPG/PNG. Ukuran 3x4 cm (Max 2MB)</p>
+                </div>
+
                 <!-- KTP -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        1. Fotocopy KTP <span class="text-red-500">*</span>
+                        2. Fotocopy KTP <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_ktp" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload scan/foto KTP (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- KK -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        2. Fotocopy Kartu Keluarga (KK) <span class="text-red-500">*</span>
+                        3. Fotocopy Kartu Keluarga (KK) <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_kk" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload scan/foto Kartu Keluarga (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- BPJS -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        3. Fotocopy BPJS Kesehatan <span class="text-red-500">*</span>
+                        4. Fotocopy BPJS Kesehatan <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_bpjs" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload scan/foto BPJS Kesehatan (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Keterangan Terlantar -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        4. Surat Keterangan Terlantar dari Kelurahan/Dinas Sosial <span class="text-red-500">*</span>
+                        5. Surat Keterangan Terlantar dari Kelurahan/Dinas Sosial <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_surat_terlantar" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload surat keterangan (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Keterangan Sehat -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        5. Surat Keterangan Berbadan Sehat dari Dokter/Puskesmas <span class="text-red-500">*</span>
+                        6. Surat Keterangan Berbadan Sehat dari Dokter/Puskesmas <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_surat_sehat" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload surat keterangan sehat (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Pengantar -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        6. Surat Pengantar/Rekomendasi Masuk Panti dari Dinas Sosial Provinsi Riau <span class="text-red-500">*</span>
+                        7. Surat Pengantar/Rekomendasi Masuk Panti dari Dinas Sosial Provinsi Riau <span class="text-red-500">*</span>
                     </label>
                     <input type="file" name="dokumen_surat_pengantar" accept=".pdf,.jpg,.jpeg,.png" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <p class="text-xs text-gray-500 mt-1">Upload surat pengantar (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
             </div>
@@ -197,7 +255,7 @@
                     </label>
                     <input type="text" name="kontak_darurat_nama"
                            value="{{ old('kontak_darurat_nama') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Nama lengkap">
                 </div>
 
@@ -207,7 +265,7 @@
                     </label>
                     <input type="text" name="kontak_darurat_telp"
                            value="{{ old('kontak_darurat_telp') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="08xxxxxxxxxx">
                 </div>
 
@@ -217,14 +275,14 @@
                     </label>
                     <input type="text" name="kontak_darurat_hubungan"
                            value="{{ old('kontak_darurat_hubungan') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Contoh: Anak, Cucu, Saudara">
                 </div>
 
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Alamat Kontak Darurat</label>
                     <textarea name="kontak_darurat_alamat" rows="2"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="Alamat lengkap keluarga/wali">{{ old('kontak_darurat_alamat') }}</textarea>
                 </div>
             </div>

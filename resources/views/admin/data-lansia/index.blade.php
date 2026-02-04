@@ -258,7 +258,7 @@
         <!-- Pagination -->
         @if($lansias->hasPages())
         <div class="px-4 py-3 border-t border-gray-200">
-            {{ $lansias->links() }}
+            {{ $lansias->links('pagination.admin') }}
         </div>
         @endif
     </div>

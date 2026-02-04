@@ -41,8 +41,9 @@
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
                     <option value="">Pilih role</option>
                     @foreach ($roles as $role)
+                        @php $roleLabel = $role->name === 'karyawan' ? 'Staff' : $role->label; @endphp
                         <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
-                            {{ $role->label }}
+                            {{ $roleLabel }}
                         </option>
                     @endforeach
                 </select>
@@ -56,35 +57,6 @@
                 <input type="text" name="address" value="{{ old('address', $user->address) }}"
                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
                 @error('address')
-                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Lansia</label>
-                <select name="lansia_id"
-                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
-                    <option value="">Pilih lansia</option>
-                    @foreach ($lansias as $lansia)
-                        <option value="{{ $lansia->id }}"
-                            {{ old('lansia_id', $keluargaLansia?->lansia_id) == $lansia->id ? 'selected' : '' }}>
-                            {{ $lansia->nama_lengkap }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('lansia_id')
-                    <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">No. Telepon Keluarga</label>
-                <input type="text" name="keluarga_no_telp"
-                       value="{{ old('keluarga_no_telp', $keluargaLansia?->no_telp ?? $user->phone) }}"
-                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
-                @error('keluarga_no_telp')
                     <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>

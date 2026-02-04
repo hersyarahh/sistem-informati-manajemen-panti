@@ -10,10 +10,15 @@ class Lansia extends Model
     protected $fillable = [
         'nama_lengkap',
         'nik',
+        'tempat_lahir',
         'jenis_kelamin',
         'tanggal_lahir',
+        'agama',
+        'nomor_kk',
+        'pendidikan_terakhir',
         'tanggal_masuk',
         'alamat_asal',
+        'daerah_asal',
         'no_kamar',
         'kondisi_kesehatan',
         'status',
@@ -86,6 +91,16 @@ class Lansia extends Model
     public function terminasi()
     {
         return $this->hasOne(TerminasiLansia::class);
+    }
+
+    public function riwayatKesehatan()
+    {
+        return $this->hasMany(RiwayatKesehatan::class);
+    }
+
+    public function latestRiwayatKesehatan()
+    {
+        return $this->hasOne(RiwayatKesehatan::class)->latestOfMany('tanggal_periksa');
     }
 
     public function isAktif(): bool

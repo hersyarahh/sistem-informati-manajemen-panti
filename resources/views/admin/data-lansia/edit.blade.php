@@ -3,7 +3,7 @@
 @section('title', 'Edit Data Lansia')
 
 @section('content')
-<div class="max-w-5xl mx-auto space-y-6">
+<div class="w-full max-w-none space-y-6">
 
     <!-- Header -->
     <div class="flex items-center justify-between">
@@ -29,13 +29,16 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.lansia.update', $lansia->id) }}"
+    <form action="{{ $formAction ?? route('admin.lansia.update', $lansia->id) }}"
           method="POST"
           enctype="multipart/form-data"
           class="bg-white rounded-lg shadow">
 
         @csrf
         @method('PUT')
+        @if (!empty($redirectTo))
+            <input type="hidden" name="redirect_to" value="{{ $redirectTo }}">
+        @endif
 
         <!-- ================= DATA PRIBADI ================= -->
         <div class="p-6 border-b">
@@ -47,59 +50,103 @@
                     <label class="block text-sm font-medium mb-2">Nama Lengkap *</label>
                     <input type="text" name="nama_lengkap"
                            value="{{ old('nama_lengkap', $lansia->nama_lengkap) }}"
-                           class="w-full px-4 py-2 border rounded-lg">
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">NIK *</label>
                     <input type="text" name="nik"
                            value="{{ old('nik', $lansia->nik) }}"
-                           class="w-full px-4 py-2 border rounded-lg">
+                           maxlength="16"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nomor Kartu Keluarga</label>
+                    <input type="text" name="nomor_kk"
+                           value="{{ old('nomor_kk', $lansia->nomor_kk) }}"
+                           maxlength="16"
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Jenis Kelamin *</label>
-                    <select name="jenis_kelamin" class="w-full px-4 py-2 border rounded-lg">
+                    <select name="jenis_kelamin" class="w-full px-4 py-3 border rounded-lg">
                         <option value="L" {{ $lansia->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ $lansia->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium mb-2">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir"
+                           value="{{ old('tempat_lahir', $lansia->tempat_lahir) }}"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium mb-2">Tanggal Lahir *</label>
                     <input type="date" name="tanggal_lahir"
                            value="{{ optional($lansia->tanggal_lahir)->format('Y-m-d') }}"
-                           class="w-full px-4 py-2 border rounded-lg">
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Agama</label>
+                    <select name="agama" class="w-full px-4 py-3 border rounded-lg">
+                        <option value="">-- Pilih Agama --</option>
+                        @php
+                            $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
+                        @endphp
+                        @foreach ($agamaOptions as $option)
+                            <option value="{{ $option }}" {{ old('agama', $lansia->agama) === $option ? 'selected' : '' }}>
+                                {{ $option }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Pendidikan Terakhir</label>
+                    <select name="pendidikan_terakhir" class="w-full px-4 py-3 border rounded-lg">
+                        <option value="">-- Pilih Pendidikan --</option>
+                        @php
+                            $pendidikanOptions = ['Tidak Sekolah', 'SD', 'SMP', 'SMA/SMK', 'D1/D2/D3', 'S1', 'S2', 'S3', 'Lainnya'];
+                        @endphp
+                        @foreach ($pendidikanOptions as $option)
+                            <option value="{{ $option }}" {{ old('pendidikan_terakhir', $lansia->pendidikan_terakhir) === $option ? 'selected' : '' }}>
+                                {{ $option }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Daerah Asal</label>
+                    <input type="text" name="daerah_asal"
+                           value="{{ old('daerah_asal', $lansia->daerah_asal) }}"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Alamat Asal *</label>
+                    <input type="text" name="alamat_asal"
+                           value="{{ old('alamat_asal', $lansia->alamat_asal) }}"
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Tanggal Masuk *</label>
                     <input type="date" name="tanggal_masuk"
                            value="{{ optional($lansia->tanggal_masuk)->format('Y-m-d') }}"
-                           class="w-full px-4 py-2 border rounded-lg">
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium mb-2">Alamat Asal *</label>
-                    <textarea name="alamat_asal" rows="2"
-                              class="w-full px-4 py-2 border rounded-lg">{{ $lansia->alamat_asal }}</textarea>
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">No Kamar</label>
                     <input type="text" name="no_kamar"
                            value="{{ $lansia->no_kamar }}"
-                           class="w-full px-4 py-2 border rounded-lg">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium mb-2">Foto Lansia</label>
-                    @if($lansia->foto)
-                        <img src="{{ asset('storage/'.$lansia->foto) }}"
-                             class="w-24 h-24 object-cover rounded mb-2">
-                    @endif
-                    <input type="file" name="foto"
-                           class="w-full px-4 py-2 border rounded-lg">
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
             </div>
@@ -113,7 +160,7 @@
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Kondisi Kesehatan</label>
-                    <select name="kondisi_kesehatan" class="w-full px-4 py-2 border rounded-lg">
+                    <select name="kondisi_kesehatan" class="w-full px-4 py-3 border rounded-lg">
                         <option value="sehat" {{ $lansia->kondisi_kesehatan == 'sehat' ? 'selected' : '' }}>Sehat</option>
                         <option value="sakit_ringan" {{ $lansia->kondisi_kesehatan == 'sakit_ringan' ? 'selected' : '' }}>Sakit Ringan</option>
                         <option value="sakit_berat" {{ $lansia->kondisi_kesehatan == 'sakit_berat' ? 'selected' : '' }}>Sakit Berat</option>
@@ -123,25 +170,86 @@
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Status</label>
-                    <select name="status" class="w-full px-4 py-2 border rounded-lg">
+                    <select name="status" class="w-full px-4 py-3 border rounded-lg">
                         <option value="aktif" {{ $lansia->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
                         <option value="keluar" {{ $lansia->status == 'keluar' ? 'selected' : '' }}>Keluar</option>
                         <option value="meninggal" {{ $lansia->status == 'meninggal' ? 'selected' : '' }}>Meninggal</option>
                     </select>
                 </div>
 
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium mb-2">Riwayat Penyakit</label>
-                    <textarea name="riwayat_penyakit" rows="3"
-                              class="w-full px-4 py-2 border rounded-lg">{{ $lansia->riwayat_penyakit }}</textarea>
+            </div>
+        </div>
+
+        <!-- ================= RIWAYAT KESEHATAN ================= -->
+        <div class="p-6 border-b">
+            <h2 class="text-lg font-semibold mb-4">Riwayat Kesehatan</h2>
+            <p class="text-sm text-gray-500 mb-4">Isi jika ada pemeriksaan/riwayat baru.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tanggal Periksa</label>
+                    <input type="date" name="riwayat_tanggal_periksa"
+                           value="{{ old('riwayat_tanggal_periksa') }}"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Jenis Pemeriksaan</label>
+                    <input type="text" name="riwayat_jenis_pemeriksaan"
+                           value="{{ old('riwayat_jenis_pemeriksaan') }}"
+                           class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-medium mb-2">Alergi</label>
-                    <textarea name="alergi" rows="2"
-                              class="w-full px-4 py-2 border rounded-lg">{{ $lansia->alergi }}</textarea>
+                    <label class="block text-sm font-medium mb-2">Keluhan</label>
+                    <textarea name="riwayat_keluhan" rows="2"
+                              class="w-full px-4 py-3 border rounded-lg">{{ old('riwayat_keluhan') }}</textarea>
                 </div>
 
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-2">Diagnosa</label>
+                    <textarea name="riwayat_diagnosa" rows="2"
+                              class="w-full px-4 py-3 border rounded-lg">{{ old('riwayat_diagnosa') }}</textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-2">Tindakan</label>
+                    <textarea name="riwayat_tindakan" rows="2"
+                              class="w-full px-4 py-3 border rounded-lg">{{ old('riwayat_tindakan') }}</textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-2">Resep Obat</label>
+                    <textarea name="riwayat_resep_obat" rows="2"
+                              class="w-full px-4 py-3 border rounded-lg">{{ old('riwayat_resep_obat') }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nama Dokter</label>
+                    <input type="text" name="riwayat_nama_dokter"
+                           value="{{ old('riwayat_nama_dokter') }}"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nama Petugas</label>
+                    <input type="text" name="riwayat_nama_petugas"
+                           value="{{ old('riwayat_nama_petugas') }}"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-2">Catatan</label>
+                    <textarea name="riwayat_catatan" rows="2"
+                              class="w-full px-4 py-3 border rounded-lg">{{ old('riwayat_catatan') }}</textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-2">File Hasil (PDF/JPG/PNG)</label>
+                    <input type="file" name="riwayat_file_hasil"
+                           accept=".pdf,.jpg,.jpeg,.png"
+                           class="w-full px-4 py-3 border rounded-lg">
+                </div>
             </div>
         </div>
 
@@ -151,15 +259,14 @@
 
             @php
                 $dokumen = [
+                    'foto' => 'Pas Foto',
                     'dokumen_ktp' => 'KTP',
                     'dokumen_kk' => 'Kartu Keluarga',
                     'dokumen_bpjs' => 'BPJS',
                     'dokumen_surat_pengantar' => 'Surat Pengantar',
                     'dokumen_surat_sehat' => 'Surat Sehat',
                     'dokumen_surat_terlantar' => 'Surat Terlantar',
-                    'dokumen_surat_pernyataan_tinggal' => 'Surat Pernyataan Tinggal',
                     'dokumen_surat_terminasi' => 'Surat Terminasi',
-                    'dokumen_berita_acara' => 'Berita Acara',
                 ];
             @endphp
 
@@ -172,12 +279,13 @@
                             <a href="{{ asset('storage/'.$lansia->$field) }}"
                                target="_blank"
                                class="text-blue-600 text-sm block mb-1">
-                                Lihat Dokumen
+                                {{ $field === 'foto' ? 'Lihat Foto' : 'Lihat Dokumen' }}
                             </a>
                         @endif
 
                         <input type="file" name="{{ $field }}"
-                               class="w-full px-4 py-2 border rounded-lg">
+                               accept="{{ $field === 'foto' ? 'image/*' : '.pdf,.jpg,.jpeg,.png' }}"
+                               class="w-full px-4 py-3 border rounded-lg">
                     </div>
                 @endforeach
             </div>
@@ -185,7 +293,7 @@
 
         <!-- BUTTON -->
         <div class="p-6 flex justify-end gap-3">
-            <a href="{{ route('admin.lansia.index') }}"
+            <a href="{{ $backRoute ?? route('admin.lansia.index') }}"
                class="px-6 py-2 bg-gray-200 rounded-lg">Batal</a>
             <button type="submit"
                     class="px-6 py-2 bg-blue-600 text-white rounded-lg">

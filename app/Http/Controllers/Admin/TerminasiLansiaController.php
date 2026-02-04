@@ -30,6 +30,7 @@ class TerminasiLansiaController extends Controller
             'jenis_terminasi'  => 'required|in:meninggal,dipulangkan',
             'lokasi_meninggal' => 'nullable|required_if:jenis_terminasi,meninggal|in:panti,keluarga',
             'keterangan'       => 'nullable|string',
+            'dokumen_surat_terminasi' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
 
         TerminasiLansia::create([
@@ -41,6 +42,12 @@ class TerminasiLansiaController extends Controller
                 : null,
             'keterangan'       => $validated['keterangan'] ?? null,
         ]);
+
+        if ($request->hasFile('dokumen_surat_terminasi')) {
+            $path = $request->file('dokumen_surat_terminasi')
+                ->store('dokumen/lansia', 'public');
+            $lansia->update(['dokumen_surat_terminasi' => $path]);
+        }
 
         // Update status lansia di tabel utama
         $lansia->update([

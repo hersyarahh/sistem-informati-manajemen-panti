@@ -147,27 +147,27 @@
     <footer id="kontak" class="bg-gray-50 w-full border-t border-gray-200">
         <div class="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-10 py-12">
             <div class="flex flex-col items-center text-center text-gray-700 text-sm space-y-6">
-                <nav class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium">
-                    <a href="{{ url('/#home') }}" class="hover:text-blue-700">Home</a>
-                    <a href="{{ url('/#tentang-kami') }}" class="hover:text-blue-700">Tentang Kami</a>
-                    <a href="{{ url('/#galeri') }}" class="hover:text-blue-700">Galeri</a>
-                </nav>
-
                 <div class="flex items-center justify-center gap-6">
-                    <a href="mailto:tresnawerdha.riau@gmail.com" class="text-blue-600 hover:text-blue-700"
-                        aria-label="Email">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 8l9 6 9-6M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                    <a href="https://wa.me/6281230371118" target="_blank"
+                        class="text-green-500 hover:text-green-600" aria-label="WhatsApp">
+                        <svg class="h-9 w-9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2a10 10 0 0 0-8.66 15l-1.1 4.02a1 1 0 0 0 1.23 1.23l4.02-1.1A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.07-1.12 1 1 0 0 0-.79-.09l-2.7.74.74-2.7a1 1 0 0 0-.09-.79A8 8 0 1 1 12 20zm4.3-5.1c-.23-.12-1.36-.67-1.57-.74-.21-.07-.37-.12-.52.12-.15.23-.6.74-.73.89-.13.15-.27.17-.5.06-.23-.12-1-.37-1.9-1.19-.7-.62-1.17-1.38-1.31-1.61-.14-.23-.01-.35.1-.47.1-.1.23-.27.35-.4.12-.13.15-.23.23-.38.08-.15.04-.29-.02-.4-.06-.12-.52-1.26-.72-1.72-.19-.46-.38-.4-.52-.4-.13 0-.29-.02-.44-.02-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9s.82 2.2.93 2.35c.12.15 1.62 2.47 3.92 3.46.55.24.98.38 1.32.49.55.17 1.05.14 1.44.09.44-.07 1.36-.56 1.55-1.1.19-.54.19-1 .13-1.1-.06-.1-.21-.17-.44-.29z"/>
                         </svg>
                     </a>
                     <a href="https://www.instagram.com/pantisosialrehabilitasilansia/" target="_blank"
-                        class="text-blue-600 hover:text-blue-700" aria-label="Instagram">
-                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        class="hover:opacity-90" aria-label="Instagram">
+                        <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="igGradient" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#feda75" />
+                                    <stop offset="50%" stop-color="#d62976" />
+                                    <stop offset="100%" stop-color="#4f5bd5" />
+                                </linearGradient>
+                            </defs>
+                            <path stroke="url(#igGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M7 3h10a4 4 0 014 4v10a4 4 0 01-4 4H7a4 4 0 01-4-4V7a4 4 0 014-4z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7h.01" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            <path stroke="url(#igGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7h.01" />
+                            <path stroke="url(#igGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 8a4 4 0 100 8 4 4 0 000-8z" />
                         </svg>
                     </a>

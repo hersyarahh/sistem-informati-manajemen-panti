@@ -53,16 +53,6 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function chatThreads()
-    {
-        return $this->hasMany(ChatThread::class, 'keluarga_user_id');
-    }
-
-    public function sentMessages()
-    {
-        return $this->hasMany(ChatMessage::class, 'sender_id');
-    }
-
     // Helper methods
     public function isAdmin()
     {
