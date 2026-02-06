@@ -12,6 +12,14 @@ class LansiaController extends Controller
 {
     public function edit(Lansia $lansia)
     {
+        $isAssigned = $lansia->karyawans()
+            ->where('users.id', auth()->id())
+            ->exists();
+
+        if (!$isAssigned) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $lansia->load('latestRiwayatKesehatan');
 
         return view('karyawan.lansia-kesehatan-edit', [
@@ -21,6 +29,14 @@ class LansiaController extends Controller
 
     public function update(Request $request, Lansia $lansia)
     {
+        $isAssigned = $lansia->karyawans()
+            ->where('users.id', auth()->id())
+            ->exists();
+
+        if (!$isAssigned) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $data = $request->validate([
             'no_kamar' => 'nullable|string|max:50',
             'kondisi_kesehatan' => 'nullable|in:sehat,sakit_ringan,sakit_berat,perawatan_khusus',

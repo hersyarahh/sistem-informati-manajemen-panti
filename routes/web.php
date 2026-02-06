@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TerminasiLansiaController;
 use App\Http\Controllers\Admin\RekapLansiaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RiwayatKesehatanController;
+use App\Http\Controllers\Admin\KaryawanAssignmentController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,20 @@ Route::middleware(['auth', 'role:admin'])
             ->name('riwayat-kesehatan.index');
         Route::get('/riwayat-kesehatan/{lansia}', [RiwayatKesehatanController::class, 'show'])
             ->name('riwayat-kesehatan.show');
+        Route::get('/riwayat-kesehatan/{lansia}/rekap', [RiwayatKesehatanController::class, 'rekap'])
+            ->name('riwayat-kesehatan.rekap');
+        Route::get('/riwayat-kesehatan/{lansia}/download', [RiwayatKesehatanController::class, 'download'])
+            ->name('riwayat-kesehatan.download');
+        Route::get('/riwayat-kesehatan-rekap', [RiwayatKesehatanController::class, 'rekapAll'])
+            ->name('riwayat-kesehatan.rekap-all');
+        Route::get('/riwayat-kesehatan/assign/staff', [KaryawanAssignmentController::class, 'index'])
+            ->name('riwayat-kesehatan.assign');
+        Route::post('/riwayat-kesehatan/assign/staff/select', [KaryawanAssignmentController::class, 'selectStaff'])
+            ->name('riwayat-kesehatan.assign.select');
+        Route::get('/riwayat-kesehatan/assign/staff/reset', [KaryawanAssignmentController::class, 'resetFilter'])
+            ->name('riwayat-kesehatan.assign.reset');
+        Route::post('/riwayat-kesehatan/assign/staff', [KaryawanAssignmentController::class, 'store'])
+            ->name('riwayat-kesehatan.assign.store');
 
         // ======================
         // REKAP LANSIA

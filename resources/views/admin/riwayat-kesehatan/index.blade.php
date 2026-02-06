@@ -9,6 +9,16 @@
             <h1 class="text-2xl font-bold text-gray-800">Riwayat Kesehatan</h1>
             <p class="text-gray-600 text-sm mt-1">Total: {{ $lansias->total() }} lansia</p>
         </div>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.riwayat-kesehatan.rekap-all') }}"
+               class="inline-flex items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
+                Rekap Kesehatan
+            </a>
+            <a href="{{ route('admin.riwayat-kesehatan.assign') }}"
+               class="inline-flex items-center justify-center px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors">
+                Tentukan Staff
+            </a>
+        </div>
     </div>
 
     <div class="bg-white rounded-lg shadow p-4">
@@ -24,13 +34,15 @@
             </div>
 
             <div class="md:col-span-2">
-                <select name="status"
+                <select name="no_kamar"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">Semua Status</option>
-                    <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="keluar" {{ request('status') == 'keluar' ? 'selected' : '' }}>Keluar</option>
-                    <option value="meninggal" {{ request('status') == 'meninggal' ? 'selected' : '' }}>Meninggal</option>
+                    <option value="">Semua Kamar</option>
+                    @foreach ($rooms as $room)
+                        <option value="{{ $room }}" {{ request('no_kamar') == $room ? 'selected' : '' }}>
+                            {{ $room }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
@@ -40,7 +52,7 @@
                     Cari
                 </button>
 
-                @if(request('search') || request('status'))
+                @if(request('search') || request('no_kamar'))
                 <a href="{{ route('admin.riwayat-kesehatan.index') }}"
                    class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                     Reset
@@ -121,7 +133,14 @@
                                 @endif
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-600">
-                                {{ $riwayat?->nama_petugas ?? '-' }}
+                                @php
+                                    $staffNames = $lansia->karyawans->pluck('name')->filter()->values();
+                                @endphp
+                                @if ($staffNames->isNotEmpty())
+                                    {{ $staffNames->join(', ') }}
+                                @else
+                                    {{ $riwayat?->nama_petugas ?? '-' }}
+                                @endif
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ route('admin.riwayat-kesehatan.show', $lansia) }}"

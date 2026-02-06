@@ -169,7 +169,7 @@ class LansiaController extends Controller
 
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
-            'status' => 'required|in:aktif,keluar,meninggal',
+            'status' => 'nullable|in:aktif,keluar,meninggal',
             'riwayat_penyakit' => 'nullable|string',
             'alergi' => 'nullable|string',
 

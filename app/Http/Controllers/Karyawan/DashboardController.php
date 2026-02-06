@@ -39,6 +39,9 @@ class DashboardController extends Controller
     public function riwayatKesehatan()
     {
         $lansias = Lansia::with('latestRiwayatKesehatan')
+            ->whereHas('karyawans', function ($query) {
+                $query->where('users.id', auth()->id());
+            })
             ->when(request()->filled('search'), function ($query) {
                 $query->where('nama_lengkap', 'like', '%' . request('search') . '%');
             })

@@ -28,6 +28,7 @@
 
     <form action="{{ route('karyawan.lansia.update', $lansia) }}"
           method="POST"
+          enctype="multipart/form-data"
           class="bg-white rounded-lg shadow">
         @csrf
         @method('PUT')

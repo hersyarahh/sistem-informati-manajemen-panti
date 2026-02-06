@@ -93,6 +93,11 @@ class Lansia extends Model
         return $this->hasOne(TerminasiLansia::class);
     }
 
+    public function karyawans()
+    {
+        return $this->belongsToMany(User::class, 'karyawan_lansia');
+    }
+
     public function riwayatKesehatan()
     {
         return $this->hasMany(RiwayatKesehatan::class);

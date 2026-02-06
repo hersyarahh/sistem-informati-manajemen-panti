@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function lansias()
+    {
+        return $this->belongsToMany(Lansia::class, 'karyawan_lansia');
+    }
+
     // Helper methods
     public function isAdmin()
     {
