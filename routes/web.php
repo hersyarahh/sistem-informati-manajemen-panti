@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Karyawan\DashboardController as KaryawanDashboardController;
 use App\Http\Controllers\Karyawan\LansiaController as KaryawanLansiaController;
+use App\Http\Controllers\Karyawan\KegiatanController as KaryawanKegiatanController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\Admin\LansiaController;
 use App\Http\Controllers\Admin\KegiatanController;
@@ -40,7 +41,7 @@ Route::get('/dashboard', function () {
     $user = auth()->user();
 
     if ($user->isAdmin()) return redirect()->route('admin.dashboard');
-    if ($user->isKaryawan()) return redirect()->route('karyawan.dashboard');
+    if ($user->isKaryawan()) return redirect()->route('karyawan.riwayat-kesehatan');
 
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -228,9 +229,13 @@ Route::middleware(['auth', 'role:karyawan'])
     ->prefix('karyawan')
     ->name('karyawan.')
     ->group(function () {
-        Route::get('/dashboard', [KaryawanDashboardController::class, 'index'])->name('dashboard');
+        Route::redirect('/dashboard', '/karyawan/riwayat-kesehatan')->name('dashboard');
         Route::get('/riwayat-kesehatan', [KaryawanDashboardController::class, 'riwayatKesehatan'])->name('riwayat-kesehatan');
-        Route::get('/riwayat-kegiatan', [KaryawanDashboardController::class, 'riwayatKegiatan'])->name('riwayat-kegiatan');
+        Route::get('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'index'])->name('riwayat-kegiatan');
+        Route::post('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'store'])->name('riwayat-kegiatan.store');
+        Route::put('/riwayat-kegiatan/{kehadiran}', [KaryawanKegiatanController::class, 'update'])->name('riwayat-kegiatan.update');
+        Route::post('/riwayat-kegiatan/{kehadiran}/cancel', [KaryawanKegiatanController::class, 'requestCancel'])->name('riwayat-kegiatan.cancel');
+        Route::get('/kegiatan/{kegiatan}/kehadiran', [KaryawanKegiatanController::class, 'kehadiran'])->name('kegiatan.kehadiran');
         Route::get('/lansia/{lansia}/edit', [KaryawanLansiaController::class, 'edit'])->name('lansia.edit');
         Route::put('/lansia/{lansia}', [KaryawanLansiaController::class, 'update'])->name('lansia.update');
         Route::patch('/lansia/{lansia}', [KaryawanLansiaController::class, 'update']);

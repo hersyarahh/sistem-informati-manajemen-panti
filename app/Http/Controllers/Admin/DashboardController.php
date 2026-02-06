@@ -22,6 +22,27 @@ class DashboardController extends Controller
         $labels = $lansiaPerTahun->pluck('tahun')->map(fn ($y) => (string) $y)->values()->all();
         $counts = $lansiaPerTahun->pluck('total')->map(fn ($v) => (int) $v)->values()->all();
 
+        $kondisiCounts = Lansia::selectRaw('kondisi_kesehatan, COUNT(*) as total')
+            ->whereNotNull('kondisi_kesehatan')
+            ->groupBy('kondisi_kesehatan')
+            ->pluck('total', 'kondisi_kesehatan')
+            ->toArray();
+
+        $kondisiLabels = [
+            'sehat' => 'Sehat',
+            'sakit_ringan' => 'Sakit Ringan',
+            'sakit_berat' => 'Sakit Berat',
+            'perawatan_khusus' => 'Perawatan Khusus',
+        ];
+
+        $kondisiChartLabels = [];
+        $kondisiChartData = [];
+
+        foreach ($kondisiLabels as $key => $label) {
+            $kondisiChartLabels[] = $label;
+            $kondisiChartData[] = (int) ($kondisiCounts[$key] ?? 0);
+        }
+
         return view('admin.dashboard', [
             'totalLansia' => Lansia::where('status', 'aktif')->count(),
             'totalKaryawan' => User::whereHas('role', function ($query) {
@@ -30,6 +51,8 @@ class DashboardController extends Controller
             'kegiatanHariIni' => Kegiatan::whereDate('tanggal', today())->count(),
             'lansiaYearLabels' => $labels,
             'lansiaYearCounts' => $counts,
+            'kondisiChartLabels' => $kondisiChartLabels,
+            'kondisiChartData' => $kondisiChartData,
         ]);
     }
 }

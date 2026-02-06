@@ -22,15 +22,7 @@
                 ← Kembali
             </a>
 
-            <a href="{{ route('admin.kegiatan.edit', $kegiatan) }}"
-                class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
-                Edit
-            </a>
 
-            <a href="{{ route('admin.kegiatan.kehadiran', $kegiatan->id) }}"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                Kelola Kehadiran
-            </a>
         </div>
     </div>
 
@@ -114,6 +106,9 @@
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                             Status Kehadiran
                         </th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                            Catatan
+                        </th>
                     </tr>
                 </thead>
 
@@ -139,10 +134,14 @@
                             </span>
                             @endif
                         </td>
+
+                        <td class="px-4 py-3 text-sm text-gray-600">
+                            {{ $lansia->pivot->catatan ?? '-' }}
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="px-4 py-6 text-center text-gray-500">
+                        <td colspan="4" class="px-4 py-6 text-center text-gray-500">
                             Belum ada data kehadiran.
                         </td>
                     </tr>

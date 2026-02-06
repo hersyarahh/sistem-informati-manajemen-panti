@@ -10,7 +10,9 @@ class Kehadiran extends Model
         'kegiatan_id',
         'lansia_id',
         'status_kehadiran', 
-        'catatan'
+        'catatan',
+        'pembatalan_diajukan_at',
+        'pembatalan_alasan',
     ];
 
     public function kegiatan()

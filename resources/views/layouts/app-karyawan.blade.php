@@ -30,13 +30,6 @@
                     $navInactive = 'text-blue-100 hover:bg-blue-600 hover:text-white';
                 @endphp
 
-                @php $isActive = request()->routeIs('karyawan.dashboard'); @endphp
-                <a href="{{ route('karyawan.dashboard') }}"
-                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
-                   @if ($isActive) aria-current="page" @endif>
-                    Dashboard
-                </a>
-
                 @php $isActive = request()->routeIs('karyawan.riwayat-kesehatan'); @endphp
                 <a href="{{ route('karyawan.riwayat-kesehatan') }}"
                    class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"

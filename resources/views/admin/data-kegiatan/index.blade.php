@@ -156,27 +156,16 @@
                                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                                     </svg>
                                     <span class="font-semibold">
-                                        {{ $kegiatan->kehadiranHadir->count() }} /
-                                        {{ $kegiatan->lansias->count() }}
+                                        @if (($kegiatan->total_absen ?? 0) === 0)
+                                            - /
+                                        @else
+                                            {{ $kegiatan->total_hadir ?? 0 }} /
+                                        @endif
+                                        {{ $kegiatan->total_lansia ?? 0 }}
                                     </span>
                                 </div>
 
                                 <!--Tombol Absen-->
-                                <a href="{{ route('admin.kegiatan.kehadiran', $kegiatan->id) }}"
-                                class="text-blue-600 hover:text-blue-800"
-                                title="Kelola Absen">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-5 h-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9 3h6v4H9zM9 13l2 2 4-4"/>
-                                    </svg>
-                                </a>
                             </div>
                         </td>
 

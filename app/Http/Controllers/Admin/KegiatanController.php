@@ -57,6 +57,33 @@ class KegiatanController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        $tanggalList = $kegiatans->getCollection()
+            ->pluck('tanggal')
+            ->filter()
+            ->map(fn ($d) => $d->toDateString())
+            ->unique()
+            ->values();
+
+        $lansiaCountByDate = [];
+        foreach ($tanggalList as $tanggal) {
+            $lansiaCountByDate[$tanggal] = Lansia::where('status', 'aktif')
+                ->whereDate('tanggal_masuk', '<=', $tanggal)
+                ->count();
+        }
+
+        $kegiatans->getCollection()->each(function ($kegiatan) use ($lansiaCountByDate) {
+            $tanggal = $kegiatan->tanggal?->toDateString();
+            $kegiatan->total_lansia = $tanggal ? ($lansiaCountByDate[$tanggal] ?? 0) : 0;
+            $kegiatan->total_hadir = Kehadiran::where('kegiatan_id', $kegiatan->id)
+                ->where('status_kehadiran', 'hadir')
+                ->whereHas('lansia', function ($query) use ($tanggal) {
+                    $query->where('status', 'aktif')
+                        ->whereDate('tanggal_masuk', '<=', $tanggal);
+                })
+                ->count();
+            $kegiatan->total_absen = Kehadiran::where('kegiatan_id', $kegiatan->id)->count();
+        });
+
         return view('admin.data-kegiatan.index', compact('kegiatans'));
     }
 
@@ -208,11 +235,17 @@ class KegiatanController extends Controller
         }
 
         $kegiatans = $query->get()->map(function ($kegiatan) {
-            $kegiatan->total_hadir = $kegiatan->lansias()
-                ->wherePivot('status_kehadiran', 'hadir')
+            $kegiatan->total_hadir = Kehadiran::where('kegiatan_id', $kegiatan->id)
+                ->where('status_kehadiran', 'hadir')
+                ->whereHas('lansia', function ($query) use ($kegiatan) {
+                    $query->where('status', 'aktif')
+                        ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal);
+                })
                 ->count();
 
-            $kegiatan->total_lansia = Lansia::count();
+            $kegiatan->total_lansia = Lansia::where('status', 'aktif')
+                ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal)
+                ->count();
             return $kegiatan;
         });
 
@@ -267,11 +300,17 @@ class KegiatanController extends Controller
         }
 
         $kegiatans = $query->get()->map(function ($kegiatan) {
-            $kegiatan->total_hadir = $kegiatan->lansias()
-                ->wherePivot('status_kehadiran', 'hadir')
+            $kegiatan->total_hadir = Kehadiran::where('kegiatan_id', $kegiatan->id)
+                ->where('status_kehadiran', 'hadir')
+                ->whereHas('lansia', function ($query) use ($kegiatan) {
+                    $query->where('status', 'aktif')
+                        ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal);
+                })
                 ->count();
 
-            $kegiatan->total_lansia = \App\Models\Lansia::count();
+            $kegiatan->total_lansia = \App\Models\Lansia::where('status', 'aktif')
+                ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal)
+                ->count();
             return $kegiatan;
         });
 
@@ -330,10 +369,16 @@ class KegiatanController extends Controller
         ]);
 
         // Statistik kehadiran
-        $totalLansia = $kegiatan->lansias->count();
+        $totalLansia = Lansia::where('status', 'aktif')
+            ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal)
+            ->count();
 
-        $totalHadir = $kegiatan->lansias
-            ->where('pivot.status_kehadiran', 'hadir')
+        $totalHadir = Kehadiran::where('kegiatan_id', $kegiatan->id)
+            ->where('status_kehadiran', 'hadir')
+            ->whereHas('lansia', function ($query) use ($kegiatan) {
+                $query->where('status', 'aktif')
+                    ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal);
+            })
             ->count();
 
         $totalTidakHadir = $totalLansia - $totalHadir;
