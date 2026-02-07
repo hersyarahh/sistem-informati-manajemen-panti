@@ -45,7 +45,7 @@
                                 {{ $kegiatan->lokasi ?? '-' }}
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-700">
-                                <a href="{{ route('karyawan.kegiatan.kehadiran', $kegiatan) }}"
+                                <a href="{{ route('staff.kegiatan.kehadiran', $kegiatan) }}"
                                    class="text-blue-600 hover:text-blue-900"
                                    title="Absen Lansia">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

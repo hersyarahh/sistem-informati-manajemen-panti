@@ -41,7 +41,7 @@ Route::get('/dashboard', function () {
     $user = auth()->user();
 
     if ($user->isAdmin()) return redirect()->route('admin.dashboard');
-    if ($user->isKaryawan()) return redirect()->route('karyawan.riwayat-kesehatan');
+    if ($user->isKaryawan()) return redirect()->route('staff.riwayat-kesehatan');
 
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -226,10 +226,10 @@ Route::middleware(['auth', 'role:admin,karyawan'])
 //  Karyawan
 // ======================
 Route::middleware(['auth', 'role:karyawan'])
-    ->prefix('karyawan')
-    ->name('karyawan.')
+    ->prefix('staff')
+    ->name('staff.')
     ->group(function () {
-        Route::redirect('/dashboard', '/karyawan/riwayat-kesehatan')->name('dashboard');
+        Route::redirect('/dashboard', '/staff/riwayat-kesehatan')->name('dashboard');
         Route::get('/riwayat-kesehatan', [KaryawanDashboardController::class, 'riwayatKesehatan'])->name('riwayat-kesehatan');
         Route::get('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'index'])->name('riwayat-kegiatan');
         Route::post('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'store'])->name('riwayat-kegiatan.store');
@@ -240,5 +240,12 @@ Route::middleware(['auth', 'role:karyawan'])
         Route::put('/lansia/{lansia}', [KaryawanLansiaController::class, 'update'])->name('lansia.update');
         Route::patch('/lansia/{lansia}', [KaryawanLansiaController::class, 'update']);
     });
+
+Route::middleware(['auth', 'role:karyawan'])
+    ->get('/karyawan/{path?}', function ($path = '') {
+        $path = ltrim($path, '/');
+        return redirect('/staff' . ($path ? '/' . $path : ''));
+    })
+    ->where('path', '.*');
 
 require __DIR__.'/auth.php';

@@ -6,7 +6,7 @@
 <div class="space-y-6">
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-800">Edit Data Kesehatan</h1>
-        <a href="{{ route('karyawan.riwayat-kesehatan') }}"
+        <a href="{{ route('staff.riwayat-kesehatan') }}"
            class="text-blue-600 hover:text-blue-700 flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    <form action="{{ route('karyawan.lansia.update', $lansia) }}"
+    <form action="{{ route('staff.lansia.update', $lansia) }}"
           method="POST"
           enctype="multipart/form-data"
           class="bg-white rounded-lg shadow">
@@ -80,7 +80,7 @@
         <div class="p-6 border-b">
             <h2 class="text-lg font-semibold mb-4">Pemeriksaan Terakhir</h2>
 
-            @php $riwayat = $lansia->latestRiwayatKesehatan; @endphp
+            @php $riwayat = $latestRiwayat ?? null; @endphp
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -151,7 +151,7 @@
         </div>
 
         <div class="p-6 flex justify-end gap-3">
-            <a href="{{ route('karyawan.riwayat-kesehatan') }}"
+            <a href="{{ route('staff.riwayat-kesehatan') }}"
                class="px-6 py-2 bg-gray-200 rounded-lg">Batal</a>
             <button type="submit"
                     class="px-6 py-2 bg-blue-600 text-white rounded-lg">

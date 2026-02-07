@@ -20,7 +20,7 @@ class RiwayatKesehatanController extends Controller
                 $query->where('no_kamar', $request->no_kamar);
             })
             ->orderBy('nama_lengkap')
-            ->paginate(6)
+            ->paginate(5)
             ->withQueryString();
 
         $rooms = Lansia::where('status', 'aktif')
@@ -64,7 +64,7 @@ class RiwayatKesehatanController extends Controller
             })
             ->orderBy('nama_lengkap');
 
-        $lansias = $lansiaQuery->paginate(6)->withQueryString();
+        $lansias = $lansiaQuery->paginate(5)->withQueryString();
 
         return view('admin.riwayat-kesehatan.rekap-all', [
             'lansias' => $lansias,

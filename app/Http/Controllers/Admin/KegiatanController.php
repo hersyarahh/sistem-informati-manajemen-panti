@@ -54,7 +54,7 @@ class KegiatanController extends Controller
 
         $kegiatans = $query
             ->orderBy('tanggal', 'desc')
-            ->paginate(10)
+            ->paginate(5)
             ->withQueryString();
 
         $tanggalList = $kegiatans->getCollection()

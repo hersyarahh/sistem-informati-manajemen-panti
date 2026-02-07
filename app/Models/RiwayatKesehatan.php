@@ -11,6 +11,7 @@ class RiwayatKesehatan extends Model
 
     protected $fillable = [
         'lansia_id',
+        'created_by',
         'tanggal_periksa',
         'jenis_pemeriksaan',
         'keluhan',
@@ -31,5 +32,10 @@ class RiwayatKesehatan extends Model
     public function lansia()
     {
         return $this->belongsTo(Lansia::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

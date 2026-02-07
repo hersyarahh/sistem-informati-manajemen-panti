@@ -9,7 +9,10 @@ class DashboardController extends Controller
 {
     public function riwayatKesehatan()
     {
-        $lansias = Lansia::with('latestRiwayatKesehatan')
+        $lansias = Lansia::with(['riwayatKesehatan' => function ($query) {
+                $query->where('created_by', auth()->id())
+                    ->orderBy('tanggal_periksa', 'desc');
+            }])
             ->whereHas('karyawans', function ($query) {
                 $query->where('users.id', auth()->id());
             })
@@ -18,7 +21,7 @@ class DashboardController extends Controller
             })
             ->where('status', 'aktif')
             ->orderBy('nama_lengkap')
-            ->paginate(6)
+            ->paginate(5)
             ->withQueryString();
 
         return view('karyawan.riwayat-kesehatan', compact('lansias'));

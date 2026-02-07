@@ -20,10 +20,14 @@ class LansiaController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $lansia->load('latestRiwayatKesehatan');
+        $latestRiwayat = $lansia->riwayatKesehatan()
+            ->where('created_by', auth()->id())
+            ->orderByDesc('tanggal_periksa')
+            ->first();
 
         return view('karyawan.lansia-kesehatan-edit', [
             'lansia' => $lansia,
+            'latestRiwayat' => $latestRiwayat,
         ]);
     }
 
@@ -73,6 +77,7 @@ class LansiaController extends Controller
         if ($riwayatFilled) {
             $riwayatData = [
                 'lansia_id' => $lansia->id,
+                'created_by' => auth()->id(),
                 'tanggal_periksa' => $data['riwayat_tanggal_periksa'] ?? null,
                 'jenis_pemeriksaan' => $data['riwayat_jenis_pemeriksaan'] ?? null,
                 'keluhan' => $data['riwayat_keluhan'] ?? null,
@@ -93,7 +98,7 @@ class LansiaController extends Controller
         }
 
         return redirect()
-            ->route('karyawan.riwayat-kesehatan')
+            ->route('staff.riwayat-kesehatan')
             ->with('success', 'Data kesehatan berhasil diperbarui.');
     }
 }

@@ -108,7 +108,7 @@ class KaryawanAssignmentController extends Controller
         $request->session()->forget("assign_selected_lansia_ids.{$staff->id}");
 
         return redirect()
-            ->route('admin.riwayat-kesehatan.assign', ['staff_id' => $staff->id])
+            ->route('admin.riwayat-kesehatan.index')
             ->with('success', 'Penugasan staff berhasil disimpan.');
     }
 }

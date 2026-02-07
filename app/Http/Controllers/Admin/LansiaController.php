@@ -26,7 +26,7 @@ class LansiaController extends Controller
             $query->where('status', $request->status);
         }
 
-        $lansias = $query->orderBy('created_at', 'desc')->paginate(6)->withQueryString();
+        $lansias = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
 
         return view('admin.data-lansia.index', compact('lansias'));
     }
@@ -266,6 +266,7 @@ class LansiaController extends Controller
         if ($riwayatFilled) {
             $riwayatData = [
                 'lansia_id' => $lansia->id,
+                'created_by' => auth()->id(),
                 'tanggal_periksa' => $request->input('riwayat_tanggal_periksa'),
                 'jenis_pemeriksaan' => $request->input('riwayat_jenis_pemeriksaan'),
                 'keluhan' => $request->input('riwayat_keluhan'),

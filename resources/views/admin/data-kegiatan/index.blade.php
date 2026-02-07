@@ -220,7 +220,7 @@
         <!-- Pagination -->
         @if($kegiatans->hasPages())
         <div class="px-4 py-3 border-t border-gray-200">
-            {{ $kegiatans->links() }}
+            {{ $kegiatans->links('pagination.admin') }}
         </div>
         @endif
     </div>

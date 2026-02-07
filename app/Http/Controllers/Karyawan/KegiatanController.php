@@ -106,7 +106,7 @@ class KegiatanController extends Controller
         }
 
         return redirect()
-            ->route('karyawan.riwayat-kegiatan')
+            ->route('staff.riwayat-kegiatan')
             ->with('success', 'Absensi berhasil disimpan.');
     }
 
@@ -141,7 +141,7 @@ class KegiatanController extends Controller
         }
 
         return redirect()
-            ->route('karyawan.riwayat-kegiatan')
+            ->route('staff.riwayat-kegiatan')
             ->with('success', 'Absensi berhasil diperbarui.');
     }
 
@@ -166,7 +166,7 @@ class KegiatanController extends Controller
         ]);
 
         return redirect()
-            ->route('karyawan.riwayat-kegiatan')
+            ->route('staff.riwayat-kegiatan')
             ->with('success', 'Pengajuan pembatalan tersimpan.');
     }
 }
