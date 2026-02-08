@@ -45,7 +45,7 @@
     </div>
 
     <div class="mb-4">
-        <label class="block font-medium">Deskripsi</label>
+        <label class="block font-medium">Instruktur / Narasumber</label>
         <textarea name="deskripsi" class="w-full border rounded p-2"></textarea>
     </div>
 

@@ -9,15 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('kehadirans', function (Blueprint $table) {
-            $table->timestamp('pembatalan_diajukan_at')->nullable();
-            $table->text('pembatalan_alasan')->nullable();
+            $table->string('status_kehadiran')->nullable();
+            $table->text('catatan')->nullable();
         });
     }
 
     public function down(): void
     {
         Schema::table('kehadirans', function (Blueprint $table) {
-            $table->dropColumn(['pembatalan_diajukan_at', 'pembatalan_alasan']);
+            $table->dropColumn(['status_kehadiran', 'catatan']);
         });
     }
 };

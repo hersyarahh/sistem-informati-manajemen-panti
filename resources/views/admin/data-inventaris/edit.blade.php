@@ -89,7 +89,6 @@
                             class="w-full border rounded px-3 py-2">
                         <option value="APBD" {{ old('sumber_dana', $inventaris->sumber_dana) == 'APBD' ? 'selected' : '' }}>APBD</option>
                         <option value="CSR" {{ old('sumber_dana', $inventaris->sumber_dana) == 'CSR' ? 'selected' : '' }}>CSR</option>
-                        <option value="Donasi" {{ old('sumber_dana', $inventaris->sumber_dana) == 'Donasi' ? 'selected' : '' }}>Donasi</option>
                     </select>
                 </div>
 

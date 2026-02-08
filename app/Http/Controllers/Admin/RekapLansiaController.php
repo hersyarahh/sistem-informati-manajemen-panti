@@ -30,7 +30,7 @@ class RekapLansiaController extends Controller
 
         $lansias = $query
             ->orderBy('tanggal_masuk', 'asc')
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('admin.data-lansia.rekap', compact(

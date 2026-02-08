@@ -33,7 +33,7 @@ class InventarisController extends Controller
         $query->where('kategori', $request->kategori);
     }
 
-    $inventaris = $query->latest()->paginate(10);
+    $inventaris = $query->latest()->paginate(6);
 
     return view('admin.data-inventaris.index', compact('inventaris'));
 }

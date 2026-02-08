@@ -16,7 +16,7 @@
             </a>
             <a href="{{ route('admin.riwayat-kesehatan.assign') }}"
                class="inline-flex items-center justify-center px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors">
-                Tentukan Staff
+                Tentukan Pekerja Sosial
             </a>
         </div>
     </div>

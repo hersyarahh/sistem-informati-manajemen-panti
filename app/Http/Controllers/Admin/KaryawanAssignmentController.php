@@ -109,6 +109,6 @@ class KaryawanAssignmentController extends Controller
 
         return redirect()
             ->route('admin.riwayat-kesehatan.index')
-            ->with('success', 'Penugasan staff berhasil disimpan.');
+            ->with('success', 'Penugasan pekerja sosial berhasil disimpan.');
     }
 }

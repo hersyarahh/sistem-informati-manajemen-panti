@@ -16,7 +16,6 @@
         <div class="hidden md:flex space-x-8 text-gray-700 font-medium">
             <a href="{{ route('home') }}#home" class="hover:text-blue-700">Home</a>
             <a href="{{ route('home') }}#tentang-kami" class="hover:text-blue-700">Tentang Kami</a>
-            <a href="{{ route('donasi.index') }}" class="hover:text-blue-700">Donasi</a>
             <a href="{{ route('home') }}#galeri" class="hover:text-blue-700">Galeri</a>
         </div>
 

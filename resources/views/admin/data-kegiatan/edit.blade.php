@@ -123,10 +123,10 @@
                 @enderror
             </div>
 
-            <!-- Deskripsi -->
+            <!-- Instruktur / Narasumber -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Deskripsi
+                    Instruktur / Narasumber
                 </label>
                 <textarea name="deskripsi"
                           rows="4"

@@ -23,9 +23,9 @@ class UserController extends Controller
 
     public function create()
     {
-        Role::firstOrCreate(
+        Role::updateOrCreate(
             ['name' => 'karyawan'],
-            ['label' => 'Staff']
+            ['label' => 'Pekerja Sosial']
         );
 
         $roles = Role::where('name', '!=', 'keluarga')
@@ -57,9 +57,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        Role::firstOrCreate(
+        Role::updateOrCreate(
             ['name' => 'karyawan'],
-            ['label' => 'Staff']
+            ['label' => 'Pekerja Sosial']
         );
 
         $roles = Role::where('name', '!=', 'keluarga')
@@ -113,5 +113,18 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('success', 'User berhasil dihapus.');
+    }
+
+    public function pekerjaSosial()
+    {
+        $users = User::with('role')
+            ->whereHas('role', function ($query) {
+                $query->where('name', 'karyawan');
+            })
+            ->orderBy('name')
+            ->paginate(5)
+            ->withQueryString();
+
+        return view('admin.users.pekerja-sosial', compact('users'));
     }
 }

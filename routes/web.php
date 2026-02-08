@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Karyawan\DashboardController as KaryawanDashboardController;
 use App\Http\Controllers\Karyawan\LansiaController as KaryawanLansiaController;
 use App\Http\Controllers\Karyawan\KegiatanController as KaryawanKegiatanController;
-use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\Admin\LansiaController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\InventarisController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\Admin\RekapLansiaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RiwayatKesehatanController;
 use App\Http\Controllers\Admin\KaryawanAssignmentController;
+use App\Http\Controllers\Admin\PekerjaSosialController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -31,8 +31,6 @@ Route::get('/tentang-kami', function () {
     return view('public.tentang');
 })->name('tentang');
 
-Route::get('/donasi', [DonasiController::class, 'index'])->name('donasi.index');
-Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
 
 // ======================
 // Dashboard Redirect
@@ -71,6 +69,9 @@ Route::middleware(['auth', 'role:admin'])
         // User Management
         // ======================
         Route::resource('users', UserController::class)->except(['show']);
+        Route::resource('pekerja-sosial', PekerjaSosialController::class);
+        Route::get('pekerja-sosial-rekap', [PekerjaSosialController::class, 'rekap'])
+            ->name('pekerja-sosial.rekap');
 
         // ======================
         // Riwayat Kesehatan

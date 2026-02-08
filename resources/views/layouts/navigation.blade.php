@@ -11,7 +11,6 @@
             <a href="/" class="hover:text-blue-600">Home</a>
             <a href="/tentang" class="hover:text-blue-600">Tentang Kami</a>
             <a href="/galeri" class="hover:text-blue-600">Galeri</a>
-            <a href="/donasi" class="hover:text-blue-600">Donasi</a>
         </div>
 
         <!-- Login Button -->
@@ -36,7 +35,6 @@
         <a href="/" class="block py-2">Home</a>
         <a href="/tentang" class="block py-2">Tentang Kami</a>
         <a href="/galeri" class="block py-2">Galeri</a>
-        <a href="/donasi" class="block py-2">Donasi</a>
 
         <a href="{{ route('login') }}" 
            class="block bg-blue-600 text-white text-center py-2 rounded">

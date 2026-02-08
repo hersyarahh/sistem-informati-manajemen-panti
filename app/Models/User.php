@@ -17,6 +17,10 @@ class User extends Authenticatable
         'role_id',
         'phone',
         'address',
+        'tanggal_lahir',
+        'tempat_lahir',
+        'jenis_kelamin',
+        'foto',
     ];
 
     protected $hidden = [
@@ -28,26 +32,12 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'tanggal_lahir' => 'date',
             'password' => 'hashed',
         ];
     }
 
     // Relationships
-    public function keluargaLansia()
-    {
-        return $this->hasOne(KeluargaLansia::class);
-    }
-
-    public function donasis()
-    {
-        return $this->hasMany(Donasi::class);
-    }
-
-    public function kunjungans()
-    {
-        return $this->hasMany(Kunjungan::class);
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class);

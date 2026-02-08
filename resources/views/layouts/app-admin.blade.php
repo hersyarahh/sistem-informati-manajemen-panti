@@ -50,6 +50,13 @@
                     Manajemen User
                 </a>
 
+                @php $isActive = request()->routeIs('admin.pekerja-sosial.*'); @endphp
+                <a href="{{ route('admin.pekerja-sosial.index') }}"
+                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
+                   @if ($isActive) aria-current="page" @endif>
+                    Data Pekerja Sosial
+                </a>
+
                 @php
                     $isActive = request()->routeIs('admin.lansia.*');
                     $isSubActive = request()->routeIs('admin.riwayat-kesehatan.*');
@@ -84,12 +91,6 @@
                     Inventaris
                 </a>
 
-                <!-- @php $isActive = request()->is('admin/donasi*'); @endphp
-                <a href="{{ url('/admin/donasi') }}"
-                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
-                   @if ($isActive) aria-current="page" @endif>
-                    Donasi
-                </a> -->
             </nav>
 
             <!-- LOGOUT BUTTON -->

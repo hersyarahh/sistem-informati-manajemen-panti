@@ -17,6 +17,37 @@
         </div>
     @endif
 
+    <div class="bg-white rounded-lg shadow p-4">
+        <form method="GET" action="{{ route('staff.riwayat-kegiatan') }}"
+              class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            <div class="md:col-span-6">
+                <select name="jenis"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Semua Golongan Kegiatan</option>
+                    <option value="Olahraga" {{ request('jenis') == 'Olahraga' ? 'selected' : '' }}>Olahraga</option>
+                    <option value="Kesehatan" {{ request('jenis') == 'Kesehatan' ? 'selected' : '' }}>Kesehatan</option>
+                    <option value="Keagamaan" {{ request('jenis') == 'Keagamaan' ? 'selected' : '' }}>Keagamaan</option>
+                    <option value="Sosial" {{ request('jenis') == 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                    <option value="Hiburan" {{ request('jenis') == 'Hiburan' ? 'selected' : '' }}>Hiburan</option>
+                </select>
+            </div>
+
+            <div class="md:col-span-3 flex gap-2">
+                <button type="submit"
+                        class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
+                    Filter
+                </button>
+                @if(request()->filled('jenis'))
+                <a href="{{ route('staff.riwayat-kegiatan') }}"
+                   class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
+                    Reset
+                </a>
+                @endif
+            </div>
+        </form>
+    </div>
+
     <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">

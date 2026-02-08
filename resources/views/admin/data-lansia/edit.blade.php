@@ -162,9 +162,9 @@
                     'dokumen_ktp' => 'KTP',
                     'dokumen_kk' => 'Kartu Keluarga',
                     'dokumen_bpjs' => 'BPJS',
-                    'dokumen_surat_pengantar' => 'Surat Pengantar',
-                    'dokumen_surat_sehat' => 'Surat Sehat',
                     'dokumen_surat_terlantar' => 'Surat Terlantar',
+                    'dokumen_surat_sehat' => 'Surat Sehat',
+                    'dokumen_surat_pengantar' => 'Surat Pengantar',
                     'dokumen_surat_terminasi' => 'Surat Terminasi',
                 ];
             @endphp

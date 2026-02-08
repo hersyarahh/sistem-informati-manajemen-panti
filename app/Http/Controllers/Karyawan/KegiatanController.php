@@ -14,7 +14,14 @@ class KegiatanController extends Controller
 {
     public function index(Request $request)
     {
-        $kegiatans = Kegiatan::orderBy('tanggal', 'desc')
+        $query = Kegiatan::query();
+
+        if ($request->filled('jenis')) {
+            $query->where('jenis_kegiatan', $request->jenis);
+        }
+
+        $kegiatans = $query
+            ->orderBy('tanggal', 'desc')
             ->orderBy('waktu_mulai', 'asc')
             ->paginate(10)
             ->withQueryString();

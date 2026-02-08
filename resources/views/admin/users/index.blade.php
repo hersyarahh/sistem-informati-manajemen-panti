@@ -41,7 +41,7 @@
                         <th class="px-3 py-2 text-left sm:px-4 sm:py-3">Nama</th>
                         <th class="px-3 py-2 text-left sm:px-4 sm:py-3 hidden sm:table-cell">Email</th>
                         <th class="px-3 py-2 text-left sm:px-4 sm:py-3">Role</th>
-                        <th class="px-3 py-2 text-left sm:px-4 sm:py-3 hidden md:table-cell">Telepon</th>
+                        <th class="px-3 py-2 text-left sm:px-4 sm:py-3 hidden md:table-cell"></th>
                         <th class="px-3 py-2 text-center sm:px-4 sm:py-3">Aksi</th>
                     </tr>
                 </thead>
@@ -60,10 +60,10 @@
                             </td>
                             <td class="px-3 py-2 sm:px-4 sm:py-3">
                                 <span class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-[10px] text-blue-700 sm:px-3 sm:text-xs">
-                                    {{ $user->role?->label ?? '-' }}
+                                    {{ $user->role?->name === 'karyawan' ? 'Pekerja Sosial' : ($user->role?->label ?? '-') }}
                                 </span>
                             </td>
-                            <td class="px-3 py-2 sm:px-4 sm:py-3 hidden md:table-cell">{{ $user->phone ?? '-' }}</td>
+                            <td class="px-3 py-2 sm:px-4 sm:py-3 hidden md:table-cell"></td>
                             <td class="px-3 py-2 sm:px-4 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium">
                                 <div class="flex items-center justify-center gap-1.5 sm:gap-2">
                                     <a href="{{ route('admin.users.edit', $user) }}"
@@ -92,7 +92,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-6 text-gray-500">
+                            <td colspan="5" class="text-center py-6 text-gray-500">
                                 Data user belum tersedia
                             </td>
                         </tr>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Staff - @yield('title')</title>
+    <title>Pekerja Sosial - @yield('title')</title>
     <link rel="icon" href="data:,">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,7 +20,7 @@
             class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col h-screen transform transition-transform duration-200 ease-out lg:translate-x-0">
 
             <div class="px-5 py-6">
-                <h2 class="text-xl font-bold mb-10">Menu Staff</h2>
+                <h2 class="text-xl font-bold mb-10">Menu Pekerja Sosial</h2>
             </div>
 
             <nav class="flex flex-col space-y-4 px-5 flex-1">
@@ -68,7 +68,7 @@
                                 d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <span id="staff-sidebar-label" class="hidden text-sm font-semibold text-gray-600">Menu Staff</span>
+                    <span id="staff-sidebar-label" class="hidden text-sm font-semibold text-gray-600">Menu Pekerja Sosial</span>
                 </div>
                 @yield('content')
             </div>

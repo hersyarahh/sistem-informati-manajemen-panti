@@ -116,18 +116,6 @@
     </div>
 </section>
 
-    <!-- DONASI -->
-    <!-- <section id="donasi" class="py-20 bg-white w-full">
-        <div class="w-full px-4 md:px-10 text-center">
-            <h2 class="text-3xl font-bold mb-6 text-blue-600">Donasi</h2>
-            <p class="text-gray-700 mb-6">Dukungan Anda sangat berarti bagi lansia.</p>
-
-            <a href="{{ route('donasi.index') }}"
-               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                Donasi Sekarang
-            </a>
-        </div>
-    </section> -->
 
     <!-- GALERI -->
     <section id="galeri" class="py-12 sm:py-16 lg:py-20 bg-gray-100 w-full">

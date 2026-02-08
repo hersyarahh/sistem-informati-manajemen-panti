@@ -17,13 +17,18 @@
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow">
-            <p class="text-gray-500">Total Karyawan</p>
+            <p class="text-gray-500">Total Pekerja Sosial</p>
             <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan }}</h2>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow">
             <p class="text-gray-500">Kegiatan Hari Ini</p>
             <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni }}</h2>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow">
+            <p class="text-gray-500">Total Inventaris</p>
+            <h2 class="text-3xl font-bold text-orange-600 mt-2">{{ $totalInventaris }}</h2>
         </div>
 
     </div>
