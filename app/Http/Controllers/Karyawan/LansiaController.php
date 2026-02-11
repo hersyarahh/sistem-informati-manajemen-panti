@@ -20,14 +20,10 @@ class LansiaController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $latestRiwayat = $lansia->riwayatKesehatan()
-            ->where('created_by', auth()->id())
-            ->orderByDesc('tanggal_periksa')
-            ->first();
-
         return view('karyawan.lansia-kesehatan-edit', [
             'lansia' => $lansia,
-            'latestRiwayat' => $latestRiwayat,
+            // Form riwayat selalu dimulai kosong untuk input baru.
+            'latestRiwayat' => null,
         ]);
     }
 

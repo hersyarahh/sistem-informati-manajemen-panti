@@ -33,6 +33,12 @@ class KegiatanController extends Controller
 
     public function kehadiran(Kegiatan $kegiatan)
     {
+        if (!$kegiatan->tanggal || !$kegiatan->tanggal->isToday()) {
+            return redirect()
+                ->route('staff.riwayat-kegiatan')
+                ->with('error', 'Absensi hanya bisa diisi untuk kegiatan hari ini.');
+        }
+
         $assignedLansias = auth()->user()
             ->lansias()
             ->where('status', 'aktif')
@@ -69,6 +75,11 @@ class KegiatanController extends Controller
         $validator->after(function ($validator) use ($request) {
             $kegiatan = Kegiatan::find($request->input('kegiatan_id'));
             if (!$kegiatan) {
+                return;
+            }
+
+            if (!$kegiatan->tanggal || !$kegiatan->tanggal->isToday()) {
+                $validator->errors()->add('kegiatan_id', 'Absensi hanya bisa disimpan untuk kegiatan hari ini.');
                 return;
             }
 
