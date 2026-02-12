@@ -42,8 +42,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::defaults()],
             'role_id' => ['required', 'exists:roles,id'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'address' => ['nullable', 'string'],
+            'phone' => ['nullable', 'digits_between:8,20'],
         ]);
 
         $data['password'] = Hash::make($data['password']);
@@ -83,8 +82,7 @@ class UserController extends Controller
             ],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'role_id' => ['required', 'exists:roles,id'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'address' => ['nullable', 'string'],
+            'phone' => ['nullable', 'digits_between:8,20'],
         ]);
 
         if (!empty($data['password'])) {
@@ -98,6 +96,22 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('success', 'User berhasil diperbarui.');
+    }
+
+    public function toggleStatus(User $user)
+    {
+        if (auth()->id() === $user->id && $user->is_active) {
+            return redirect()
+                ->route('admin.users.edit', $user)
+                ->withErrors(['user' => 'Akun Anda sendiri tidak bisa dinonaktifkan.']);
+        }
+
+        $newStatus = !$user->is_active;
+        $user->update(['is_active' => $newStatus]);
+
+        return redirect()
+            ->route('admin.users.edit', $user)
+            ->with('success', $newStatus ? 'Akun berhasil diaktifkan.' : 'Akun berhasil dinonaktifkan.');
     }
 
     public function destroy(User $user)

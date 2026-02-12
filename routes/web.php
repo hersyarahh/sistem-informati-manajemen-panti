@@ -68,6 +68,8 @@ Route::middleware(['auth', 'role:admin'])
         // ======================
         // User Management
         // ======================
+        Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])
+            ->name('users.toggle-status');
         Route::resource('users', UserController::class)->except(['show']);
         Route::resource('pekerja-sosial', PekerjaSosialController::class);
         Route::get('pekerja-sosial-rekap', [PekerjaSosialController::class, 'rekap'])

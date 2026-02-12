@@ -55,6 +55,7 @@ class RestoreUsersSeeder extends Seeder
                     'name' => $data['name'],
                     'password' => Hash::make($data['password']),
                     'role_id' => $data['role_id'],
+                    'is_active' => true,
                 ]
             );
         }

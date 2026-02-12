@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role_id' => $karyawanRoleId,
             'phone' => '081234567891',
-            'address' => 'Jl. Kesehatan No. 5',
+            'is_active' => true,
         ]);
 
         User::updateOrCreate([
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role_id' => $karyawanRoleId,
             'phone' => '081234567892',
-            'address' => 'Jl. Perawat No. 10',
+            'is_active' => true,
         ]);
 
         // Keluarga
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role_id' => $keluargaRoleId,
             'phone' => '081234567893',
-            'address' => 'Jl. Keluarga No. 15',
+            'is_active' => true,
         ]);
 
         User::updateOrCreate([
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role_id' => $keluargaRoleId,
             'phone' => '081234567894',
-            'address' => 'Jl. Harmoni No. 20',
+            'is_active' => true,
         ]);
 
         User::updateOrCreate([
@@ -81,7 +81,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role_id' => $keluargaRoleId,
             'phone' => '081234567895',
-            'address' => 'Jl. Kasih Sayang No. 25',
+            'is_active' => true,
         ]);
     }
 }
