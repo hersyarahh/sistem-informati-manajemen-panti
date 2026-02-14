@@ -181,9 +181,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         2. Fotocopy KTP <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_ktp" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_ktp" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload scan/foto KTP (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas KTP (PDF, Max 2MB)</p>
                 </div>
 
                 <!-- KK -->
@@ -191,9 +191,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         3. Fotocopy Kartu Keluarga (KK) <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_kk" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_kk" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload scan/foto Kartu Keluarga (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas Kartu Keluarga (PDF, Max 2MB)</p>
                 </div>
 
                 <!-- BPJS -->
@@ -201,9 +201,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         4. Fotocopy BPJS Kesehatan <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_bpjs" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_bpjs" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload scan/foto BPJS Kesehatan (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas BPJS Kesehatan (PDF, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Keterangan Terlantar -->
@@ -211,9 +211,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         5. Surat Keterangan Terlantar dari Kelurahan/Dinas Sosial <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_surat_terlantar" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_surat_terlantar" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload surat keterangan (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload surat keterangan (PDF, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Keterangan Sehat -->
@@ -221,9 +221,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         6. Surat Keterangan Berbadan Sehat dari Dokter/Puskesmas <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_surat_sehat" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_surat_sehat" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload surat keterangan sehat (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload surat keterangan sehat (PDF, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Pengantar -->
@@ -231,9 +231,9 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">
                         7. Surat Pengantar/Rekomendasi Masuk Panti dari Dinas Sosial Provinsi Riau <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_surat_pengantar" accept=".pdf,.jpg,.jpeg,.png" required
+                    <input type="file" name="dokumen_surat_pengantar" accept=".pdf" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload surat pengantar (PDF/JPG/PNG, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload surat pengantar (PDF, Max 2MB)</p>
                 </div>
             </div>
         </div>

@@ -48,9 +48,11 @@
                     <select name="kategori"
                             class="w-full border rounded px-3 py-2">
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Sarana/Prasarana" {{ old('kategori', $inventaris->kategori) == 'Sarana/Prasarana' ? 'selected' : '' }}>Sarana/Prasarana</option>
-                        <option value="Alat Bantu" {{ old('kategori', $inventaris->kategori) == 'Alat Bantu' ? 'selected' : '' }}>Alat Bantu</option>
-                        <option value="Gedung" {{ old('kategori', $inventaris->kategori) == 'Gedung' ? 'selected' : '' }}>Gedung</option>
+                        @foreach ($kategoriOptions as $kategori)
+                            <option value="{{ $kategori }}" {{ old('kategori', $inventaris->kategori) == $kategori ? 'selected' : '' }}>
+                                {{ $kategori }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 

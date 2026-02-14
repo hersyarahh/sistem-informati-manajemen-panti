@@ -56,7 +56,7 @@
                 <tr>
                     <th class="border px-3 py-2 text-center w-12">No</th>
                     <th class="border px-3 py-2">Nama</th>
-                    <th class="border px-3 py-2">NIK</th>
+                    <th class="border px-3 py-2">NIP</th>
                     <th class="border px-3 py-2">Jenis Kelamin</th>
                     <th class="border px-3 py-2">Tanggal Lahir</th>
                     <th class="border px-3 py-2">No. HP</th>

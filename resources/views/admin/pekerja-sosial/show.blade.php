@@ -31,7 +31,7 @@
                 <p class="text-gray-800">{{ $pekerjaSosial->nomor_hp ?? '-' }}</p>
             </div>
             <div>
-                <p class="text-sm text-gray-500">NIK</p>
+                <p class="text-sm text-gray-500">NIP</p>
                 <p class="text-gray-800">{{ $pekerjaSosial->nik ?? '-' }}</p>
             </div>
             <div>

@@ -38,7 +38,7 @@ class PekerjaSosialController extends Controller
     {
         $data = $request->validate([
             'nama_lengkap' => ['required', 'string', 'max:255'],
-            'nik' => ['nullable', 'digits:16'],
+            'nik' => ['nullable', 'digits:18'],
             'jenis_kelamin' => ['nullable', 'in:L,P'],
             'tanggal_lahir' => ['nullable', 'date'],
             'nomor_hp' => ['nullable', 'digits_between:8,20'],
@@ -78,7 +78,7 @@ class PekerjaSosialController extends Controller
     {
         $data = $request->validate([
             'nama_lengkap' => ['required', 'string', 'max:255'],
-            'nik' => ['nullable', 'digits:16'],
+            'nik' => ['nullable', 'digits:18'],
             'jenis_kelamin' => ['nullable', 'in:L,P'],
             'tanggal_lahir' => ['nullable', 'date'],
             'nomor_hp' => ['nullable', 'digits_between:8,20'],

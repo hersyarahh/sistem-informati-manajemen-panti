@@ -35,8 +35,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium mb-2">NIK</label>
-                <input type="text" name="nik" value="{{ old('nik', $pekerjaSosial->nik) }}" maxlength="16"
+                <label class="block text-sm font-medium mb-2">NIP</label>
+                <input type="text" name="nik" value="{{ old('nik', $pekerjaSosial->nik) }}" maxlength="18" minlength="18" inputmode="numeric" pattern="[0-9]*"
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 

@@ -43,9 +43,11 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
                 <select name="kategori" class="w-full px-4 py-2 border rounded-lg" required>
                     <option value="">-- Pilih Kategori --</option>
-                    <option value="Sarana/Prasarana" {{ old('kategori') == 'Sarana/Prasarana' ? 'selected' : '' }}>Sarana / Prasarana</option>
-                    <option value="Gedung" {{ old('kategori') == 'Gedung' ? 'selected' : '' }}>Gedung</option>
-                    <option value="Alat Bantu" {{ old('kategori') == 'Alat Bantu' ? 'selected' : '' }}>Alat Bantu</option>
+                    @foreach ($kategoriOptions as $kategori)
+                        <option value="{{ $kategori }}" {{ old('kategori') == $kategori ? 'selected' : '' }}>
+                            {{ $kategori }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 

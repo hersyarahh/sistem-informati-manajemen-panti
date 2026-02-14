@@ -11,6 +11,25 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class InventarisController extends Controller
 {
+    private array $defaultKategori = [
+        'Sarana/Prasarana',
+        'Gedung',
+        'Alat Bantu',
+    ];
+
+    private function kategoriOptions(): array
+    {
+        $fromTable = Inventaris::query()
+            ->whereNotNull('kategori')
+            ->where('kategori', '!=', '')
+            ->distinct()
+            ->orderBy('kategori')
+            ->pluck('kategori')
+            ->toArray();
+
+        return array_values(array_unique(array_merge($this->defaultKategori, $fromTable)));
+    }
+
     /**
      * Menampilkan data inventaris
      */
@@ -33,9 +52,10 @@ class InventarisController extends Controller
         $query->where('kategori', $request->kategori);
     }
 
-    $inventaris = $query->latest()->paginate(6);
+    $inventaris = $query->latest()->paginate(6)->withQueryString();
+    $kategoriOptions = $this->kategoriOptions();
 
-    return view('admin.data-inventaris.index', compact('inventaris'));
+    return view('admin.data-inventaris.index', compact('inventaris', 'kategoriOptions'));
 }
 
     /**
@@ -43,7 +63,8 @@ class InventarisController extends Controller
      */
     public function create()
     {
-        return view('admin.data-inventaris.create');
+        $kategoriOptions = $this->kategoriOptions();
+        return view('admin.data-inventaris.create', compact('kategoriOptions'));
     }
 
     /**
@@ -101,7 +122,8 @@ class InventarisController extends Controller
      */
     public function edit(Inventaris $inventaris)
     {
-        return view('admin.data-inventaris.edit', compact('inventaris'));
+        $kategoriOptions = $this->kategoriOptions();
+        return view('admin.data-inventaris.edit', compact('inventaris', 'kategoriOptions'));
     }
 
     /**

@@ -48,9 +48,11 @@
         <select name="kategori"
                 class="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
             <option value="">Semua Kategori</option>
-            <option value="Sarana/Prasarana" {{ request('kategori')=='Sarana'?'selected':'' }}>Sarana/Prasarana</option>
-            <option value="Gedung" {{ request('kategori')=='Gedung'?'selected':'' }}>Gedung</option>
-            <option value="Alat Bantu" {{ request('kategori')=='Alat Bantu'?'selected':'' }}>Alat Bantu</option>
+            @foreach ($kategoriOptions as $kategori)
+                <option value="{{ $kategori }}" {{ request('kategori') == $kategori ? 'selected' : '' }}>
+                    {{ $kategori }}
+                </option>
+            @endforeach
         </select>
 
         {{-- Button --}}
