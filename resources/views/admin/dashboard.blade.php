@@ -3,6 +3,12 @@
 @section('title', 'Dashboard Admin')
 
 @section('content')
+@php
+    $safeLansiaYearLabels = $lansiaYearLabels ?? [];
+    $safeLansiaYearCounts = $lansiaYearCounts ?? [];
+    $safeKondisiChartLabels = $kondisiChartLabels ?? [];
+    $safeKondisiChartData = $kondisiChartData ?? [];
+@endphp
 <div class="space-y-6">
     <div>
         <h1 class="text-2xl font-bold sm:text-3xl">Dashboard Admin</h1>
@@ -13,30 +19,25 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
         <div class="bg-white p-6 rounded-xl shadow">
             <p class="text-gray-500">Total Lansia</p>
-            <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia }}</h2>
+            <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia ?? 0 }}</h2>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow">
             <p class="text-gray-500">Total Pekerja Sosial</p>
-            <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan }}</h2>
+            <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan ?? 0 }}</h2>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow">
             <p class="text-gray-500">Kegiatan Hari Ini</p>
-            <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni }}</h2>
+            <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni ?? 0 }}</h2>
         </div>
 
         <div class="bg-white p-6 rounded-xl shadow">
             <p class="text-gray-500">Total Inventaris</p>
-            <h2 class="text-3xl font-bold text-orange-600 mt-2">{{ $totalInventaris }}</h2>
+            <h2 class="text-3xl font-bold text-orange-600 mt-2">{{ $totalInventaris ?? 0 }}</h2>
         </div>
 
     </div>
-
-    @php
-        $chartLabels = collect($lansiaYearLabels)->values();
-        $chartData = collect($lansiaYearCounts)->values();
-    @endphp
 
     <div class="grid grid-cols-1 gap-6">
         <div class="bg-white p-6 rounded-xl shadow">
@@ -70,10 +71,10 @@
 <script>
     (function () {
         const ctx = document.getElementById('lansiaYearChart');
-        if (!ctx) return;
+        if (!ctx || typeof Chart === 'undefined') return;
 
-        const labels = @json($chartLabels);
-        const data = @json($chartData);
+        const labels = @json($safeLansiaYearLabels);
+        const data = @json($safeLansiaYearCounts);
 
         new Chart(ctx, {
             type: 'bar',
@@ -116,10 +117,10 @@
 <script>
     (function () {
         const ctx = document.getElementById('kondisiChart');
-        if (!ctx) return;
+        if (!ctx || typeof Chart === 'undefined') return;
 
-        const labels = @json($kondisiChartLabels);
-        const data = @json($kondisiChartData);
+        const labels = @json($safeKondisiChartLabels);
+        const data = @json($safeKondisiChartData);
 
         new Chart(ctx, {
             type: 'pie',
