@@ -24,11 +24,11 @@ class DashboardController extends Controller
             ->paginate(5)
             ->withQueryString();
 
-        return view('karyawan.riwayat-kesehatan', compact('lansias'));
+        return view('pekerjasosial.riwayat-kesehatan', compact('lansias'));
     }
 
     public function riwayatKegiatan()
     {
-        return view('karyawan.riwayat-kegiatan');
+        return view('pekerjasosial.riwayat-kegiatan');
     }
 }

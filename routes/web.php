@@ -88,13 +88,17 @@ Route::middleware(['auth', 'role:admin'])
             ->name('riwayat-kesehatan.download');
         Route::get('/riwayat-kesehatan-rekap', [RiwayatKesehatanController::class, 'rekapAll'])
             ->name('riwayat-kesehatan.rekap-all');
-        Route::get('/riwayat-kesehatan/assign/staff', [KaryawanAssignmentController::class, 'index'])
+        Route::redirect('/riwayat-kesehatan/assign/staff', '/admin/riwayat-kesehatan/assign/pekerja-sosial');
+        Route::redirect('/riwayat-kesehatan/assign/staff/reset', '/admin/riwayat-kesehatan/assign/pekerja-sosial/reset');
+        Route::get('/riwayat-kesehatan/assign/pekerja-sosial', [KaryawanAssignmentController::class, 'index'])
             ->name('riwayat-kesehatan.assign');
-        Route::post('/riwayat-kesehatan/assign/staff/select', [KaryawanAssignmentController::class, 'selectStaff'])
+        Route::post('/riwayat-kesehatan/assign/staff/select', [KaryawanAssignmentController::class, 'selectStaff']);
+        Route::post('/riwayat-kesehatan/assign/pekerja-sosial/select', [KaryawanAssignmentController::class, 'selectStaff'])
             ->name('riwayat-kesehatan.assign.select');
-        Route::get('/riwayat-kesehatan/assign/staff/reset', [KaryawanAssignmentController::class, 'resetFilter'])
+        Route::get('/riwayat-kesehatan/assign/pekerja-sosial/reset', [KaryawanAssignmentController::class, 'resetFilter'])
             ->name('riwayat-kesehatan.assign.reset');
-        Route::post('/riwayat-kesehatan/assign/staff', [KaryawanAssignmentController::class, 'store'])
+        Route::post('/riwayat-kesehatan/assign/staff', [KaryawanAssignmentController::class, 'store']);
+        Route::post('/riwayat-kesehatan/assign/pekerja-sosial', [KaryawanAssignmentController::class, 'store'])
             ->name('riwayat-kesehatan.assign.store');
 
         // ======================
@@ -207,7 +211,7 @@ Route::middleware(['auth', 'role:admin'])
     });
 
 // ======================
-//  Admin + Karyawan akses lansia
+//  Admin + Pekerja Sosial akses lansia
 // ======================
 Route::middleware(['auth', 'role:admin,karyawan'])
     ->prefix('admin')
@@ -226,13 +230,13 @@ Route::middleware(['auth', 'role:admin,karyawan'])
 
 
 // ======================
-//  Karyawan
+//  Pekerja Sosial
 // ======================
 Route::middleware(['auth', 'role:karyawan'])
-    ->prefix('staff')
+    ->prefix('pekerja-sosial')
     ->name('staff.')
     ->group(function () {
-        Route::redirect('/dashboard', '/staff/riwayat-kesehatan')->name('dashboard');
+        Route::redirect('/dashboard', '/pekerja-sosial/riwayat-kesehatan')->name('dashboard');
         Route::get('/riwayat-kesehatan', [KaryawanDashboardController::class, 'riwayatKesehatan'])->name('riwayat-kesehatan');
         Route::get('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'index'])->name('riwayat-kegiatan');
         Route::post('/riwayat-kegiatan', [KaryawanKegiatanController::class, 'store'])->name('riwayat-kegiatan.store');
@@ -245,9 +249,16 @@ Route::middleware(['auth', 'role:karyawan'])
     });
 
 Route::middleware(['auth', 'role:karyawan'])
+    ->get('/staff/{path?}', function ($path = '') {
+        $path = ltrim($path, '/');
+        return redirect('/pekerja-sosial' . ($path ? '/' . $path : ''));
+    })
+    ->where('path', '.*');
+
+Route::middleware(['auth', 'role:karyawan'])
     ->get('/karyawan/{path?}', function ($path = '') {
         $path = ltrim($path, '/');
-        return redirect('/staff' . ($path ? '/' . $path : ''));
+        return redirect('/pekerja-sosial' . ($path ? '/' . $path : ''));
     })
     ->where('path', '.*');
 

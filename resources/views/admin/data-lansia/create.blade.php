@@ -179,31 +179,31 @@
                 <!-- KTP -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        2. Fotocopy KTP <span class="text-red-500">*</span>
+                        2. KTP <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_ktp" accept=".pdf" required
+                    <input type="file" name="dokumen_ktp" accept=".pdf,.jpg,.jpeg,.png" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload berkas KTP (PDF, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas KTP (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- KK -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        3. Fotocopy Kartu Keluarga (KK) <span class="text-red-500">*</span>
+                        3. Kartu Keluarga (KK) <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_kk" accept=".pdf" required
+                    <input type="file" name="dokumen_kk" accept=".pdf,.jpg,.jpeg,.png" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload berkas Kartu Keluarga (PDF, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas Kartu Keluarga (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- BPJS -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
-                        4. Fotocopy BPJS Kesehatan <span class="text-red-500">*</span>
+                        4. BPJS Kesehatan <span class="text-red-500">*</span>
                     </label>
-                    <input type="file" name="dokumen_bpjs" accept=".pdf" required
+                    <input type="file" name="dokumen_bpjs" accept=".pdf,.jpg,.jpeg,.png" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <p class="text-xs text-gray-500 mt-1">Upload berkas BPJS Kesehatan (PDF, Max 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">Upload berkas BPJS Kesehatan (PDF/JPG/PNG, Max 2MB)</p>
                 </div>
 
                 <!-- Surat Keterangan Terlantar -->

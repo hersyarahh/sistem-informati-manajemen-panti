@@ -20,7 +20,7 @@ class LansiaController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('karyawan.lansia-kesehatan-edit', [
+        return view('pekerjasosial.lansia-kesehatan-edit', [
             'lansia' => $lansia,
             // Form riwayat selalu dimulai kosong untuk input baru.
             'latestRiwayat' => null,

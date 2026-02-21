@@ -56,6 +56,12 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        if ($user->isAdmin()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withErrors(['user' => 'Akun admin tidak dapat diedit dari menu ini.']);
+        }
+
         Role::updateOrCreate(
             ['name' => 'karyawan'],
             ['label' => 'Pekerja Sosial']
@@ -70,6 +76,12 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        if ($user->isAdmin()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withErrors(['user' => 'Akun admin tidak dapat diperbarui dari menu ini.']);
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -100,6 +112,12 @@ class UserController extends Controller
 
     public function toggleStatus(User $user)
     {
+        if ($user->isAdmin()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withErrors(['user' => 'Akun admin tidak dapat diaktif/nonaktifkan.']);
+        }
+
         if (auth()->id() === $user->id && $user->is_active) {
             return redirect()
                 ->route('admin.users.edit', $user)
@@ -116,6 +134,12 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        if ($user->isAdmin()) {
+            return redirect()
+                ->route('admin.users.index')
+                ->withErrors(['user' => 'Akun admin tidak dapat dihapus.']);
+        }
+
         if (auth()->id() === $user->id) {
             return redirect()
                 ->route('admin.users.index')

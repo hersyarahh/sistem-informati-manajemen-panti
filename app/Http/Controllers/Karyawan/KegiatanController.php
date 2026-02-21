@@ -26,7 +26,7 @@ class KegiatanController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('karyawan.riwayat-kegiatan', [
+        return view('pekerjasosial.riwayat-kegiatan', [
             'kegiatans' => $kegiatans,
         ]);
     }
@@ -54,7 +54,7 @@ class KegiatanController extends Controller
             ->pluck('catatan', 'lansia_id')
             ->toArray();
 
-        return view('karyawan.kegiatan-kehadiran', [
+        return view('pekerjasosial.kegiatan-kehadiran', [
             'kegiatan' => $kegiatan,
             'lansias' => $assignedLansias,
             'kehadiran' => $kehadiran,
