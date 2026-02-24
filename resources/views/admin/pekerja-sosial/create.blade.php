@@ -29,19 +29,19 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium mb-2">Nama lengkap</label>
-                <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">NIP</label>
-                <input type="text" name="nik" value="{{ old('nik') }}" maxlength="18" minlength="18" inputmode="numeric" pattern="[0-9]*"
+                <input type="text" name="nik" value="{{ old('nik') }}" maxlength="18" minlength="18" inputmode="numeric" pattern="[0-9]*" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">Jenis kelamin</label>
-                <select name="jenis_kelamin" class="w-full px-4 py-3 border rounded-lg">
+                <select name="jenis_kelamin" class="w-full px-4 py-3 border rounded-lg" required>
                     <option value="">-- Pilih --</option>
                     <option value="L" {{ old('jenis_kelamin') === 'L' ? 'selected' : '' }}>Laki-laki</option>
                     <option value="P" {{ old('jenis_kelamin') === 'P' ? 'selected' : '' }}>Perempuan</option>
@@ -50,25 +50,25 @@
 
             <div>
                 <label class="block text-sm font-medium mb-2">Tanggal lahir</label>
-                <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">Nomor HP</label>
-                <input type="text" name="nomor_hp" value="{{ old('nomor_hp') }}"
+                <input type="text" name="nomor_hp" value="{{ old('nomor_hp') }}" inputmode="numeric" pattern="[0-9]*" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">Alamat</label>
-                <input type="text" name="alamat" value="{{ old('alamat') }}"
+                <input type="text" name="alamat" value="{{ old('alamat') }}" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">Pendidikan terakhir</label>
-                <select name="pendidikan_terakhir" class="w-full px-4 py-3 border rounded-lg">
+                <select name="pendidikan_terakhir" class="w-full px-4 py-3 border rounded-lg" required>
                     <option value="">-- Pilih --</option>
                     <option value="SD" {{ old('pendidikan_terakhir') === 'SD' ? 'selected' : '' }}>SD</option>
                     <option value="SMP" {{ old('pendidikan_terakhir') === 'SMP' ? 'selected' : '' }}>SMP</option>
@@ -82,7 +82,7 @@
 
             <div>
                 <label class="block text-sm font-medium mb-2">Status pegawai</label>
-                <select name="status_pegawai" class="w-full px-4 py-3 border rounded-lg">
+                <select name="status_pegawai" class="w-full px-4 py-3 border rounded-lg" required>
                     <option value="">-- Pilih --</option>
                     <option value="Tetap" {{ old('status_pegawai') === 'Tetap' ? 'selected' : '' }}>Tetap</option>
                     <option value="Honorer" {{ old('status_pegawai') === 'Honorer' ? 'selected' : '' }}>Honorer</option>
@@ -92,13 +92,13 @@
 
             <div>
                 <label class="block text-sm font-medium mb-2">Tanggal mulai bertugas</label>
-                <input type="date" name="tanggal_mulai_bertugas" value="{{ old('tanggal_mulai_bertugas') }}"
+                <input type="date" name="tanggal_mulai_bertugas" value="{{ old('tanggal_mulai_bertugas') }}" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
 
             <div>
                 <label class="block text-sm font-medium mb-2">Foto</label>
-                <input type="file" name="foto" accept=".jpg,.jpeg,.png"
+                <input type="file" name="foto" accept=".jpg,.jpeg,.png" required
                        class="w-full px-4 py-3 border rounded-lg">
             </div>
         </div>

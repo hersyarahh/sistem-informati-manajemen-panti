@@ -90,32 +90,5 @@
             </a>
         </div>
     </form>
-
-    <div class="bg-white rounded-xl shadow p-6 space-y-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="text-lg font-semibold text-gray-800">Status Akun</h2>
-                <p class="text-sm text-gray-500">
-                    Status saat ini:
-                    <span class="{{ $user->is_active ? 'text-green-600' : 'text-red-600' }} font-medium">
-                        {{ $user->is_active ? 'Aktif' : 'Nonaktif' }}
-                    </span>
-                </p>
-            </div>
-            <form action="{{ route('admin.users.toggle-status', $user) }}" method="POST">
-                @csrf
-                @method('PATCH')
-                <button type="submit"
-                        class="px-5 py-2 rounded-lg text-white {{ $user->is_active ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700' }}"
-                        onclick="return confirm('{{ $user->is_active ? 'Nonaktifkan akun ini?' : 'Aktifkan akun ini?' }}')">
-                    {{ $user->is_active ? 'Nonaktifkan Akun' : 'Aktifkan Akun' }}
-                </button>
-            </form>
-        </div>
-        @if ($errors->has('user'))
-            <p class="text-sm text-red-600">{{ $errors->first('user') }}</p>
-        @endif
-    </div>
-
 </div>
 @endsection

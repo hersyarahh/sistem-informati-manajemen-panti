@@ -50,6 +50,7 @@
                     <label class="block text-sm font-medium mb-2">Nama Lengkap *</label>
                     <input type="text" name="nama_lengkap"
                            value="{{ old('nama_lengkap', $lansia->nama_lengkap) }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
@@ -57,30 +58,39 @@
                     <label class="block text-sm font-medium mb-2">NIK *</label>
                     <input type="text" name="nik"
                            value="{{ old('nik', $lansia->nik) }}"
+                           minlength="16"
                            maxlength="16"
+                           inputmode="numeric"
+                           pattern="[0-9]{16}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Nomor Kartu Keluarga</label>
+                    <label class="block text-sm font-medium mb-2">Nomor Kartu Keluarga *</label>
                     <input type="text" name="nomor_kk"
                            value="{{ old('nomor_kk', $lansia->nomor_kk) }}"
+                           minlength="16"
                            maxlength="16"
+                           inputmode="numeric"
+                           pattern="[0-9]{16}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-2">Jenis Kelamin *</label>
-                    <select name="jenis_kelamin" class="w-full px-4 py-3 border rounded-lg">
+                    <select name="jenis_kelamin" class="w-full px-4 py-3 border rounded-lg" required>
                         <option value="L" {{ $lansia->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ $lansia->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Tempat Lahir</label>
+                    <label class="block text-sm font-medium mb-2">Tempat Lahir *</label>
                     <input type="text" name="tempat_lahir"
                            value="{{ old('tempat_lahir', $lansia->tempat_lahir) }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
@@ -88,12 +98,13 @@
                     <label class="block text-sm font-medium mb-2">Tanggal Lahir *</label>
                     <input type="date" name="tanggal_lahir"
                            value="{{ optional($lansia->tanggal_lahir)->format('Y-m-d') }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Agama</label>
-                    <select name="agama" class="w-full px-4 py-3 border rounded-lg">
+                    <label class="block text-sm font-medium mb-2">Agama *</label>
+                    <select name="agama" class="w-full px-4 py-3 border rounded-lg" required>
                         <option value="">-- Pilih Agama --</option>
                         @php
                             $agamaOptions = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Lainnya'];
@@ -107,8 +118,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Pendidikan Terakhir</label>
-                    <select name="pendidikan_terakhir" class="w-full px-4 py-3 border rounded-lg">
+                    <label class="block text-sm font-medium mb-2">Pendidikan Terakhir *</label>
+                    <select name="pendidikan_terakhir" class="w-full px-4 py-3 border rounded-lg" required>
                         <option value="">-- Pilih Pendidikan --</option>
                         @php
                             $pendidikanOptions = ['Tidak Sekolah', 'SD', 'SMP', 'SMA/SMK', 'D1/D2/D3', 'S1', 'S2', 'S3', 'Lainnya'];
@@ -122,9 +133,10 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">Daerah Asal</label>
+                    <label class="block text-sm font-medium mb-2">Daerah Asal *</label>
                     <input type="text" name="daerah_asal"
                            value="{{ old('daerah_asal', $lansia->daerah_asal) }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
@@ -132,6 +144,7 @@
                     <label class="block text-sm font-medium mb-2">Alamat Asal *</label>
                     <input type="text" name="alamat_asal"
                            value="{{ old('alamat_asal', $lansia->alamat_asal) }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
@@ -139,13 +152,15 @@
                     <label class="block text-sm font-medium mb-2">Tanggal Masuk *</label>
                     <input type="date" name="tanggal_masuk"
                            value="{{ optional($lansia->tanggal_masuk)->format('Y-m-d') }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-2">No Kamar</label>
+                    <label class="block text-sm font-medium mb-2">No Kamar *</label>
                     <input type="text" name="no_kamar"
                            value="{{ $lansia->no_kamar }}"
+                           required
                            class="w-full px-4 py-3 border rounded-lg">
                 </div>
 

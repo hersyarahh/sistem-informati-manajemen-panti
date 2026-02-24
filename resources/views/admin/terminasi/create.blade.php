@@ -36,7 +36,7 @@
             </select>
         </div>
 
-        <!-- Lokasi Meninggal (hanya muncul jika status meninggal) -->
+        <!-- Lokasi Meninggal (hanya muncul jika status meninggal)
         <div class="mb-4" id="lokasi_meninggal_wrapper" style="display:none;">
             <label class="block text-sm font-medium text-gray-700">Lokasi Meninggal</label>
             <select name="lokasi_meninggal" id="lokasi_meninggal"
@@ -45,19 +45,19 @@
                 <option value="panti">Panti</option>
                 <option value="keluarga">Keluarga</option>
             </select>
-        </div>
+        </div>-->
 
         <!-- Alasan / Keterangan -->
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700">Alasan / Keterangan</label>
-            <textarea name="keterangan" rows="3"
+            <label class="block text-sm font-medium text-gray-700">Alasan / Keterangan <span class="text-red-500">*</span></label>
+            <textarea name="keterangan" rows="3" required
                       class="w-full px-3 py-2 border rounded-lg"></textarea>
         </div>
 
         <!-- Surat Terminasi -->
         <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700">Surat Terminasi</label>
-            <input type="file" name="dokumen_surat_terminasi" accept=".pdf,.jpg,.jpeg,.png"
+            <label class="block text-sm font-medium text-gray-700">Surat Terminasi <span class="text-red-500">*</span></label>
+            <input type="file" name="dokumen_surat_terminasi" accept=".pdf,.jpg,.jpeg,.png" required
                    class="w-full px-3 py-2 border rounded-lg">
             <p class="text-xs text-gray-500 mt-1">Upload surat terminasi (PDF/JPG/PNG, Max 2MB)</p>
         </div>

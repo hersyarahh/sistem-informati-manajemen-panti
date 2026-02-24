@@ -81,7 +81,7 @@ class InventarisController extends Controller
             'sumber_dana'      => 'required|in:APBD,Donatur,CSR',
             'tahun_pengadaan'  => 'required|integer|min:2000|max:' . date('Y'),
             'lokasi'           => 'required|string|max:255',
-            'keterangan'       => 'nullable|string',
+            'keterangan'       => 'required|string',
         ]);
 
         Inventaris::create($request->all());

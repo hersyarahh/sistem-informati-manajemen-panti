@@ -90,13 +90,23 @@
                                                 </svg>
                                             </button>
                                         </form>
+                                        <form action="{{ route('admin.users.toggle-status', $user) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit"
+                                                onclick="return confirm('{{ $user->is_active ? 'Nonaktifkan akun ini?' : 'Aktifkan akun ini?' }}')"
+                                                class="inline-flex items-center rounded-full px-2 py-1 text-[10px] sm:px-3 sm:text-xs {{ $user->is_active ? 'bg-red-50 text-red-700 hover:bg-red-100' : 'bg-green-50 text-green-700 hover:bg-green-100' }}"
+                                                title="{{ $user->is_active ? 'Nonaktifkan akun' : 'Aktifkan akun' }}">
+                                                {{ $user->is_active ? 'Nonaktifkan' : 'Aktifkan' }}
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center py-6 text-gray-500">
+                            <td colspan="6" class="text-center py-6 text-gray-500">
                                 Data user belum tersedia
                             </td>
                         </tr>

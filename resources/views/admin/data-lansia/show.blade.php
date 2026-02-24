@@ -18,10 +18,10 @@
                 Download PDF
             </a>
 
-            <a href="{{ route('admin.lansia.edit', $lansia) }}"
+            <!-- <a href="{{ route('admin.lansia.edit', $lansia) }}"
                class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 text-sm">
                 Edit
-            </a>
+            </a> -->
 
             <a href="{{ route('admin.lansia.index') }}"
                class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 text-sm">

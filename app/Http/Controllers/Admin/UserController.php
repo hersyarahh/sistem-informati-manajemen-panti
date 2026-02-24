@@ -120,7 +120,7 @@ class UserController extends Controller
 
         if (auth()->id() === $user->id && $user->is_active) {
             return redirect()
-                ->route('admin.users.edit', $user)
+                ->route('admin.users.index')
                 ->withErrors(['user' => 'Akun Anda sendiri tidak bisa dinonaktifkan.']);
         }
 
@@ -128,7 +128,7 @@ class UserController extends Controller
         $user->update(['is_active' => $newStatus]);
 
         return redirect()
-            ->route('admin.users.edit', $user)
+            ->route('admin.users.index')
             ->with('success', $newStatus ? 'Akun berhasil diaktifkan.' : 'Akun berhasil dinonaktifkan.');
     }
 

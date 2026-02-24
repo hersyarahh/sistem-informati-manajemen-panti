@@ -29,8 +29,8 @@ class TerminasiLansiaController extends Controller
             'tanggal_keluar'   => 'required|date|after_or_equal:' . $lansia->tanggal_masuk,
             'jenis_terminasi'  => 'required|in:meninggal,dipulangkan',
             'lokasi_meninggal' => 'nullable|required_if:jenis_terminasi,meninggal|in:panti,keluarga',
-            'keterangan'       => 'nullable|string',
-            'dokumen_surat_terminasi' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
+            'keterangan'       => 'required|string',
+            'dokumen_surat_terminasi' => 'required|file|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
 
         TerminasiLansia::create([
