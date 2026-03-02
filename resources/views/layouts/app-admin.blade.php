@@ -8,6 +8,18 @@
     <title>@yield('title')</title>
     <link rel="icon" href="data:,">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .menu-lansia .submenu-lansia {
+            display: none;
+            margin-top: 8px;
+            margin-left: 10px;
+        }
+
+        .menu-lansia:hover .submenu-lansia,
+        .menu-lansia.is-open .submenu-lansia {
+            display: block;
+        }
+    </style>
 </head>
 
 <body class="m-0 p-0 bg-gray-100 overflow-hidden">
@@ -60,17 +72,16 @@
                 @php
                     $isActive = request()->routeIs('admin.lansia.*');
                     $isSubActive = request()->routeIs('admin.riwayat-kesehatan.*');
-                    $subVisibility = $isSubActive ? 'block' : 'hidden group-hover:block';
                 @endphp
-                <div class="group">
+                <div class="menu-lansia {{ ($isActive || $isSubActive) ? 'is-open' : '' }}">
                     <a href="{{ route('admin.lansia.index') }}"
                        class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
                        @if ($isActive) aria-current="page" @endif>
                         Data Lansia
                     </a>
-                    <div class="pl-6 mt-2">
+                    <div class="submenu-lansia">
                         <a href="{{ route('admin.riwayat-kesehatan.index') }}"
-                           class="{{ $navBase }} {{ $isSubActive ? $navActive : $navInactive }} {{ $subVisibility }} text-xs px-3 py-2"
+                           class="{{ $navBase }} {{ $isSubActive ? $navActive : $navInactive }} text-xs px-3 py-2"
                            @if ($isSubActive) aria-current="page" @endif>
                             Riwayat Kesehatan
                         </a>

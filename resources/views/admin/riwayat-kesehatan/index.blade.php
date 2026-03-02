@@ -70,7 +70,6 @@
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No. Kamar</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kondisi</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Riwayat Penyakit</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alergi</th>
@@ -104,15 +103,6 @@
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                                 {{ $lansia->no_kamar ?? '-' }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap">
-                                <span class="px-2 py-1 text-xs font-semibold rounded-full
-                                    @if($lansia->status === 'aktif') bg-green-100 text-green-800
-                                    @elseif($lansia->status === 'keluar') bg-gray-100 text-gray-800
-                                    @else bg-red-100 text-red-800
-                                    @endif">
-                                    {{ ucfirst($lansia->status ?? '-') }}
-                                </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-600">
                                 {{ $lansia->kondisi_kesehatan ? ucfirst(str_replace('_', ' ', $lansia->kondisi_kesehatan)) : '-' }}
@@ -156,7 +146,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="px-4 py-8 text-center text-gray-500">
+                            <td colspan="9" class="px-4 py-8 text-center text-gray-500">
                                 Tidak ada data lansia
                             </td>
                         </tr>
