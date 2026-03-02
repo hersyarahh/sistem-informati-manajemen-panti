@@ -39,17 +39,17 @@
 
     <div class="bg-white rounded-lg shadow p-4">
         <form method="GET" action="{{ route('admin.pekerja-sosial.index') }}"
-              class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-            <div class="md:col-span-6">
+              class="grid grid-cols-1 gap-3 items-center md:flex md:flex-wrap md:items-center">
+            <div class="md:flex-1">
                 <input type="text"
                        name="search"
                        value="{{ request('search') }}"
-                       placeholder="Cari nama pekerja sosial..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                       placeholder="Cari nama pekerja sosial"
+                       class="w-full min-w-0 px-4 py-2 border border-gray-300 rounded-lg
                               focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             </div>
 
-            <div class="md:col-span-3">
+            <div class="w-64">
                 <select name="status_pegawai"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -60,14 +60,14 @@
                 </select>
             </div>
 
-            <div class="md:col-span-3 flex gap-2">
+            <div class="flex gap-2 md:w-auto">
                 <button type="submit"
-                        class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
+                        class="w-full md:min-w-[140px] px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
                     Cari
                 </button>
                 @if(request()->filled('search') || request()->filled('status_pegawai'))
                     <a href="{{ route('admin.pekerja-sosial.index') }}"
-                       class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
+                       class="w-full md:min-w-[140px] px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                         Reset
                     </a>
                 @endif

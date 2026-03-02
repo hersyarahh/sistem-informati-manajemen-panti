@@ -110,7 +110,7 @@
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">JK</th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Umur</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th>
+                        <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th> -->
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No. Kamar</th>
                         <!-- <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kondisi</th> -->
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -155,10 +155,10 @@
                             <span class="text-xs text-gray-400">{{ $lansia->tanggal_lahir->format('d/m/Y') }}</span>
                         </td>
 
-                        <!-- Alamat -->
+                        <!-- Alamat
                         <td class="px-4 py-4 text-sm text-gray-600 max-w-xs truncate" title="{{ $lansia->alamat_asal }}">
                             {{ Str::limit($lansia->alamat_asal, 30) }}
-                        </td>
+                        </td>-->
 
                         <!-- No Kamar -->
                         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
