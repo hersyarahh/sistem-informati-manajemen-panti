@@ -49,8 +49,8 @@
                 Data Pribadi
             </h2>
 
-            <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
-                <div class="md:col-span-2">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
                     <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

@@ -123,7 +123,7 @@
             <div class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-8 flex flex-col gap-6">
                 <div class="fixed left-4 top-4 z-50 flex items-center gap-3 lg:static lg:z-auto lg:hidden">
                     <button id="admin-sidebar-toggle" type="button"
-                        class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-gray-700 shadow hover:bg-gray-50"
+                        class="inline-flex items-center justify-center rounded-lg bg-transparent p-2 text-gray-700 shadow-none hover:bg-transparent"
                         aria-controls="admin-sidebar" aria-expanded="false">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

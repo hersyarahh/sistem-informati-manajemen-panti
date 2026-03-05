@@ -35,10 +35,10 @@
 
     {{-- FILTER & PERIODE --}}
     <div class="mb-6 bg-gray-50 border rounded-lg p-4">
-        <form method="GET" class="flex flex-wrap items-end gap-6">
-            <div class="w-[300px]">
+        <form method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
+            <div class="sm:col-span-2 lg:col-span-4">
                 <label class="text-sm text-gray-600">Periode Rekap</label>
-                <div class="mt-1 flex items-center gap-6 rounded border bg-white px-3 py-2">
+                <div class="mt-1 flex flex-wrap items-center gap-4 rounded border bg-white px-3 py-2">
                     <label class="inline-flex items-center gap-2 text-sm text-gray-700">
                         <input type="radio" name="periode" value="bulan" {{ $periode === 'bulan' ? 'checked' : '' }}>
                         Bulanan
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="w-[140px]">
+            <div class="sm:col-span-1 lg:col-span-2">
                 <label class="text-sm text-gray-600">Tahun</label>
                 <select name="tahun" class="w-full border rounded px-3 py-2">
                     @for ($y = now()->year; $y >= 2015; $y--)
@@ -61,7 +61,7 @@
                 </select>
             </div>
 
-            <div class="w-[180px]">
+            <div class="sm:col-span-1 lg:col-span-3">
                 <label class="text-sm text-gray-600">Bulan</label>
                 <select name="bulan" class="w-full border rounded px-3 py-2" {{ $periode === 'tahun' ? 'disabled' : '' }}>
                     <option value="">Semua Bulan</option>
@@ -73,7 +73,7 @@
                 </select>
             </div>
 
-            <div class="w-[140px]">
+            <div class="sm:col-span-1 lg:col-span-2">
                 <label class="text-sm text-gray-600">Status</label>
                 <select name="status" class="w-full border rounded px-3 py-2">
                     <option value="">Semua</option>
@@ -83,12 +83,12 @@
                 </select>
             </div>
 
-            <div class="flex gap-3">
-                <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            <div class="sm:col-span-2 lg:col-span-1 flex gap-3">
+                <button class="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                     Tampilkan
                 </button>
                 <a href="{{ route('admin.lansia.rekap') }}"
-                   class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center">
+                   class="flex-1 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center">
                     Reset
                 </a>
             </div>

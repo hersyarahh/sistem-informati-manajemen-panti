@@ -66,25 +66,25 @@
     </div>
 
     <!-- Statistik Kehadiran -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-2 sm:gap-4">
 
-        <div class="bg-white rounded-lg shadow p-4">
-            <p class="text-sm text-gray-500">Total Lansia</p>
-            <p class="text-2xl font-bold text-gray-800">
+        <div class="bg-white rounded-lg shadow p-3 sm:p-4">
+            <p class="text-xs sm:text-sm text-gray-500">Total Lansia</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-800">
                 {{ $totalLansia }}
             </p>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-4">
-            <p class="text-sm text-gray-500">Hadir</p>
-            <p class="text-2xl font-bold text-green-600">
+        <div class="bg-white rounded-lg shadow p-3 sm:p-4">
+            <p class="text-xs sm:text-sm text-gray-500">Hadir</p>
+            <p class="text-xl sm:text-2xl font-bold text-green-600">
                 {{ $totalHadir }}
             </p>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-4">
-            <p class="text-sm text-gray-500">Tidak Hadir</p>
-            <p class="text-2xl font-bold text-red-500">
+        <div class="bg-white rounded-lg shadow p-3 sm:p-4">
+            <p class="text-xs sm:text-sm text-gray-500">Tidak Hadir</p>
+            <p class="text-xl sm:text-2xl font-bold text-red-500">
                 {{ $totalTidakHadir }}
             </p>
         </div>

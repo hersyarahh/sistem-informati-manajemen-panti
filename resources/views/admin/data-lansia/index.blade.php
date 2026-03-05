@@ -12,14 +12,14 @@
             <p class="text-gray-600 text-sm mt-1">Total: {{ $lansias->total() }} lansia</p>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div class="grid grid-cols-2 gap-3 w-full sm:w-auto sm:flex sm:items-center">
             <a href="{{ route('admin.lansia.rekap') }}"
-               class="inline-flex items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
+               class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
                 Rekap Data Lansia
             </a>
 
             <a href="{{ route('admin.lansia.create') }}"
-               class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+               class="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                 </svg>

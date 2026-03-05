@@ -37,7 +37,7 @@
         <div class="flex flex-col md:flex-row gap-6 items-start">
 
             <!-- Foto -->
-            <div class="w-32 h-32 flex-shrink-0">
+            <div class="w-32 h-32 flex-shrink-0 mx-auto md:mx-0">
                 @if(!empty($lansia->foto))
                     <img src="{{ asset('storage/' . $lansia->foto) }}"
                          class="w-32 h-32 rounded-full object-cover border">
@@ -51,8 +51,8 @@
             </div>
 
             <!-- Info Utama -->
-            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+            <div class="flex-1 grid grid-cols-2 gap-3 md:gap-4">
+                <div class="col-span-2">
                     <p class="text-sm text-gray-500">Nama Lengkap</p>
                     <p class="font-semibold">{{ $lansia->nama_lengkap }}</p>
                 </div>
@@ -104,7 +104,7 @@
                     <p class="font-semibold">{{ $lansia->daerah_asal ?? '-' }}</p>
                 </div>
 
-                <div>
+                <div class="col-span-2">
                     <p class="text-sm text-gray-500">Alamat Asal</p>
                     <p class="font-semibold">{{ $lansia->alamat_asal }}</p>
                 </div>
@@ -134,7 +134,7 @@
         <div>
             <h2 class="text-lg font-bold mb-4">Kontak Darurat / Keluarga</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                     <p class="text-sm text-gray-500">Nama</p>
                     <p class="font-semibold">{{ $lansia->kontak_darurat_nama ?? '-' }}</p>
@@ -150,7 +150,7 @@
                     <p class="font-semibold">{{ $lansia->kontak_darurat_hubungan ?? '-' }}</p>
                 </div>
 
-                <div class="md:col-span-4">
+                <div class="col-span-2 md:col-span-4">
                     <p class="text-sm text-gray-500">Alamat</p>
                     <p>{{ $lansia->kontak_darurat_alamat ?? '-' }}</p>
                 </div>
@@ -163,7 +163,7 @@
         <div>
             <h2 class="text-lg font-bold mb-4">Dokumen Administrasi</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 @php
                     $dokumen = [
                         'Pas Foto' => 'foto',

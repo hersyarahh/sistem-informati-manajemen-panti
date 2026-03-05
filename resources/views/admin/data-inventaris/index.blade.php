@@ -25,46 +25,52 @@
 <div class="bg-white rounded-xl shadow p-4">
     <form method="GET"
           action="{{ route('admin.data-inventaris.index') }}"
-          class="flex flex-wrap gap-3 items-center">
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
 
         {{-- Search --}}
-        <input type="text"
-               name="search"
-               placeholder="Cari nama barang..."
-               value="{{ request('search') }}"
-               class="w-full md:w-1/3 px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+        <div class="sm:col-span-2 lg:col-span-4">
+            <input type="text"
+                name="search"
+                placeholder="Cari nama barang..."
+                value="{{ request('search') }}"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+        </div>
 
         {{-- Sumber Dana --}}
-        <select name="sumber_dana"
-                    class="min-w-[180px] px-4 py-2 border border-gray-300 rounded-lg
-                        focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">Semua Sumber Dana</option>
-            <option value="APBD" {{ request('sumber_dana')=='APBD'?'selected':'' }}>APBD</option>
-            <option value="Donatur" {{ request('sumber_dana')=='Donatur'?'selected':'' }}>Donatur</option>
-            <option value="CSR" {{ request('sumber_dana')=='CSR'?'selected':'' }}>CSR</option>
-        </select>
+        <div class="sm:col-span-1 lg:col-span-3">
+            <select name="sumber_dana"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">Semua Sumber Dana</option>
+                <option value="APBD" {{ request('sumber_dana')=='APBD'?'selected':'' }}>APBD</option>
+                <option value="Donatur" {{ request('sumber_dana')=='Donatur'?'selected':'' }}>Donatur</option>
+                <option value="CSR" {{ request('sumber_dana')=='CSR'?'selected':'' }}>CSR</option>
+            </select>
+        </div>
 
         {{-- Kategori --}}
-        <select name="kategori"
-                class="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
-            <option value="">Semua Kategori</option>
-            @foreach ($kategoriOptions as $kategori)
-                <option value="{{ $kategori }}" {{ request('kategori') == $kategori ? 'selected' : '' }}>
-                    {{ $kategori }}
-                </option>
-            @endforeach
-        </select>
+        <div class="sm:col-span-1 lg:col-span-3">
+            <select name="kategori"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
+                <option value="">Semua Kategori</option>
+                @foreach ($kategoriOptions as $kategori)
+                    <option value="{{ $kategori }}" {{ request('kategori') == $kategori ? 'selected' : '' }}>
+                        {{ $kategori }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
         {{-- Button --}}
-        <div class="flex gap-2">
+        <div class="sm:col-span-2 lg:col-span-2 flex gap-2">
             <button type="submit"
-                    class="px-5 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
+                    class="flex-1 px-5 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
                 Cari
             </button>
 
             @if(request('search') || request('sumber_dana') || request('kategori'))
                 <a href="{{ route('admin.data-inventaris.index') }}"
-                   class="px-5 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
+                   class="flex-1 px-5 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                     Reset
                 </a>
             @endif
@@ -76,6 +82,7 @@
 
     {{-- Tabel --}}
     <div class="bg-white rounded-xl shadow overflow-hidden">
+        <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead class="bg-gray-50 text-gray-600">
                 <tr>
@@ -156,6 +163,7 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
     </div>
 
 </div>
