@@ -3,9 +3,8 @@
 @section('content')
 
     <!-- HERO -->
-    <div id="home" class="relative w-full bg-black">
-        <img src="{{ asset('panti.jpg') }}" class="w-full h-auto object-contain">
-
+    <div id="home" class="relative w-full">
+        <img src="/panti.jpg" alt="Gedung PSTW Husnul Khotimah" class="block w-full h-auto">
         <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
             <div class="text-white text-center px-4 sm:px-6">
                 <h1 class="text-lg sm:text-2xl md:text-4xl font-extrabold leading-tight mb-3 sm:mb-4">
@@ -124,9 +123,9 @@
             <p class="text-gray-700 mb-6">Foto kegiatan lansia.</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
-                <img src="{{ asset('satu.png') }}" class="w-full h-48 sm:h-56 object-cover rounded-lg">
-                <img src="{{ asset('dua.png') }}" class="w-full h-48 sm:h-56 object-cover rounded-lg">
-                <img src="{{ asset('tiga.png') }}" class="w-full h-48 sm:h-56 object-cover rounded-lg">
+                <img src="/satu.png" class="w-full h-48 sm:h-56 object-cover rounded-lg" alt="Galeri 1">
+                <img src="/dua.png" class="w-full h-48 sm:h-56 object-cover rounded-lg" alt="Galeri 2">
+                <img src="/tiga.png" class="w-full h-48 sm:h-56 object-cover rounded-lg" alt="Galeri 3">
             </div>
         </div>
     </section>
