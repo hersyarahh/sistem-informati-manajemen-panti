@@ -9,6 +9,8 @@ class Kegiatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'kegiatan';
+
     protected $fillable = [
         'nama_kegiatan',
         'jenis_kegiatan',
@@ -45,7 +47,7 @@ class Kegiatan extends Model
      */
     public function lansias()
     {
-        return $this->belongsToMany(Lansia::class, 'kehadirans', 'kegiatan_id', 'lansia_id')
+        return $this->belongsToMany(Lansia::class, 'kehadiran', 'kegiatan_id', 'lansia_id')
             ->withPivot('status_kehadiran', 'catatan')
             ->withTimestamps();
     }

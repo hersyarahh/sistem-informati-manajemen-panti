@@ -62,7 +62,7 @@ class LansiaController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'nik' => 'required|string|max:16|unique:lansias,nik',
+            'nik' => 'required|string|max:16|unique:lansia,nik',
             'tempat_lahir' => 'nullable|string|max:150',
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',
@@ -155,7 +155,7 @@ class LansiaController extends Controller
     {
         $validated = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'nik' => 'required|digits:16|unique:lansias,nik,' . $lansia->id,
+            'nik' => 'required|digits:16|unique:lansia,nik,' . $lansia->id,
             'tempat_lahir' => 'required|string|max:150',
             'jenis_kelamin' => 'required|in:L,P',
             'tanggal_lahir' => 'required|date',

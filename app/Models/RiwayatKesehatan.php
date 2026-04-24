@@ -9,6 +9,8 @@ class RiwayatKesehatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'riwayat_kesehatan';
+
     protected $fillable = [
         'lansia_id',
         'created_by',

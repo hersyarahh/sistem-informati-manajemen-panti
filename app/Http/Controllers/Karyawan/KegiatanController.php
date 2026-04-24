@@ -65,7 +65,7 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kegiatan_id' => 'required|exists:kegiatans,id',
+            'kegiatan_id' => 'required|exists:kegiatan,id',
             'kehadiran' => 'required|array',
             'kehadiran.*' => 'required|in:hadir,tidak_hadir',
             'catatan' => 'nullable|array',
@@ -87,7 +87,7 @@ class KegiatanController extends Controller
                 ->lansias()
                 ->where('status', 'aktif')
                 ->whereDate('tanggal_masuk', '<=', $kegiatan->tanggal)
-                ->pluck('lansias.id')
+                ->pluck('lansia.id')
                 ->map(fn ($id) => (string) $id)
                 ->toArray();
 
@@ -103,7 +103,7 @@ class KegiatanController extends Controller
 
         $assignedIds = auth()->user()
             ->lansias()
-            ->pluck('lansias.id')
+            ->pluck('lansia.id')
             ->toArray();
 
         foreach ($data['kehadiran'] as $lansiaId => $status) {
@@ -132,7 +132,7 @@ class KegiatanController extends Controller
     {
         $isAssigned = auth()->user()
             ->lansias()
-            ->where('lansias.id', $kehadiran->lansia_id)
+            ->where('lansia.id', $kehadiran->lansia_id)
             ->exists();
 
         if (!$isAssigned) {
@@ -167,7 +167,7 @@ class KegiatanController extends Controller
     {
         $isAssigned = auth()->user()
             ->lansias()
-            ->where('lansias.id', $kehadiran->lansia_id)
+            ->where('lansia.id', $kehadiran->lansia_id)
             ->exists();
 
         if (!$isAssigned) {

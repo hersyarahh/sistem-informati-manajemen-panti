@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Lansia extends Model
 {
+    protected $table = 'lansia';
+
     protected $fillable = [
         'nama_lengkap',
         'nik',

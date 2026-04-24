@@ -45,7 +45,7 @@ class KaryawanAssignmentController extends Controller
             ->orderBy('nama_lengkap')
             ->get();
         $assignedLansiaIds = $selectedStaff
-            ? $selectedStaff->lansias()->pluck('lansias.id')->toArray()
+            ? $selectedStaff->lansias()->pluck('lansia.id')->toArray()
             : [];
         $sessionSelected = $selectedStaffId
             ? $request->session()->get("assign_selected_lansia_ids.$selectedStaffId", [])
@@ -69,7 +69,7 @@ class KaryawanAssignmentController extends Controller
             'staff_id' => 'nullable|exists:users,id',
             'no_kamar' => 'nullable|string|max:50',
             'selected_lansia_ids' => 'nullable|array',
-            'selected_lansia_ids.*' => 'exists:lansias,id',
+            'selected_lansia_ids.*' => 'exists:lansia,id',
         ]);
 
         $request->session()->put('assign_staff_id', $data['staff_id'] ?? null);
@@ -97,7 +97,7 @@ class KaryawanAssignmentController extends Controller
         $data = $request->validate([
             'staff_id' => 'required|exists:users,id',
             'lansia_ids' => 'nullable|array',
-            'lansia_ids.*' => 'exists:lansias,id',
+            'lansia_ids.*' => 'exists:lansia,id',
         ]);
 
         $staff = User::whereHas('role', function ($query) {
