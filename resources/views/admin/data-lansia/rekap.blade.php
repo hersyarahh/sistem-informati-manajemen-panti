@@ -83,12 +83,12 @@
                 </select>
             </div>
 
-            <div class="sm:col-span-2 lg:col-span-2 flex gap-3 lg:flex-nowrap">
-                <button class="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 whitespace-nowrap">
+            <div class="sm:col-span-2 lg:col-span-2 flex items-center justify-center gap-3 lg:flex-nowrap">
+                <button class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 whitespace-nowrap">
                     Tampilkan
                 </button>
                 <a href="{{ route('admin.lansia.rekap') }}"
-                   class="flex-1 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center whitespace-nowrap">
+                   class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center whitespace-nowrap">
                     Reset
                 </a>
             </div>
