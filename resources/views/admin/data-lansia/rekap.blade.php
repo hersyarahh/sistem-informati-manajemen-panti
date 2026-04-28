@@ -61,7 +61,7 @@
                 </select>
             </div>
 
-            <div class="sm:col-span-1 lg:col-span-3">
+            <div class="sm:col-span-1 lg:col-span-2">
                 <label class="text-sm text-gray-600">Bulan</label>
                 <select name="bulan" class="w-full border rounded px-3 py-2" {{ $periode === 'tahun' ? 'disabled' : '' }}>
                     <option value="">Semua Bulan</option>
@@ -83,12 +83,12 @@
                 </select>
             </div>
 
-            <div class="sm:col-span-2 lg:col-span-1 flex gap-3">
-                <button class="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+            <div class="sm:col-span-2 lg:col-span-2 flex gap-3 lg:flex-nowrap">
+                <button class="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 whitespace-nowrap">
                     Tampilkan
                 </button>
                 <a href="{{ route('admin.lansia.rekap') }}"
-                   class="flex-1 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center">
+                   class="flex-1 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-center whitespace-nowrap">
                     Reset
                 </a>
             </div>

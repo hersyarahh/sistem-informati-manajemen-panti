@@ -135,7 +135,7 @@ class LansiaController extends Controller
         $pdf = Pdf::loadView('admin.data-lansia.pdf', compact('lansia'))
             ->setPaper('A4', 'portrait');
 
-        return $pdf->download(
+        return $pdf->stream(
             'data-lansia-' . str_replace(' ', '-', strtolower($lansia->nama_lengkap)) . '.pdf'
         );
     }

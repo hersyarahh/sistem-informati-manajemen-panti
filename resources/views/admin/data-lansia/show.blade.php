@@ -14,6 +14,7 @@
 
         <div class="flex flex-wrap gap-2">
             <a href="{{ route('admin.lansia.download', $lansia) }}"
+               target="_blank" rel="noopener noreferrer"
                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
                 Download PDF
             </a>

@@ -112,7 +112,7 @@ class InventarisController extends Controller
             compact('inventaris')
         );
 
-        return $pdf->download(
+        return $pdf->stream(
             'Laporan_Inventaris_' . $inventaris->nama_barang . '.pdf'
         );
     }

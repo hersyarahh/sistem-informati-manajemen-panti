@@ -105,6 +105,7 @@
             Export mengikuti filter periode yang dipilih.
         </div>
         <a href="{{ route('admin.kegiatan.export-pdf', request()->query()) }}"
+           target="_blank" rel="noopener noreferrer"
            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-center md:w-auto">
             PDF (.pdf)
         </a>

@@ -83,6 +83,7 @@
                             <td class="px-4 py-4 text-sm text-gray-700">{{ $lansia->alergi ?? '-' }}</td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ route('admin.riwayat-kesehatan.download', $lansia) }}"
+                                   target="_blank" rel="noopener noreferrer"
                                    class="text-blue-600 hover:text-blue-900"
                                    title="Download PDF">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

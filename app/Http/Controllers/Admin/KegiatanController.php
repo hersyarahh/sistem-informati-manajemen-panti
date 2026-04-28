@@ -375,7 +375,7 @@ class KegiatanController extends Controller
             )
         );
 
-        return $pdf->download('Rekap_Kegiatan.pdf');
+        return $pdf->stream('Rekap_Kegiatan.pdf');
     }
 
     // ======================

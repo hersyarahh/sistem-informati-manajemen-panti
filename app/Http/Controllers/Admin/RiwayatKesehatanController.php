@@ -85,6 +85,6 @@ class RiwayatKesehatanController extends Controller
 
         $filename = 'rekap-kesehatan-' . str_replace(' ', '-', strtolower($lansia->nama_lengkap)) . '.pdf';
 
-        return $pdf->download($filename);
+        return $pdf->stream($filename);
     }
 }
