@@ -28,7 +28,6 @@ class TerminasiLansiaController extends Controller
         $validated = $request->validate([
             'tanggal_keluar'   => 'required|date|after_or_equal:' . $lansia->tanggal_masuk,
             'jenis_terminasi'  => 'required|in:meninggal,dipulangkan',
-            'lokasi_meninggal' => 'nullable|required_if:jenis_terminasi,meninggal|in:panti,keluarga',
             'keterangan'       => 'required|string',
             'dokumen_surat_terminasi' => 'required|file|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
@@ -37,9 +36,7 @@ class TerminasiLansiaController extends Controller
             'lansia_id'        => $lansia->id,
             'tanggal_keluar'   => $validated['tanggal_keluar'],
             'jenis_terminasi'  => $validated['jenis_terminasi'],
-            'lokasi_meninggal' => $validated['jenis_terminasi'] === 'meninggal'
-                ? $validated['lokasi_meninggal']
-                : null,
+            'lokasi_meninggal' => null,
             'keterangan'       => $validated['keterangan'] ?? null,
         ]);
 
