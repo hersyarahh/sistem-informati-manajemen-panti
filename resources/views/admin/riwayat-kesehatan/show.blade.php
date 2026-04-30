@@ -4,8 +4,16 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-3">
         <h1 class="text-2xl font-bold text-gray-800">Detail Riwayat Kesehatan</h1>
+        <a href="{{ route('admin.riwayat-kesehatan.index') }}"
+           class="text-blue-600 hover:text-blue-700 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Kembali
+        </a>
     </div>
 
     @php $riwayat = $lansia->latestRiwayatKesehatan; @endphp
@@ -96,13 +104,15 @@
         @else
             <p class="text-sm text-gray-500">Belum ada data pemeriksaan.</p>
         @endif
+
+        <div class="mt-6 flex justify-end">
+            <a href="{{ route('admin.riwayat-kesehatan.download', $lansia) }}"
+               target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
+                Download Rekap Kesehatan
+            </a>
+        </div>
     </div>
 
-    <div class="flex items-center">
-        <a href="{{ route('admin.riwayat-kesehatan.index') }}"
-           class="px-6 py-2 bg-gray-200 rounded-lg">
-            Kembali
-        </a>
-    </div>
 </div>
 @endsection

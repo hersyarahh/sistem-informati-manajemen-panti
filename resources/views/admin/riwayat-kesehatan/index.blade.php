@@ -10,10 +10,6 @@
             <p class="text-gray-600 text-sm mt-1">Total: {{ $lansias->total() }} lansia</p>
         </div>
         <div class="flex items-center gap-3">
-            <a href="{{ route('admin.riwayat-kesehatan.rekap-all') }}"
-               class="inline-flex items-center justify-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-colors">
-                Rekap Kesehatan
-            </a>
             <a href="{{ route('admin.riwayat-kesehatan.assign') }}"
                class="inline-flex items-center justify-center px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors">
                 Tentukan Pekerja Sosial

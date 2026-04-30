@@ -12,6 +12,7 @@ class RiwayatKesehatanController extends Controller
     public function index(Request $request)
     {
         $lansias = Lansia::with(['latestRiwayatKesehatan', 'karyawans'])
+            ->withMax('riwayatKesehatan', 'tanggal_periksa')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
             })
@@ -19,6 +20,7 @@ class RiwayatKesehatanController extends Controller
             ->when($request->filled('no_kamar'), function ($query) use ($request) {
                 $query->where('no_kamar', $request->no_kamar);
             })
+            ->orderByDesc('riwayat_kesehatan_max_tanggal_periksa')
             ->orderBy('nama_lengkap')
             ->paginate(5)
             ->withQueryString();

@@ -82,11 +82,11 @@ Route::middleware(['auth', 'role:admin'])
             ->name('riwayat-kesehatan.index');
         Route::get('/riwayat-kesehatan/{lansia}', [RiwayatKesehatanController::class, 'show'])
             ->name('riwayat-kesehatan.show');
-        Route::get('/riwayat-kesehatan/{lansia}/rekap', [RiwayatKesehatanController::class, 'rekap'])
+        Route::redirect('/riwayat-kesehatan/{lansia}/rekap', '/admin/riwayat-kesehatan/{lansia}')
             ->name('riwayat-kesehatan.rekap');
         Route::get('/riwayat-kesehatan/{lansia}/download', [RiwayatKesehatanController::class, 'download'])
             ->name('riwayat-kesehatan.download');
-        Route::get('/riwayat-kesehatan-rekap', [RiwayatKesehatanController::class, 'rekapAll'])
+        Route::redirect('/riwayat-kesehatan-rekap', '/admin/riwayat-kesehatan')
             ->name('riwayat-kesehatan.rekap-all');
         Route::redirect('/riwayat-kesehatan/assign/staff', '/admin/riwayat-kesehatan/assign/pekerja-sosial');
         Route::redirect('/riwayat-kesehatan/assign/staff/reset', '/admin/riwayat-kesehatan/assign/pekerja-sosial/reset');

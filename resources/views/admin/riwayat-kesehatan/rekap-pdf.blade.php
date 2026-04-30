@@ -87,6 +87,42 @@
             background: #f9fafb;
         }
 
+        .riwayat-card {
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            margin-top: 14px;
+            overflow: hidden;
+        }
+
+        .riwayat-header {
+            background: #2563eb;
+            color: #ffffff;
+            padding: 8px 10px;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        table.detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        table.detail-table td {
+            border: 1px solid #e5e7eb;
+            padding: 8px 10px;
+            vertical-align: top;
+            font-size: 10.5pt;
+            word-wrap: break-word;
+        }
+
+        .detail-label {
+            width: 28%;
+            background: #f9fafb;
+            font-weight: bold;
+            color: #4b5563;
+        }
+
         .no-data {
             text-align: center;
             padding: 40px;
@@ -131,30 +167,47 @@
     </div>
 
     @if($riwayats->count() > 0)
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th style="width: 12%">Tanggal</th>
-                <th style="width: 18%">Jenis</th>
-                <th style="width: 18%">Keluhan</th>
-                <th style="width: 18%">Diagnosa</th>
-                <th style="width: 18%">Tindakan</th>
-                <th style="width: 16%">Petugas</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($riwayats as $riwayat)
+    @foreach ($riwayats as $index => $riwayat)
+        <div class="riwayat-card">
+            <div class="riwayat-header">
+                Pemeriksaan #{{ $index + 1 }} - {{ $riwayat->tanggal_periksa?->format('d/m/Y') ?? '-' }}
+            </div>
+            <table class="detail-table">
                 <tr>
+                    <td class="detail-label">Tanggal Periksa</td>
                     <td>{{ $riwayat->tanggal_periksa?->format('d/m/Y') ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Jenis Pemeriksaan</td>
                     <td>{{ $riwayat->jenis_pemeriksaan ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Keluhan</td>
                     <td>{{ $riwayat->keluhan ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Diagnosa</td>
                     <td>{{ $riwayat->diagnosa ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Tindakan</td>
                     <td>{{ $riwayat->tindakan ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Resep Obat</td>
+                    <td>{{ $riwayat->resep_obat ?? '-' }}</td>
+                </tr>
+                <tr>
+                    <td class="detail-label">Penanggung Jawab</td>
                     <td>{{ $riwayat->nama_petugas ?? '-' }}</td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                <tr>
+                    <td class="detail-label">Catatan</td>
+                    <td>{{ $riwayat->catatan ?? '-' }}</td>
+                </tr>
+            </table>
+        </div>
+    @endforeach
     @else
     <div class="no-data">
         Belum ada riwayat kesehatan.

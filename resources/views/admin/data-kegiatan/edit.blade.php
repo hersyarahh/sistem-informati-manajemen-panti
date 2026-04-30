@@ -15,8 +15,12 @@
         </div>
 
         <a href="{{ route('admin.kegiatan.index') }}"
-           class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">
-            ← Kembali
+           class="text-blue-600 hover:text-blue-700 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Kembali
         </a>
     </div>
 
@@ -154,3 +158,4 @@
 
 </div>
 @endsection
+

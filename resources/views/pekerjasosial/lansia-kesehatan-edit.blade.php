@@ -84,7 +84,7 @@
         @endif
     </div>
 
-    <form action="{{ route('staff.lansia.update', $lansia) }}"
+    <form id="form-riwayat-kesehatan" action="{{ route('staff.lansia.update', $lansia) }}"
           method="POST"
           enctype="multipart/form-data"
           class="space-y-6">
@@ -146,6 +146,7 @@
                         <label class="block text-sm font-medium mb-2">Tanggal Periksa</label>
                         <input type="date" name="riwayat_tanggal_periksa"
                                value="{{ old('riwayat_tanggal_periksa') }}"
+                               required
                                class="w-full px-4 py-3 border rounded-lg">
                     </div>
 
@@ -153,18 +154,21 @@
                         <label class="block text-sm font-medium mb-2">Jenis Pemeriksaan</label>
                         <input type="text" name="riwayat_jenis_pemeriksaan"
                                value="{{ old('riwayat_jenis_pemeriksaan') }}"
+                               required
                                class="w-full h-11 px-4 border rounded-lg">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium mb-2">Keluhan</label>
                         <textarea name="riwayat_keluhan" rows="2"
+                                  required
                                   class="w-full h-11 px-4 border rounded-lg">{{ old('riwayat_keluhan') }}</textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium mb-2">Diagnosa</label>
                         <textarea name="riwayat_diagnosa" rows="2"
+                                  required
                                   class="w-full h-11 px-4 border rounded-lg">{{ old('riwayat_diagnosa') }}</textarea>
                     </div>
 
@@ -177,6 +181,7 @@
                     <div>
                         <label class="block text-sm font-medium mb-2">Resep Obat</label>
                         <textarea name="riwayat_resep_obat" rows="2"
+                                  required
                                   class="w-full h-11 px-4 border rounded-lg">{{ old('riwayat_resep_obat') }}</textarea>
                     </div>
 
@@ -184,6 +189,7 @@
                         <label class="block text-sm font-medium mb-2">Penanggung Jawab</label>
                         <input type="text" name="riwayat_nama_petugas"
                                value="{{ old('riwayat_nama_petugas') }}"
+                               required
                                class="w-full h-11 px-4 border rounded-lg">
                     </div>
 
@@ -212,4 +218,30 @@
         </div>
     </form>
 </div>
+
+<script>
+    (function () {
+        const form = document.getElementById('form-riwayat-kesehatan');
+        if (!form) return;
+
+        const requiredFields = form.querySelectorAll(
+            'input[name="riwayat_tanggal_periksa"], ' +
+            'input[name="riwayat_jenis_pemeriksaan"], ' +
+            'textarea[name="riwayat_keluhan"], ' +
+            'textarea[name="riwayat_diagnosa"], ' +
+            'textarea[name="riwayat_resep_obat"], ' +
+            'input[name="riwayat_nama_petugas"]'
+        );
+
+        requiredFields.forEach((field) => {
+            field.addEventListener('invalid', () => {
+                field.setCustomValidity('Kolom wajib diisi');
+            });
+
+            field.addEventListener('input', () => {
+                field.setCustomValidity('');
+            });
+        });
+    })();
+</script>
 @endsection
