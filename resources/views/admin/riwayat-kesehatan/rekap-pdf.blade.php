@@ -13,6 +13,7 @@
             font-size: 11pt;
             color: #333;
             line-height: 1.4;
+            padding-bottom: 35mm;
         }
 
         .header {
@@ -138,7 +139,8 @@
             text-align: center;
             font-size: 9pt;
             color: #6b7280;
-            padding: 10px;
+            background: #ffffff;
+            padding: 12px 10px 8px;
             border-top: 1px solid #e5e7eb;
         }
     </style>
