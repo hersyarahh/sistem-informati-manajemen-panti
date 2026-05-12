@@ -24,7 +24,9 @@ class KegiatanController extends Controller
             // Bekukan anggota lansia sesuai data yang sudah ada saat kegiatan dibuat.
             ->where('created_at', '<=', $waktuBuatKegiatan)
             ->where(function ($query) use ($tanggalKegiatan) {
-                $query->doesntHave('terminasi')
+                // Tetap tampil jika status masih aktif.
+                $query->where('status', 'aktif')
+                    // Atau tetap tampil untuk histori kegiatan sebelum tanggal terminasi.
                     ->orWhereHas('terminasi', function ($terminasiQuery) use ($tanggalKegiatan) {
                         $terminasiQuery->whereDate('tanggal_keluar', '>', $tanggalKegiatan);
                     });
@@ -383,38 +385,29 @@ class KegiatanController extends Controller
     // ======================
     public function show(Kegiatan $kegiatan)
     {
-        // Load relasi agar efisien
-        $kegiatan->load([
-            'lansias',
-            'kehadiranHadir'
-        ]);
+        $lansiasAktifQuery = $this->lansiaAktifPadaKegiatanQuery($kegiatan)
+            ->with('karyawans:id,name')
+            ->orderBy('nama_lengkap');
 
-        // Statistik kehadiran
-        $tanggal = $kegiatan->tanggal?->toDateString();
+        $totalLansia = (clone $lansiasAktifQuery)->count();
 
-        $totalLansia = $tanggal ? $this->lansiaAktifPadaKegiatanQuery($kegiatan)->count() : 0;
+        $lansiasAktif = $lansiasAktifQuery
+            ->paginate(10)
+            ->withQueryString();
 
-        $totalHadir = Kehadiran::where('kegiatan_id', $kegiatan->id)
-            ->where('status_kehadiran', 'hadir')
-            ->whereHas('lansia', function ($query) use ($kegiatan) {
-                $tanggal = $kegiatan->tanggal?->toDateString();
-                $query->whereDate('tanggal_masuk', '<=', $tanggal)
-                    ->where('created_at', '<=', $kegiatan->created_at)
-                    ->where(function ($subQuery) use ($tanggal) {
-                        $subQuery->doesntHave('terminasi')
-                            ->orWhereHas('terminasi', function ($terminasiQuery) use ($tanggal) {
-                                $terminasiQuery->whereDate('tanggal_keluar', '>', $tanggal);
-                            });
-                    });
-            })
-            ->count();
+        $kehadiranByLansia = Kehadiran::where('kegiatan_id', $kegiatan->id)
+            ->get()
+            ->keyBy('lansia_id');
 
-        $totalTidakHadir = $totalLansia - $totalHadir;
+        $totalHadir = $kehadiranByLansia->where('status_kehadiran', 'hadir')->count();
+        $totalTidakHadir = $kehadiranByLansia->where('status_kehadiran', 'tidak_hadir')->count();
 
         return view(
             'admin.data-kegiatan.show',
             compact(
                 'kegiatan',
+                'lansiasAktif',
+                'kehadiranByLansia',
                 'totalLansia',
                 'totalHadir',
                 'totalTidakHadir'

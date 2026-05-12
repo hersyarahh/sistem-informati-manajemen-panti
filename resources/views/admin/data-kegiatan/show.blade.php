@@ -104,6 +104,9 @@
                             Nama Lansia
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                            Penanggung Jawab
+                        </th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                             Status Kehadiran
                         </th>
                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
@@ -113,10 +116,14 @@
                 </thead>
 
                 <tbody class="divide-y">
-                    @forelse($kegiatan->lansias as $index => $lansia)
+                    @forelse($lansiasAktif as $index => $lansia)
+                    @php
+                        $kehadiran = $kehadiranByLansia->get($lansia->id);
+                        $staffNames = $lansia->karyawans->pluck('name')->filter()->values();
+                    @endphp
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-3 text-sm">
-                            {{ $index + 1 }}
+                            {{ $lansiasAktif->firstItem() + $index }}
                         </td>
 
                         <td class="px-4 py-3 text-sm text-gray-800">
@@ -124,7 +131,19 @@
                         </td>
 
                         <td class="px-4 py-3">
-                            @if($lansia->pivot->status_kehadiran === 'hadir')
+                            @if($staffNames->isNotEmpty())
+                                <span class="text-sm text-gray-700">{{ $staffNames->join(', ') }}</span>
+                            @else
+                                <span class="text-sm text-gray-400">Belum ditentukan</span>
+                            @endif
+                        </td>
+
+                        <td class="px-4 py-3">
+                            @if(!$kehadiran)
+                            <span class="px-3 py-1 text-xs rounded-full bg-gray-100 text-gray-700">
+                                Belum Diabsen
+                            </span>
+                            @elseif($kehadiran->status_kehadiran === 'hadir')
                             <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
                                 Hadir
                             </span>
@@ -136,12 +155,12 @@
                         </td>
 
                         <td class="px-4 py-3 text-sm text-gray-600">
-                            {{ $lansia->pivot->catatan ?? '-' }}
+                            {{ $kehadiran?->catatan ?? '-' }}
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-6 text-center text-gray-500">
+                        <td colspan="5" class="px-4 py-6 text-center text-gray-500">
                             Belum ada data kehadiran.
                         </td>
                     </tr>
@@ -149,6 +168,12 @@
                 </tbody>
             </table>
         </div>
+
+        @if($lansiasAktif->hasPages())
+        <div class="px-4 py-3 border-t border-gray-200">
+            {{ $lansiasAktif->links('pagination.admin') }}
+        </div>
+        @endif
     </div>
 
 </div>

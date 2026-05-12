@@ -42,7 +42,7 @@
             <div class="md:col-span-3 flex gap-2">
                 <button type="submit"
                         class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800">
-                    Filter
+                    Cari
                 </button>
                 @if(request()->filled('jenis'))
                 <a href="{{ route('staff.riwayat-kegiatan') }}"

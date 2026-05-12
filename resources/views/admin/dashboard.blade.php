@@ -15,8 +15,8 @@
         <p class="text-gray-600">Selamat datang, Admin Panti</p>
     </div>
 
-    <!-- 4 STATISTICS (1 BARIS) -->
-    <div class="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+    <!-- STATISTICS -->
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
         <div class="bg-white p-4 sm:p-6 rounded-xl shadow">
             <p class="text-gray-500">Total Lansia</p>
             <h2 class="text-3xl font-bold text-blue-600 mt-2">{{ $totalLansia ?? 0 }}</h2>
@@ -31,12 +31,6 @@
             <p class="text-gray-500">Kegiatan Hari Ini</p>
             <h2 class="text-3xl font-bold text-purple-600 mt-2">{{ $kegiatanHariIni ?? 0 }}</h2>
         </div>
-
-        <div class="bg-white p-4 sm:p-6 rounded-xl shadow">
-            <p class="text-gray-500">Total Inventaris</p>
-            <h2 class="text-3xl font-bold text-orange-600 mt-2">{{ $totalInventaris ?? 0 }}</h2>
-        </div>
-
     </div>
 
     <div class="grid grid-cols-1 gap-6">

@@ -26,7 +26,11 @@ class LansiaController extends Controller
             $query->where('status', $request->status);
         }
 
-        $lansias = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
+        $lansias = $query
+            ->orderByDesc('updated_at')
+            ->orderByDesc('created_at')
+            ->paginate(5)
+            ->withQueryString();
 
         return view('admin.data-lansia.index', compact('lansias'));
     }

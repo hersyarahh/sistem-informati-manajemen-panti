@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Lansia;
 use App\Models\User;
 use App\Models\Kegiatan;
-use App\Models\Inventaris;
 
 class DashboardController extends Controller
 {
@@ -50,7 +49,6 @@ class DashboardController extends Controller
                 $query->where('name', 'karyawan');
             })->count(),
             'kegiatanHariIni' => Kegiatan::whereDate('tanggal', today())->count(),
-            'totalInventaris' => Inventaris::count(),
             'lansiaYearLabels' => $labels,
             'lansiaYearCounts' => $counts,
             'kondisiChartLabels' => $kondisiChartLabels,
