@@ -95,9 +95,9 @@ class Lansia extends Model
         return $this->hasOne(TerminasiLansia::class);
     }
 
-    public function karyawans()
+    public function pekerjaSosials()
     {
-        return $this->belongsToMany(User::class, 'karyawan_lansia');
+        return $this->belongsToMany(User::class, 'pekerja_sosial_lansia');
     }
 
     public function riwayatKesehatan()

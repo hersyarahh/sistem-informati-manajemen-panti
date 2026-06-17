@@ -12,7 +12,7 @@ return new class extends Migration
         $this->dropForeignIfExists('kehadirans', ['lansia_id']);
         $this->dropForeignIfExists('riwayat_kesehatans', ['lansia_id']);
         $this->dropForeignIfExists('terminasi_lansias', ['lansia_id']);
-        $this->dropForeignIfExists('karyawan_lansia', ['lansia_id']);
+        $this->dropForeignIfExists('pekerja_sosial_lansia', ['lansia_id']);
 
         $this->renameTableIfExists('kegiatans', 'kegiatan');
         $this->renameTableIfExists('kehadirans', 'kehadiran');
@@ -33,7 +33,7 @@ return new class extends Migration
         $this->addForeignIfPossible('terminasi_lansia', function (Blueprint $table) {
             $table->foreign('lansia_id')->references('id')->on('lansia')->cascadeOnDelete();
         });
-        $this->addForeignIfPossible('karyawan_lansia', function (Blueprint $table) {
+        $this->addForeignIfPossible('pekerja_sosial_lansia', function (Blueprint $table) {
             $table->foreign('lansia_id')->references('id')->on('lansia')->onDelete('cascade');
         });
     }
@@ -44,7 +44,7 @@ return new class extends Migration
         $this->dropForeignIfExists('kehadiran', ['lansia_id']);
         $this->dropForeignIfExists('riwayat_kesehatan', ['lansia_id']);
         $this->dropForeignIfExists('terminasi_lansia', ['lansia_id']);
-        $this->dropForeignIfExists('karyawan_lansia', ['lansia_id']);
+        $this->dropForeignIfExists('pekerja_sosial_lansia', ['lansia_id']);
 
         $this->renameTableIfExists('kegiatan', 'kegiatans');
         $this->renameTableIfExists('kehadiran', 'kehadirans');
@@ -65,7 +65,7 @@ return new class extends Migration
         $this->addForeignIfPossible('terminasi_lansias', function (Blueprint $table) {
             $table->foreign('lansia_id')->references('id')->on('lansias')->cascadeOnDelete();
         });
-        $this->addForeignIfPossible('karyawan_lansia', function (Blueprint $table) {
+        $this->addForeignIfPossible('pekerja_sosial_lansia', function (Blueprint $table) {
             $table->foreign('lansia_id')->references('id')->on('lansias')->onDelete('cascade');
         });
     }

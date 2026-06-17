@@ -30,14 +30,14 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
             <div class="md:col-span-5">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Pekerja Sosial</label>
-                <select name="staff_id"
+                <select name="pekerja_sosial_id"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg
                                focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         onchange="this.form.submit()">
                     <option value="">-- Pilih Pekerja Sosial --</option>
-                    @foreach ($staffs as $staff)
-                        <option value="{{ $staff->id }}" {{ (string) $staff->id === (string) ($selectedStaff?->id) ? 'selected' : '' }}>
-                            {{ $staff->name }}
+                    @foreach ($pekerjaSosials as $pekerjaSosial)
+                        <option value="{{ $pekerjaSosial->id }}" {{ (string) $pekerjaSosial->id === (string) ($selectedPekerjaSosial?->id) ? 'selected' : '' }}>
+                            {{ $pekerjaSosial->name }}
                         </option>
                     @endforeach
                 </select>
@@ -64,7 +64,7 @@
                     Tampilkan
                 </button>
 
-                @if ($selectedRoom || $selectedStaff)
+                @if ($selectedRoom || $selectedPekerjaSosial)
                 <a href="{{ route('admin.riwayat-kesehatan.assign.reset') }}"
                    class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                     Reset
@@ -76,13 +76,13 @@
 
     <form method="POST" action="{{ route('admin.riwayat-kesehatan.assign.store') }}" class="bg-white rounded-lg shadow">
         @csrf
-        <input type="hidden" name="staff_id" value="{{ $selectedStaff?->id }}">
+        <input type="hidden" name="pekerja_sosial_id" value="{{ $selectedPekerjaSosial?->id }}">
 
         <div class="p-4 border-b">
             <h2 class="text-lg font-semibold text-gray-800">Daftar Lansia Aktif</h2>
             <p class="text-sm text-gray-500">
-                @if ($selectedStaff)
-                    Menugaskan lansia untuk: <span class="font-semibold">{{ $selectedStaff->name }}</span>
+                @if ($selectedPekerjaSosial)
+                    Menugaskan lansia untuk: <span class="font-semibold">{{ $selectedPekerjaSosial->name }}</span>
                 @else
                     Pilih pekerja sosial terlebih dahulu untuk mengaktifkan checklist.
                 @endif
@@ -96,7 +96,7 @@
                         <input type="checkbox"
                                name="lansia_ids[]"
                                value="{{ $lansia->id }}"
-                               {{ !$selectedStaff ? 'disabled' : '' }}
+                               {{ !$selectedPekerjaSosial ? 'disabled' : '' }}
                                {{ in_array($lansia->id, $selectedLansiaIds, true) ? 'checked' : '' }}>
                         <span class="text-sm text-gray-700">{{ $lansia->nama_lengkap }}</span>
                     </label>
@@ -107,7 +107,7 @@
         <div class="p-4 border-t flex justify-end gap-3">
             <button type="submit"
                     class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                    {{ $selectedStaff ? '' : 'disabled' }}>
+                    {{ $selectedPekerjaSosial ? '' : 'disabled' }}>
                 Simpan Penugasan
             </button>
         </div>

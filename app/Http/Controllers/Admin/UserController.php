@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')
+            ->whereHas('role', fn ($query) => $query->whereIn('name', ['admin', 'pekerja_sosial']))
             ->orderBy('name')
             ->get();
 
@@ -24,11 +25,11 @@ class UserController extends Controller
     public function create()
     {
         Role::updateOrCreate(
-            ['name' => 'karyawan'],
+            ['name' => 'pekerja_sosial'],
             ['label' => 'Pekerja Sosial']
         );
 
-        $roles = Role::where('name', '!=', 'keluarga')
+        $roles = Role::whereIn('name', ['admin', 'pekerja_sosial'])
             ->orderBy('label')
             ->get();
 
@@ -41,7 +42,12 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::defaults()],
-            'role_id' => ['required', 'exists:roles,id'],
+            'role_id' => [
+                'required',
+                Rule::exists('roles', 'id')->where(
+                    fn ($query) => $query->whereIn('name', ['admin', 'pekerja_sosial'])
+                ),
+            ],
             'phone' => ['nullable', 'digits_between:8,20'],
         ]);
 
@@ -63,11 +69,11 @@ class UserController extends Controller
         }
 
         Role::updateOrCreate(
-            ['name' => 'karyawan'],
+            ['name' => 'pekerja_sosial'],
             ['label' => 'Pekerja Sosial']
         );
 
-        $roles = Role::where('name', '!=', 'keluarga')
+        $roles = Role::whereIn('name', ['admin', 'pekerja_sosial'])
             ->orderBy('label')
             ->get();
 
@@ -93,7 +99,12 @@ class UserController extends Controller
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
             'password' => ['nullable', 'confirmed', Password::defaults()],
-            'role_id' => ['required', 'exists:roles,id'],
+            'role_id' => [
+                'required',
+                Rule::exists('roles', 'id')->where(
+                    fn ($query) => $query->whereIn('name', ['admin', 'pekerja_sosial'])
+                ),
+            ],
             'phone' => ['nullable', 'digits_between:8,20'],
         ]);
 
@@ -157,7 +168,7 @@ class UserController extends Controller
     {
         $users = User::with('role')
             ->whereHas('role', function ($query) {
-                $query->where('name', 'karyawan');
+                $query->where('name', 'pekerja_sosial');
             })
             ->orderBy('name')
             ->paginate(5)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\PekerjaSosial;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
@@ -35,7 +35,7 @@ class KegiatanController extends Controller
     {
         if (!$kegiatan->tanggal || !$kegiatan->tanggal->isToday()) {
             return redirect()
-                ->route('staff.riwayat-kegiatan')
+                ->route('pekerja-sosial.riwayat-kegiatan')
                 ->with('error', 'Absensi hanya bisa diisi untuk kegiatan hari ini.');
         }
 
@@ -124,7 +124,7 @@ class KegiatanController extends Controller
         }
 
         return redirect()
-            ->route('staff.riwayat-kegiatan')
+            ->route('pekerja-sosial.riwayat-kegiatan')
             ->with('success', 'Absensi berhasil disimpan.');
     }
 
@@ -159,7 +159,7 @@ class KegiatanController extends Controller
         }
 
         return redirect()
-            ->route('staff.riwayat-kegiatan')
+            ->route('pekerja-sosial.riwayat-kegiatan')
             ->with('success', 'Absensi berhasil diperbarui.');
     }
 
@@ -184,7 +184,7 @@ class KegiatanController extends Controller
         ]);
 
         return redirect()
-            ->route('staff.riwayat-kegiatan')
+            ->route('pekerja-sosial.riwayat-kegiatan')
             ->with('success', 'Pengajuan pembatalan tersimpan.');
     }
 }

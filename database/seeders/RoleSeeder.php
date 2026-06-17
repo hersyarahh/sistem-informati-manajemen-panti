@@ -15,13 +15,8 @@ class RoleSeeder extends Seeder
         );
 
         Role::firstOrCreate(
-            ['name' => 'karyawan'],
-            ['label' => 'Karyawan']
-        );
-
-        Role::firstOrCreate(
-            ['name' => 'keluarga'],
-            ['label' => 'Keluarga']
+            ['name' => 'pekerja_sosial'],
+            ['label' => 'Pekerja Sosial']
         );
     }
 }

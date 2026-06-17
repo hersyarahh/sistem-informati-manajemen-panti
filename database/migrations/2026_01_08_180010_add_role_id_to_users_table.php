@@ -20,8 +20,7 @@ return new class extends Migration
         $now = now();
         $roles = [
             ['name' => 'admin', 'label' => 'Admin', 'created_at' => $now, 'updated_at' => $now],
-            ['name' => 'karyawan', 'label' => 'Karyawan', 'created_at' => $now, 'updated_at' => $now],
-            ['name' => 'keluarga', 'label' => 'Keluarga', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => 'pekerja_sosial', 'label' => 'Pekerja Sosial', 'created_at' => $now, 'updated_at' => $now],
         ];
 
         foreach ($roles as $role) {
@@ -35,10 +34,10 @@ return new class extends Migration
                 DB::table('users')->where('role', $name)->update(['role_id' => $id]);
             }
 
-            if (isset($roleIds['keluarga'])) {
+            if (isset($roleIds['pekerja_sosial'])) {
                 DB::table('users')
                     ->whereNull('role_id')
-                    ->update(['role_id' => $roleIds['keluarga']]);
+                    ->update(['role_id' => $roleIds['pekerja_sosial']]);
             }
 
             Schema::table('users', function (Blueprint $table) {
@@ -50,8 +49,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['admin', 'karyawan', 'keluarga'])
-                ->default('keluarga')
+            $table->enum('role', ['admin', 'pekerja_sosial'])
+                ->default('pekerja_sosial')
                 ->after('email');
         });
 

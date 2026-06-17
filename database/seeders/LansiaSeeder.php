@@ -4,20 +4,13 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Lansia;
-use App\Models\KeluargaLansia;
-use App\Models\User;
-use RuntimeException;
 
 class LansiaSeeder extends Seeder
 {
     public function run(): void
     {
-        $ahmadId = $this->getUserIdOrFail('ahmad@gmail.com');
-        $dewiId = $this->getUserIdOrFail('dewi@gmail.com');
-        $jokoId = $this->getUserIdOrFail('joko@gmail.com');
-
         // Lansia 1
-        $lansia1 = Lansia::updateOrCreate(
+        Lansia::updateOrCreate(
             ['nik' => '1471010101500001'],
             [
                 'nama_lengkap' => 'Haji Abdul Rahman',
@@ -36,24 +29,8 @@ class LansiaSeeder extends Seeder
             ]
         );
 
-        // Hubungkan dengan keluarga (user_id 4 = Ahmad Dahlan)
-        KeluargaLansia::updateOrCreate(
-            [
-                'user_id' => $ahmadId,
-                'lansia_id' => $lansia1->id,
-            ],
-            [
-                'hubungan' => 'Anak',
-                'nama_lengkap' => 'Ahmad Dahlan',
-                'no_telp' => '081234567893',
-                'email' => 'ahmad@gmail.com',
-                'alamat' => 'Jl. Keluarga No. 15',
-                'status' => 'aktif',
-            ]
-        );
-
         // Lansia 2
-        $lansia2 = Lansia::updateOrCreate(
+        Lansia::updateOrCreate(
             ['nik' => '1471010202450001'],
             [
                 'nama_lengkap' => 'Hajjah Siti Aminah',
@@ -72,23 +49,8 @@ class LansiaSeeder extends Seeder
             ]
         );
 
-        KeluargaLansia::updateOrCreate(
-            [
-                'user_id' => $dewiId,
-                'lansia_id' => $lansia2->id,
-            ],
-            [
-                'hubungan' => 'Anak',
-                'nama_lengkap' => 'Dewi Sartika',
-                'no_telp' => '081234567894',
-                'email' => 'dewi@gmail.com',
-                'alamat' => 'Jl. Harmoni No. 20',
-                'status' => 'aktif',
-            ]
-        );
-
         // Lansia 3
-        $lansia3 = Lansia::updateOrCreate(
+        Lansia::updateOrCreate(
             ['nik' => '1471010303480001'],
             [
                 'nama_lengkap' => 'Pak Suparman',
@@ -103,21 +65,6 @@ class LansiaSeeder extends Seeder
                 'kontak_darurat_telp' => '081234567895',
                 'kontak_darurat_hubungan' => 'Cucu',
                 'tanggal_masuk' => '2022-11-20',
-                'status' => 'aktif',
-            ]
-        );
-
-        KeluargaLansia::updateOrCreate(
-            [
-                'user_id' => $jokoId,
-                'lansia_id' => $lansia3->id,
-            ],
-            [
-                'hubungan' => 'Cucu',
-                'nama_lengkap' => 'Joko Widodo',
-                'no_telp' => '081234567895',
-                'email' => 'joko@gmail.com',
-                'alamat' => 'Jl. Kasih Sayang No. 25',
                 'status' => 'aktif',
             ]
         );
@@ -161,16 +108,5 @@ class LansiaSeeder extends Seeder
                 'status' => 'aktif',
             ]
         );
-    }
-
-    private function getUserIdOrFail(string $email): int
-    {
-        $userId = User::where('email', $email)->value('id');
-
-        if ($userId === null) {
-            throw new RuntimeException("User with email {$email} not found. Run UserSeeder first.");
-        }
-
-        return $userId;
     }
 }

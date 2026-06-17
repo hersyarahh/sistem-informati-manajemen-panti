@@ -119,7 +119,7 @@
                     @forelse($lansiasAktif as $index => $lansia)
                     @php
                         $kehadiran = $kehadiranByLansia->get($lansia->id);
-                        $staffNames = $lansia->karyawans->pluck('name')->filter()->values();
+                        $pekerjaSosialNames = $lansia->pekerjaSosials->pluck('name')->filter()->values();
                     @endphp
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-3 text-sm">
@@ -131,8 +131,8 @@
                         </td>
 
                         <td class="px-4 py-3">
-                            @if($staffNames->isNotEmpty())
-                                <span class="text-sm text-gray-700">{{ $staffNames->join(', ') }}</span>
+                            @if($pekerjaSosialNames->isNotEmpty())
+                                <span class="text-sm text-gray-700">{{ $pekerjaSosialNames->join(', ') }}</span>
                             @else
                                 <span class="text-sm text-gray-400">Belum ditentukan</span>
                             @endif

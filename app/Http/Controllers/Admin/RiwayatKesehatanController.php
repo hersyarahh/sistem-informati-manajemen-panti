@@ -11,7 +11,7 @@ class RiwayatKesehatanController extends Controller
 {
     public function index(Request $request)
     {
-        $lansias = Lansia::with(['latestRiwayatKesehatan', 'karyawans'])
+        $lansias = Lansia::with(['latestRiwayatKesehatan', 'pekerjaSosials'])
             ->withMax('riwayatKesehatan', 'tanggal_periksa')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $query->where('nama_lengkap', 'like', '%' . $request->search . '%');

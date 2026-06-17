@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\PekerjaSosial;
 
 use App\Http\Controllers\Admin\LansiaController as AdminLansiaController;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ class LansiaController extends Controller
 {
     public function edit(Lansia $lansia)
     {
-        $isAssigned = $lansia->karyawans()
+        $isAssigned = $lansia->pekerjaSosials()
             ->where('users.id', auth()->id())
             ->exists();
 
@@ -30,7 +30,7 @@ class LansiaController extends Controller
 
     public function update(Request $request, Lansia $lansia)
     {
-        $isAssigned = $lansia->karyawans()
+        $isAssigned = $lansia->pekerjaSosials()
             ->where('users.id', auth()->id())
             ->exists();
 
@@ -95,7 +95,7 @@ class LansiaController extends Controller
         }
 
         return redirect()
-            ->route('staff.riwayat-kesehatan')
+            ->route('pekerja-sosial.riwayat-kesehatan')
             ->with('success', 'Data kesehatan berhasil diperbarui.');
     }
 }

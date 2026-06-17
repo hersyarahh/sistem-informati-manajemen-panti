@@ -95,13 +95,6 @@
                     Data Kegiatan
                 </a>
 
-                <!-- @php $isActive = request()->routeIs('admin.data-inventaris.*'); @endphp
-                <a href="{{ route('admin.data-inventaris.index') }}"
-                   class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
-                   @if ($isActive) aria-current="page" @endif>
-                    Inventaris
-                </a> -->
-
             </nav>
 
             <!-- LOGOUT BUTTON -->

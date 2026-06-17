@@ -1,4 +1,4 @@
-@extends('layouts.app-karyawan')
+@extends('layouts.app-pekerja-sosial')
 
 @section('title', 'Riwayat Kesehatan')
 
@@ -12,7 +12,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow p-4">
-        <form method="GET" action="{{ route('staff.riwayat-kesehatan') }}"
+        <form method="GET" action="{{ route('pekerja-sosial.riwayat-kesehatan') }}"
               class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
 
             <div class="md:col-span-6">
@@ -31,7 +31,7 @@
                 </button>
 
                 @if(request('search'))
-                <a href="{{ route('staff.riwayat-kesehatan') }}"
+                <a href="{{ route('pekerja-sosial.riwayat-kesehatan') }}"
                    class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                     Reset
                 </a>
@@ -111,7 +111,7 @@
                                 @endif
                             </td>
                             <td class="px-5 py-4 align-top">
-                                <a href="{{ route('staff.lansia.edit', $lansia) }}"
+                                <a href="{{ route('pekerja-sosial.lansia.edit', $lansia) }}"
                                    class="text-blue-600 hover:text-blue-900"
                                    title="Lihat detail dan update riwayat kesehatan">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

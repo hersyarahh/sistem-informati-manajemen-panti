@@ -386,7 +386,7 @@ class KegiatanController extends Controller
     public function show(Kegiatan $kegiatan)
     {
         $lansiasAktifQuery = $this->lansiaAktifPadaKegiatanQuery($kegiatan)
-            ->with('karyawans:id,name')
+            ->with('pekerjaSosials:id,name')
             ->orderBy('nama_lengkap');
 
         $totalLansia = (clone $lansiasAktifQuery)->count();

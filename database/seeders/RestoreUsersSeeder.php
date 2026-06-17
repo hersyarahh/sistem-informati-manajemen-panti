@@ -16,8 +16,8 @@ class RestoreUsersSeeder extends Seeder
             ['label' => 'Admin']
         );
 
-        $staffRole = Role::updateOrCreate(
-            ['name' => 'karyawan'],
+        $pekerjaSosialRole = Role::updateOrCreate(
+            ['name' => 'pekerja_sosial'],
             ['label' => 'Pekerja Sosial']
         );
 
@@ -32,19 +32,19 @@ class RestoreUsersSeeder extends Seeder
                 'name' => 'Habib',
                 'email' => 'habib@gmail.com',
                 'password' => '33333333',
-                'role_id' => $staffRole->id,
+                'role_id' => $pekerjaSosialRole->id,
             ],
             [
                 'name' => 'Kacee',
                 'email' => 'kaceehyunji@gmail.com',
                 'password' => '11111111',
-                'role_id' => $staffRole->id,
+                'role_id' => $pekerjaSosialRole->id,
             ],
             [
                 'name' => 'Yuniati',
                 'email' => 'yuniati@gmail.com',
                 'password' => '22222222',
-                'role_id' => $staffRole->id,
+                'role_id' => $pekerjaSosialRole->id,
             ],
         ];
 

@@ -1,4 +1,4 @@
-@extends('layouts.app-karyawan')
+@extends('layouts.app-pekerja-sosial')
 
 @section('title', 'Absen Kegiatan')
 
@@ -9,7 +9,7 @@
         Absen Kegiatan: {{ $kegiatan->nama_kegiatan }}
     </h2>
 
-    <form action="{{ route('staff.riwayat-kegiatan.store') }}" method="POST">
+    <form action="{{ route('pekerja-sosial.riwayat-kegiatan.store') }}" method="POST">
         @csrf
         <input type="hidden" name="kegiatan_id" value="{{ $kegiatan->id }}">
 
@@ -75,7 +75,7 @@
                 Simpan Kehadiran
             </button>
 
-            <a href="{{ route('staff.riwayat-kegiatan') }}"
+            <a href="{{ route('pekerja-sosial.riwayat-kegiatan') }}"
                class="px-5 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg">
                 Kembali
             </a>

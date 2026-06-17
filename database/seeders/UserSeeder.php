@@ -12,14 +12,13 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $roleIds = Role::whereIn('name', ['admin', 'karyawan', 'keluarga'])
+        $roleIds = Role::whereIn('name', ['admin', 'pekerja_sosial'])
             ->pluck('id', 'name');
 
         $adminRoleId = $roleIds->get('admin');
-        $karyawanRoleId = $roleIds->get('karyawan');
-        $keluargaRoleId = $roleIds->get('keluarga');
+        $pekerjaSosialRoleId = $roleIds->get('pekerja_sosial');
 
-        if (!$adminRoleId || !$karyawanRoleId || !$keluargaRoleId) {
+        if (!$adminRoleId || !$pekerjaSosialRoleId) {
             throw new RuntimeException('Roles not found. Run RoleSeeder first.');
         }
 
@@ -32,13 +31,13 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Karyawan
+        // Pekerja sosial
         User::updateOrCreate([
             'email' => 'budi@panti.com',
         ], [
             'name' => 'Dr. Budi Santoso',
             'password' => Hash::make('password'),
-            'role_id' => $karyawanRoleId,
+            'role_id' => $pekerjaSosialRoleId,
             'phone' => '081234567891',
             'is_active' => true,
         ]);
@@ -48,39 +47,8 @@ class UserSeeder extends Seeder
         ], [
             'name' => 'Siti Nurhaliza',
             'password' => Hash::make('password'),
-            'role_id' => $karyawanRoleId,
+            'role_id' => $pekerjaSosialRoleId,
             'phone' => '081234567892',
-            'is_active' => true,
-        ]);
-
-        // Keluarga
-        User::updateOrCreate([
-            'email' => 'ahmad@gmail.com',
-        ], [
-            'name' => 'Ahmad Dahlan',
-            'password' => Hash::make('password'),
-            'role_id' => $keluargaRoleId,
-            'phone' => '081234567893',
-            'is_active' => true,
-        ]);
-
-        User::updateOrCreate([
-            'email' => 'dewi@gmail.com',
-        ], [
-            'name' => 'Dewi Sartika',
-            'password' => Hash::make('password'),
-            'role_id' => $keluargaRoleId,
-            'phone' => '081234567894',
-            'is_active' => true,
-        ]);
-
-        User::updateOrCreate([
-            'email' => 'joko@gmail.com',
-        ], [
-            'name' => 'Joko Widodo',
-            'password' => Hash::make('password'),
-            'role_id' => $keluargaRoleId,
-            'phone' => '081234567895',
             'is_active' => true,
         ]);
     }

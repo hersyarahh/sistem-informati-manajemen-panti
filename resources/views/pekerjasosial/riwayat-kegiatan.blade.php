@@ -1,4 +1,4 @@
-@extends('layouts.app-karyawan')
+@extends('layouts.app-pekerja-sosial')
 
 @section('title', 'Riwayat Kegiatan')
 
@@ -24,7 +24,7 @@
     @endif
 
     <div class="bg-white rounded-lg shadow p-4">
-        <form method="GET" action="{{ route('staff.riwayat-kegiatan') }}"
+        <form method="GET" action="{{ route('pekerja-sosial.riwayat-kegiatan') }}"
               class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
             <div class="md:col-span-6">
                 <select name="jenis"
@@ -45,7 +45,7 @@
                     Cari
                 </button>
                 @if(request()->filled('jenis'))
-                <a href="{{ route('staff.riwayat-kegiatan') }}"
+                <a href="{{ route('pekerja-sosial.riwayat-kegiatan') }}"
                    class="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 text-center">
                     Reset
                 </a>
@@ -95,7 +95,7 @@
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-700">
                                 @if($isToday)
-                                    <a href="{{ route('staff.kegiatan.kehadiran', $kegiatan) }}"
+                                    <a href="{{ route('pekerja-sosial.kegiatan.kehadiran', $kegiatan) }}"
                                        class="text-blue-600 hover:text-blue-900"
                                        title="Absen Lansia">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

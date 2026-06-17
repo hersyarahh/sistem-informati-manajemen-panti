@@ -7,25 +7,25 @@ use App\Models\Lansia;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class KaryawanAssignmentController extends Controller
+class PekerjaSosialAssignmentController extends Controller
 {
     public function index(Request $request)
     {
         if (!$request->session()->get('keep_assign')) {
             $request->session()->forget([
-                'assign_staff_id',
+                'assign_pekerja_sosial_id',
                 'assign_no_kamar',
                 'assign_selected_lansia_ids',
             ]);
         }
 
-        $staffs = User::whereHas('role', function ($query) {
-            $query->where('name', 'karyawan');
+        $pekerjaSosials = User::whereHas('role', function ($query) {
+            $query->where('name', 'pekerja_sosial');
         })->orderBy('name')->get();
 
-        $selectedStaffId = $request->session()->get('assign_staff_id');
-        $selectedStaff = $selectedStaffId
-            ? $staffs->firstWhere('id', (int) $selectedStaffId)
+        $selectedPekerjaSosialId = $request->session()->get('assign_pekerja_sosial_id');
+        $selectedPekerjaSosial = $selectedPekerjaSosialId
+            ? $pekerjaSosials->firstWhere('id', (int) $selectedPekerjaSosialId)
             : null;
 
         $rooms = Lansia::where('status', 'aktif')
@@ -44,18 +44,18 @@ class KaryawanAssignmentController extends Controller
             })
             ->orderBy('nama_lengkap')
             ->get();
-        $assignedLansiaIds = $selectedStaff
-            ? $selectedStaff->lansias()->pluck('lansia.id')->toArray()
+        $assignedLansiaIds = $selectedPekerjaSosial
+            ? $selectedPekerjaSosial->lansias()->pluck('lansia.id')->toArray()
             : [];
-        $sessionSelected = $selectedStaffId
-            ? $request->session()->get("assign_selected_lansia_ids.$selectedStaffId", [])
+        $sessionSelected = $selectedPekerjaSosialId
+            ? $request->session()->get("assign_selected_lansia_ids.$selectedPekerjaSosialId", [])
             : [];
         $selectedLansiaIds = array_values(array_unique(array_merge($assignedLansiaIds, $sessionSelected)));
 
         return view('admin.riwayat-kesehatan.assign', [
-            'staffs' => $staffs,
+            'pekerjaSosials' => $pekerjaSosials,
             'lansias' => $lansias,
-            'selectedStaff' => $selectedStaff,
+            'selectedPekerjaSosial' => $selectedPekerjaSosial,
             'assignedLansiaIds' => $assignedLansiaIds,
             'selectedLansiaIds' => $selectedLansiaIds,
             'rooms' => $rooms,
@@ -63,20 +63,20 @@ class KaryawanAssignmentController extends Controller
         ]);
     }
 
-    public function selectStaff(Request $request)
+    public function selectPekerjaSosial(Request $request)
     {
         $data = $request->validate([
-            'staff_id' => 'nullable|exists:users,id',
+            'pekerja_sosial_id' => 'nullable|exists:users,id',
             'no_kamar' => 'nullable|string|max:50',
             'selected_lansia_ids' => 'nullable|array',
             'selected_lansia_ids.*' => 'exists:lansia,id',
         ]);
 
-        $request->session()->put('assign_staff_id', $data['staff_id'] ?? null);
+        $request->session()->put('assign_pekerja_sosial_id', $data['pekerja_sosial_id'] ?? null);
         $request->session()->put('assign_no_kamar', $data['no_kamar'] ?? null);
-        if (!empty($data['staff_id'])) {
+        if (!empty($data['pekerja_sosial_id'])) {
             $request->session()->put(
-                "assign_selected_lansia_ids.{$data['staff_id']}",
+                "assign_selected_lansia_ids.{$data['pekerja_sosial_id']}",
                 $data['selected_lansia_ids'] ?? []
             );
         }
@@ -87,7 +87,7 @@ class KaryawanAssignmentController extends Controller
 
     public function resetFilter(Request $request)
     {
-        $request->session()->forget(['assign_staff_id', 'assign_no_kamar']);
+        $request->session()->forget(['assign_pekerja_sosial_id', 'assign_no_kamar']);
 
         return redirect()->route('admin.riwayat-kesehatan.assign');
     }
@@ -95,17 +95,17 @@ class KaryawanAssignmentController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'staff_id' => 'required|exists:users,id',
+            'pekerja_sosial_id' => 'required|exists:users,id',
             'lansia_ids' => 'nullable|array',
             'lansia_ids.*' => 'exists:lansia,id',
         ]);
 
-        $staff = User::whereHas('role', function ($query) {
-            $query->where('name', 'karyawan');
-        })->findOrFail($data['staff_id']);
+        $pekerjaSosial = User::whereHas('role', function ($query) {
+            $query->where('name', 'pekerja_sosial');
+        })->findOrFail($data['pekerja_sosial_id']);
 
-        $staff->lansias()->sync($data['lansia_ids'] ?? []);
-        $request->session()->forget("assign_selected_lansia_ids.{$staff->id}");
+        $pekerjaSosial->lansias()->sync($data['lansia_ids'] ?? []);
+        $request->session()->forget("assign_selected_lansia_ids.{$pekerjaSosial->id}");
 
         return redirect()
             ->route('admin.riwayat-kesehatan.index')

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\PekerjaSosial;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lansia;
@@ -10,7 +10,7 @@ class DashboardController extends Controller
     public function riwayatKesehatan()
     {
         $lansias = Lansia::with('latestRiwayatKesehatan')
-            ->whereHas('karyawans', function ($query) {
+            ->whereHas('pekerjaSosials', function ($query) {
                 $query->where('users.id', auth()->id());
             })
             ->when(request()->filled('search'), function ($query) {

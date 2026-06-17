@@ -24,7 +24,7 @@
 
         <div class="bg-white p-4 sm:p-6 rounded-xl shadow">
             <p class="text-gray-500">Total Pekerja Sosial</p>
-            <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalKaryawan ?? 0 }}</h2>
+            <h2 class="text-3xl font-bold text-green-600 mt-2">{{ $totalPekerjaSosial ?? 0 }}</h2>
         </div>
 
         <div class="bg-white p-4 sm:p-6 rounded-xl shadow">

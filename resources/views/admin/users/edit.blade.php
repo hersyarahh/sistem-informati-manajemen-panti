@@ -41,9 +41,8 @@
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-300">
                     <option value="">Pilih role</option>
                     @foreach ($roles as $role)
-                        @php $roleLabel = $role->name === 'karyawan' ? 'Pekerja Sosial' : $role->label; @endphp
                         <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
-                            {{ $roleLabel }}
+                            {{ $role->label }}
                         </option>
                     @endforeach
                 </select>

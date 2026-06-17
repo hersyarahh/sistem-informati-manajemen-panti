@@ -60,7 +60,7 @@
                             </td>
                             <td class="px-3 py-2 sm:px-4 sm:py-3">
                                 <span class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-[10px] text-blue-700 sm:px-3 sm:text-xs">
-                                    {{ $user->role?->name === 'karyawan' ? 'Pekerja Sosial' : ($user->role?->label ?? '-') }}
+                                    {{ $user->role?->label ?? '-' }}
                                 </span>
                             </td>
                             <td class="px-3 py-2 sm:px-4 sm:py-3 hidden md:table-cell"></td>

@@ -1,11 +1,9 @@
 # Sistem Informasi Manajemen Panti
 
-Sistem informasi untuk pengelolaan panti lansia dengan portal Admin/Karyawan/Keluarga, manajemen data lansia, kegiatan, kesehatan, dan chat realtime keluarga–petugas (Laravel Reverb + Echo).
+Sistem informasi untuk pengelolaan panti lansia dengan portal Admin dan Pekerja Sosial, serta manajemen data lansia, kegiatan, dan kesehatan.
 
 ## Fitur Utama
-- Manajemen lansia, kegiatan, kesehatan, inventaris, dan user
-- Portal keluarga untuk melihat informasi lansia
-- Chat realtime keluarga–petugas + toast notifikasi di luar halaman chat
+- Manajemen lansia, kegiatan, kesehatan, dan user
 
 ## Prasyarat
 - PHP 8.2+

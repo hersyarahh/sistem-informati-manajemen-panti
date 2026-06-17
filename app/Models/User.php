@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function lansias()
     {
-        return $this->belongsToMany(Lansia::class, 'karyawan_lansia');
+        return $this->belongsToMany(Lansia::class, 'pekerja_sosial_lansia');
     }
 
     // Helper methods
@@ -55,14 +55,9 @@ class User extends Authenticatable
         return $this->hasRole('admin');
     }
 
-    public function isKaryawan()
+    public function isPekerjaSosial()
     {
-        return $this->hasRole('karyawan');
-    }
-
-    public function isKeluarga()
-    {
-        return $this->hasRole('keluarga');
+        return $this->hasRole('pekerja_sosial');
     }
 
     public function hasRole(string $role): bool

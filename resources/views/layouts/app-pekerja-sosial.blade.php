@@ -11,12 +11,12 @@
 <body class="m-0 p-0 bg-gray-100 overflow-hidden">
     <div class="relative h-screen w-screen">
         <!-- MOBILE OVERLAY -->
-        <div id="staff-sidebar-overlay"
+        <div id="pekerja-sosial-sidebar-overlay"
             class="fixed inset-0 z-30 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-200 lg:hidden">
         </div>
 
         <!-- SIDEBAR -->
-        <aside id="staff-sidebar"
+        <aside id="pekerja-sosial-sidebar"
             class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-blue-700 text-white flex flex-col h-screen transform transition-transform duration-200 ease-out lg:translate-x-0">
 
             <div class="px-5 py-6">
@@ -30,15 +30,15 @@
                     $navInactive = 'text-blue-100 hover:bg-blue-600 hover:text-white';
                 @endphp
 
-                @php $isActive = request()->routeIs('staff.riwayat-kesehatan'); @endphp
-                <a href="{{ route('staff.riwayat-kesehatan') }}"
+                @php $isActive = request()->routeIs('pekerja-sosial.riwayat-kesehatan'); @endphp
+                <a href="{{ route('pekerja-sosial.riwayat-kesehatan') }}"
                    class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
                    @if ($isActive) aria-current="page" @endif>
                     Riwayat Kesehatan
                 </a>
 
-                @php $isActive = request()->routeIs('staff.riwayat-kegiatan'); @endphp
-                <a href="{{ route('staff.riwayat-kegiatan') }}"
+                @php $isActive = request()->routeIs('pekerja-sosial.riwayat-kegiatan'); @endphp
+                <a href="{{ route('pekerja-sosial.riwayat-kegiatan') }}"
                    class="{{ $navBase }} {{ $isActive ? $navActive : $navInactive }}"
                    @if ($isActive) aria-current="page" @endif>
                     Riwayat Kegiatan
@@ -60,15 +60,15 @@
         <main class="h-screen overflow-auto lg:pl-64">
             <div class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-8 sm:py-8 flex flex-col gap-6">
                 <div class="fixed left-4 top-4 z-50 flex items-center gap-3 lg:static lg:z-auto lg:hidden">
-                    <button id="staff-sidebar-toggle" type="button"
+                    <button id="pekerja-sosial-sidebar-toggle" type="button"
                         class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-gray-700 shadow hover:bg-gray-50"
-                        aria-controls="staff-sidebar" aria-expanded="false">
+                        aria-controls="pekerja-sosial-sidebar" aria-expanded="false">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <span id="staff-sidebar-label" class="hidden text-sm font-semibold text-gray-600">Menu Pekerja Sosial</span>
+                    <span id="pekerja-sosial-sidebar-label" class="hidden text-sm font-semibold text-gray-600">Menu Pekerja Sosial</span>
                 </div>
                 @yield('content')
             </div>
@@ -77,10 +77,10 @@
 
     <script>
         (function () {
-            const toggle = document.getElementById('staff-sidebar-toggle');
-            const sidebar = document.getElementById('staff-sidebar');
-            const overlay = document.getElementById('staff-sidebar-overlay');
-            const label = document.getElementById('staff-sidebar-label');
+            const toggle = document.getElementById('pekerja-sosial-sidebar-toggle');
+            const sidebar = document.getElementById('pekerja-sosial-sidebar');
+            const overlay = document.getElementById('pekerja-sosial-sidebar-overlay');
+            const label = document.getElementById('pekerja-sosial-sidebar-label');
             const pageTitle = document.querySelector('main h1');
 
             if (!toggle || !sidebar || !overlay || !label) {

@@ -120,10 +120,10 @@
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-600">
                                 @php
-                                    $staffNames = $lansia->karyawans->pluck('name')->filter()->values();
+                                    $pekerjaSosialNames = $lansia->pekerjaSosials->pluck('name')->filter()->values();
                                 @endphp
-                                @if ($staffNames->isNotEmpty())
-                                    {{ $staffNames->join(', ') }}
+                                @if ($pekerjaSosialNames->isNotEmpty())
+                                    {{ $pekerjaSosialNames->join(', ') }}
                                 @else
                                     {{ $riwayat?->nama_petugas ?? '-' }}
                                 @endif
